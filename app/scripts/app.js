@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular.module('roseStClient', ['ngAnimate','ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'angularPayments'])
-  .config(function ($routeProvider, PUBLISHABLE_KEY) {
+  .config(function ($routeProvider, STRIPE) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -26,5 +26,5 @@ angular.module('roseStClient', ['ngAnimate','ngCookies', 'ngResource', 'ngRoute'
       .otherwise({
         redirectTo: '/'
       });
-		Stripe.setPublishableKey(PUBLISHABLE_KEY);
+		Stripe.setPublishableKey(STRIPE.PUBLISHABLE_KEY);
   });
