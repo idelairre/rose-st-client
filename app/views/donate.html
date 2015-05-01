@@ -7,7 +7,7 @@
 		  <script
 			 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 			 data-key="pk_test_f6MApsp3oUQNaZSejidOONkT"
-			 data-image="/images/yeoman.png"
+			 data-image="images/yeoman.png"
 			 data-name="Rose Street"
 			 data-description="donate to Rose St."
 			 data-amount="2000">
@@ -22,7 +22,7 @@
 		  <script
 			 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 			 data-key="pk_test_f6MApsp3oUQNaZSejidOONkT"
-			 data-image="/images/yeoman.png"
+			 data-image="images/yeoman.png"
 			 data-name="Rose Street"
 			 data-description="donate to Rose St."
 			 data-amount="5000">
@@ -37,7 +37,7 @@
 		  <script
 			 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 			 data-key="pk_test_f6MApsp3oUQNaZSejidOONkT"
-			 data-image="/images/yeoman.png"
+			 data-image="images/yeoman.png"
 			 data-name="Rose Street"
 			 data-description="donate to Rose St."
 			 data-amount="10000">
@@ -45,14 +45,24 @@
 		</form>
 		<br>
 	</div>
-</div>
-<!--
-	<div class="row">
-	<div class="">
-		<h1>Donate Custom Amount</h1>
-		<input ng-model="amount"/>
-		<h2>I would like to donate:</h2><h2 ng-bind="amount"></h2>
-		</div>
 	</div>
--->
 </div>
+<div>
+<form class="form-horizontal">
+
+<h1>Custom Amount:</h2>
+	<input ng-model="amount" class="form-control">
+	<span><h1>Your donation will be: {{ amount | currency }}</h1></span>
+		<form action="https://rose-st-api.herokuapp.com/charges" method="post">
+		<input type="hidden" name="amount" value="{{ amount * 100 }}">
+		  <script
+			 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+			 data-key="pk_test_f6MApsp3oUQNaZSejidOONkT"
+			 data-image="images/yeoman.png"
+			 data-name="Rose Street"
+			 data-description="donate to Rose St."
+			 data-amount="{{ amount * 100 }}">
+		  </script>
+		</form>
+		<br>
+	</div>

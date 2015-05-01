@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular.module('roseStClient', ['ngAnimate','ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'angularPayments'])
+angular.module('roseStClient', ['ngAnimate','ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'angularPayments', 'ui.bootstrap'])
   .config(function ($routeProvider, STRIPE) {
     $routeProvider
       .when('/', {
