@@ -48,10 +48,8 @@
 	</div>
 </div>
 <div>
-<form class="form-horizontal">
-
-<h1>Custom Amount:</h2>
-	<input ng-model="amount" class="form-control">
+<h1>Custom Amount:</h1>
+	<input ng-model="amount" class="form-control input-lg">
 	<span><h1>Your donation will be: {{ amount | currency }}</h1></span>
 		<form action="https://rose-st-api.herokuapp.com/charges" method="post">
 		<input type="hidden" name="amount" value="{{ amount * 100 }}">

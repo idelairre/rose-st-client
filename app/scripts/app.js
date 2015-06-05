@@ -1,19 +1,12 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name roseStClientApp
- * @description
- * # roseStClientApp
- *
- * Main module of the application.
- */
-angular.module('roseStClient', ['ngAnimate','ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'angularPayments', 'ui.bootstrap'])
+angular.module('roseStClient', ['ngAnimate','ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'angularPayments', 'ui.bootstrap', 'textAngular'])
   .config(function ($routeProvider, STRIPE) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainController'
+        controller: 'MainController',
+		  controllerAs: 'mainController'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
