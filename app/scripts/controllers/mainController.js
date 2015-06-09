@@ -1,12 +1,18 @@
 'use strict';
 
-angular.module('roseStClient').controller('MainController', function ($scope, $modal, PostFactory) {
+angular.module('roseStClient').controller('MainController', function ($scope, $modal, AuthFactory, PostFactory) {
 	PostFactory.getPosts();
+	
 	$scope.posts = PostFactory.posts;
 	$scope.post = {};
 	
+	// authentication
+	
+	$scope.isAuthenticated = function () {
+		return AuthFactory.isAuthenticated();
+	};
+	
 	$scope.upsertPost = function (post) {
-		console.log(post)
 		PostFactory.upsertPost(post).then(function (response) {
 			$scope.post = {};
 		});

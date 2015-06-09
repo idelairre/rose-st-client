@@ -13,9 +13,16 @@ angular.module('roseStClient', ['ngAnimate','ngCookies', 'ngResource', 'ngRoute'
         controller: 'AboutController'
       })
 	 	.when('/donate', {
-		 templateUrl: 'views/donate.html',
-		 controller: 'DonateController'
+		 templateUrl: 'views/donate.html'
 	 	})
+	 	.when('/contact', {
+		 templateUrl: 'views/contact.html'
+	 	})
+	 	.when('/login', {
+		 templateUrl: 'views/login.html',
+		 controller: 'AuthController',
+		 controllerAs: 'authController'
+	   })
       .otherwise({
         redirectTo: '/'
       });

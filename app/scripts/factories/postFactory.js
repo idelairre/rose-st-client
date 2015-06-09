@@ -6,7 +6,7 @@ angular.module('roseStClient').factory('PostFactory', ['$http', function ($http)
 	var getPosts = function () {
 		return $http.get('http://localhost:3000/posts/').then(function (response) {
 			angular.copy(response.data, posts);
-			console.log(response.data)
+			console.log(response.data);
 		});
 	};
 
@@ -16,16 +16,16 @@ angular.module('roseStClient').factory('PostFactory', ['$http', function ($http)
 				title: post.title,
 				body: post.body,
 			}
-		}
+		};
 		if (post.id) {
-			return $http.patch('http://localhost:3000/posts/' + post.id, params).then(function (response) {
+			return $http.patch('http://localhost:3000/posts' + post.id, params).then(function (response) {
 				getPosts();
 			});
 		} else {
-			return $http.post('http://localhost:3000/posts/', params).then(function (response) {
+			return $http.post('http://localhost:3000/posts', params).then(function (response) {
 				getPosts();
 			});
-		};
+		}
 	};
 
 	var deletePost = function (id) {
@@ -39,7 +39,7 @@ angular.module('roseStClient').factory('PostFactory', ['$http', function ($http)
 			if (posts[i].id === id) {
 				return i;
 			}
-		};
+		}
 	};
 
 	return {
@@ -47,5 +47,5 @@ angular.module('roseStClient').factory('PostFactory', ['$http', function ($http)
 		posts: posts,
 		upsertPost: upsertPost,
 		deletePost: deletePost
-	}
+	};
 }]);
