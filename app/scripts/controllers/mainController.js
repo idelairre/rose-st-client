@@ -1,11 +1,33 @@
 'use strict';
 
-angular.module('roseStClient').controller('MainController', function ($scope, $modal, AuthFactory, PostFactory) {
+angular.module('roseStClient').controller('MainController', function ($scope, $modal, $route, $routeParams, AuthFactory, PostFactory) {
+	
 	PostFactory.getPosts();
+	console.log($route.current.$$route.originalPath === "/")
 	
 	$scope.posts = PostFactory.posts;
-	$scope.post = {};
+	$scope.post = PostFactory.post;
+	$scope.title = "Rose St. Community Center";
+	$scope.subheading = "100 Blocks Homocide-Free Zone";
 	
+	$scope.atPost = function () {
+		if ($route.current.$$route.originalPath === "/posts/:id") {
+			return true;
+		}
+	};
+	
+	$scope.atDonation = function () {
+		if ($route.current.$$route.originalPath === "/donate") {
+			return true;
+		}
+	};
+	
+	if ($routeParams.id) {
+		console.log("getting post")
+		PostFactory.getPost($routeParams.id);
+		$scope.title = PostFactory.post;
+		$scope.subheading = "things";
+	}
 	// authentication
 	
 	$scope.isAuthenticated = function () {

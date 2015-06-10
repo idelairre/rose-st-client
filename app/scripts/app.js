@@ -8,6 +8,11 @@ angular.module('roseStClient', ['ngAnimate','ngCookies', 'ngResource', 'ngRoute'
         controller: 'MainController',
 		  controllerAs: 'mainController'
       })
+	 	.when('/posts/:id', {
+		 templateUrl: 'views/post.html',
+		 controller: 'MainController',
+		 controllerAs: 'mainController'
+	 	})
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutController'

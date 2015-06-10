@@ -2,10 +2,20 @@
   <div class="container">
 		<div class="row">
 			 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-				  <div class="site-heading">
-						<h1>Rose St. Community Center</h1>
+				  <div class="site-heading" ng-if="!atPost() && !atDonation()">
+						<h1> {{ title }} </h1>
 						<hr class="small">
-						<span class="subheading">100 Blocks Homocide-Free Zone</span>
+						<span class="subheading"> {{ subheading }} </span>
+				  </div>
+				 <div class="site-heading" ng-if="atPost()">
+						<h1> {{ post.title }} </h1>
+						<hr class="small">
+						<span class="subheading"> {{ post.subheading }} </span>
+				  </div>
+				 	<div class="site-heading" ng-if="atDonation()">
+						<h1>Give to Rose Street</h1>
+						<hr class="small">
+						<span class="subheading">Make a donation to the "100 Blocks Homocide-Free Zone" project</span>
 				  </div>
 			 </div>
 		</div>

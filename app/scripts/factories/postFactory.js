@@ -2,6 +2,14 @@
 
 angular.module('roseStClient').factory('PostFactory', ['$http', function ($http) {
 	var posts = [];
+	var post = {};
+	
+	var getPost = function (id) {
+		return $http.get('http://localhost:3000/posts/' + id).then(function (response) {
+			angular.copy(response.data, post);
+			console.log(response.data);
+		});
+	};
 
 	var getPosts = function () {
 		return $http.get('http://localhost:3000/posts/').then(function (response) {
@@ -44,7 +52,9 @@ angular.module('roseStClient').factory('PostFactory', ['$http', function ($http)
 
 	return {
 		getPosts: getPosts,
+		getPost: getPost,
 		posts: posts,
+		post: post,
 		upsertPost: upsertPost,
 		deletePost: deletePost
 	};
