@@ -1,10 +1,46 @@
 <div class="container">
+  <div class="form-group">
+			<label>Amount: </label>
+			<input ng-model="paymentInfo.amount" required data-validation-required-message="enter your desired donation amount.">
+			</div>
+  <div class="form-group">
+			<label>
+				<span>Email Address:</span>
+				<input type="text" />
+			</label>
+		</div>
+  <div class="form-group">
+			<label>
+				<span>Card Number:</span>
+				<input type="text" size="20" ng-model="paymentInfo.number" />
+			</label>
+		</div>
+  <div class="form-group">
+			<label>
+				<span>CVC: </span>
+				<input type="text" size="4" ng-model="paymentInfo.cvc" />
+			</label>
+		</div>
+  <div class="form-group">
+			<label>
+				<span>Expiration (MM/YYYY):</span>
+				<input type="text" size="2" ng-model="paymentInfo.exp_month" />
+			</label>
+			<span> / </span>
+			<input type="text" size="4" ng-model="paymentInfo.exp_year" />
+		</div>
+		<button class="btn btn-default" ng-click="confirm(paymentInfo)">Confirm</button>
+	</form>
+</div>
+
+<!--
+<div class="container">
 	<div class="row">
 		<div class="col-md-4">
 			<h1>$20.00</h1>
 			<form action="https://rose-st-api.herokuapp.com/charges" method="post">
 				<input type="hidden" name="amount" value="2000">
-				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_f6MApsp3oUQNaZSejidOONkT" data-image="images/yeoman.png" data-name="Rose Street" data-panel-label="Donate" data-description="donate to Rose St." data-amount="2000">
+				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_f6MApsp3oUQNaZSejidOONkT" data-image="images/yeoman.png" data-label="Donate by Card" data-name="Rose Street" data-panel-label="Donate" data-description="donate to Rose St." data-amount="2000">
 				</script>
 			</form>
 			<br>
@@ -13,7 +49,7 @@
 			<h1>$50.00</h1>
 			<form action="http://localhost:3000/charges" method="POST">
 				<input type="hidden" name="amount" value="5000">
-				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_f6MApsp3oUQNaZSejidOONkT" data-image="images/yeoman.png" data-name="Rose Street" data-panel-label="Donate" data-description="donate to Rose St." data-amount="5000">
+				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_f6MApsp3oUQNaZSejidOONkT" data-image="images/yeoman.png" data-label="Donate by Card" data-name="Rose Street" data-panel-label="Donate" data-description="donate to Rose St." data-amount="5000">
 				</script>
 			</form>
 			<br>
@@ -22,12 +58,13 @@
 			<h1>$100.00</h1>
 			<form action="http://localhost:3000/charges" method="POST">
 				<input type="hidden" name="amount" value="10000">
-				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_f6MApsp3oUQNaZSejidOONkT" data-image="images/yeoman.png" data-name="Rose Street" data-panel-label="Donate" data-description="donate to Rose St." data-amount="10000">
+				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_f6MApsp3oUQNaZSejidOONkT" data-image="images/yeoman.png" data-label="Donate by Card" data-name="Rose Street" data-panel-label="Donate" data-description="donate to Rose St." data-amount="10000">
 				</script>
 			</form>
 			<br>
 		</div>
 	</div>
+-->
 <!--
    <div class="row control-group">
 		<div class="form-group col-xs-12 floating-label-form-group controls">
@@ -43,5 +80,5 @@
 			</script>
 		</form>
 -->
-		<br>
+<br>
 </div>
