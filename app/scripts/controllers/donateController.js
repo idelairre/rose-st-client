@@ -1,7 +1,43 @@
 'use strict';
 
-angular.module('roseStClient').controller('DonateController', function ($scope, $modal, StripeFactory, $log, StripeCheckout) {
-		
+angular.module('roseStClient').controller('DonateController', function ($scope, $modal, StripeFactory, $log, $timeout, StripeCheckout) {
+
+	$scope.custom = true;
+	$scope.toggleCustom = function () {
+		$scope.custom = $scope.custom === false ? true : false;
+	};
+
+	$scope.checkButton = false;
+	$scope.toggleCheckButton = function () {
+		$scope.checkButton = $scope.checkButton === false ? true : false;
+	};
+
+	$scope.xButton = false;
+	$scope.toggleXButton = function () {
+		$scope.xButton = $scope.xButton === false ? true : false;
+	};
+
+//	$scope.watchButton = function () {
+//		console.log("called")
+//		$scope.$watch(
+//			function () {
+//				return $scope.checkButton;
+//			},
+//			function (newValue, oldValue) {
+//				if (newValue !== oldValue) {
+//					$timeout(function () {
+//						$scope.checkButton = false;
+//					}, 5000)
+//				}
+//			}
+//		);
+//	};
+
+	// consider experimenting with intervals to make the appearance of the "x" and "check" button more smooth
+	// note: this is really hard to do well
+
+
+
 	var handler = StripeCheckout.configure({
 		name: "Custom Example",
 		token: function (token, args) {
@@ -60,14 +96,18 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 		});
 	};
 
-	this.doCustomCheckout = function (amount) {
+	this.setPayment = function (amount) {
 		console.log(amount)
+		$scope.amount = amount;
 		options["amount"] = parseFloat(amount.replace(/,/g, '')) * 100;
-		options["description"] = "Donate $" + amount;	
+		options["description"] = "Donate $" + amount;
+	};
+
+	this.doCustomCheckout = function () {
 		doCheckout();
-		};
-	
-//	parseFloat('100,000.00'.replace(/,/g, ''))
+	};
+
+	//	parseFloat('100,000.00'.replace(/,/g, ''))
 
 	//	data-key="pk_test_f6MApsp3oUQNaZSejidOONkT" data-name="Rose St. Community Center" data-description="donate to Rose St." data-amount="1000" data-image="images/10322663_618915454865065_6177637275289747984_n.jpg" 
 

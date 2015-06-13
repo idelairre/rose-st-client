@@ -73,7 +73,7 @@ angular.module('roseStClient')
                 var res = intPart + decPart;
 
                 if (res != inputValue) {
-                    ctrl.$setViewValue('Donate $' + res);
+                    ctrl.$setViewValue(res);
                     ctrl.$render();
 						  scope.paymentAmount = res;
                 }

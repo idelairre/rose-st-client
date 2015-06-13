@@ -1,5 +1,4 @@
 <div class="container">
-
 	<h1>One-Time Donation</h1>
 	<hr>
 	<div class="row">
@@ -19,13 +18,20 @@
 			<button ng-click="donateController.doCheckoutById(5)" class="btn btn-default">Donate $50.00</button>
 		</div>
 		<div class="col-md-4">
-			<div class="input-group">
+			<div class="input-group">	
 				<span class="input-group-btn">
-					<input type="text" currency-input placeholder="set amount" ng-model="amount" class="btn btn-default" />
-				</span>
-				<button ng-click="donateController.doCustomCheckout(paymentAmount)" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span></button>
+					<input type="text" ng-show="custom" ng-mouseover="checkButton = true" currency-input placeholder="set amount" ng-model="amount" class="btn btn-default" />
+				<button class="btn btn-default" ng-click="donateController.doCustomCheckout(paymentAmount); xButton = false" ng-mouseenter="xButton = true" ng-hide="custom">Donate ${{ paymentAmount }}</button>
+					</span>
+				<button ng-click="toggleCustom(); donateController.setPayment(paymentAmount)" ng-show="custom" ng-hide="custom && !checkButton" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<button ng-click="toggleCustom(); donateController.setPayment(paymentAmount)" ng-show="!custom && xButton" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span>
+				</button>
+
+				<!--				Note: button is super tacky. Need to get rid of checkmark. Implement a clever way to indicate to the user that the input has changed into a button after they have edited the form. Idea: write the amount. The checkmark appears. Click the checkmark and the form freezes and becomes a button. Then you can click the button. -->
 			</div>
 		</div>
+	</div>
 		<h1>Monthly Donation Plans</h1>
 		<hr>
 		<div class="row">
