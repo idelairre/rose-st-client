@@ -31,7 +31,6 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
-      'bower_components/angular-payments/lib/angular-payments.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/rangy/rangy-core.js',
       'bower_components/rangy/rangy-classapplier.js',
@@ -43,6 +42,9 @@ module.exports = function(config) {
       'bower_components/textAngular/dist/textAngular-sanitize.js',
       'bower_components/textAngular/dist/textAngularSetup.js',
       'bower_components/angular-scroll/angular-scroll.js',
+      'bower_components/angular-payment/dist/angular-payment-tpls-0.3.0.js',
+      'bower_components/angular-stripe-checkout/angular-stripe-checkout.js',
+      'bower_components/angular-money-directive/angular-money-directive.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

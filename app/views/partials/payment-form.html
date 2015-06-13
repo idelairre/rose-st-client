@@ -1,0 +1,90 @@
+<!--
+<div class="container">
+	<div class="well-lg">
+		<h1>Payment Info</h1>
+		Donation amount: {{ amount | currency }}<br>
+		<form action="http://localhost:3000/charges" method="POST" id="payment-form">
+			<span class="payment-errors"></span>
+			<div class="form-row">
+				<label>
+					<span>Card Number:</span>
+					<input type="text" size="20" data-stripe="number" required data-validation-required-message="Please enter a valid credit card number."/>
+				</label>
+			</div>
+			<div class="form-row">
+				<label>
+					<span>CVC: </span>
+					<input type="text" size="4" data-stripe="cvc" />
+				</label>
+			</div>
+			<div class="form-row">
+				<label>
+					<span>Expiration (MM/YYYY):</span>
+					<input type="text" size="2" data-stripe="exp-month" />
+				</label>
+				<span> / </span>
+				<input type="text" size="4" data-stripe="exp-year" />
+			</div>
+			<button type="submit">Confirm</button>
+		</form>
+	</div>
+</div>
+-->
+
+<!-- CREDIT CARD FORM STARTS HERE -->
+<!-- note: get rid of angular payments and use an alternative directive for posting to Stripe --->
+
+<div class="panel panel-default credit-card-box">
+	<div class="panel-heading display-table">
+		<div class="row display-tr">
+			<h3 class="panel-title display-td">Donation amount: {{ amount | currency }}</h3>
+			<div class="display-td">
+				<img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+			</div>
+		</div>
+	</div>
+	<div class="panel-body">
+		<form action="http://localhost:3000/charges" method="POST" id="payment-form">
+			<input type="hidden" name="amount" ng-model="amount" value="{{ amount * 100 }}">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label for="cardNumber">CARD NUMBER</label>
+						<div class="input-group">
+							<input type="text" x-autocompletetype="cc-number" restrict-numeric="" card-number-validator="" card-number-formatter="" class="form-control ng-dirty ng-invalid ng-invalid-card-number" name="ccNumber" ng-model="cardNumber" card-type="cardType" data-stripe="number">
+							<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-7 col-md-7">
+					<div class="form-inline">
+						<div class="form-group">
+							<label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+							<input type="text" class="form-control" x-autocompletetype="cc-exp" maxlength="2" restrict-numeric="" name="ccExpiryMonth" ng-model="cardExpiryMonth" data-stripe="exp-month"> / 
+							<input type="text" class="form-control" x-autocompletetype="cc-exp" maxlength="4" restrict-numeric="" name="ccExpiry" ng-model="cardExpiryYear" data-stripe="exp-year">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-5 col-md-5 pull-right">
+					<div class="form-group">
+						<label for="cardCVC">CVC CODE</label>
+						<input type="text" x-autocompletetype="cc-csc" restrict-numeric="" card-cvc-validator="" card-cvc-formatter="" ng-maxlength="4" ng-pattern="/\d*/" class="form-control ng-pristine ng-valid-maxlength ng-valid-pattern ng-invalid ng-invalid-card-cvc" name="ccCvc" ng-model="cardCvc" data-stripe="cvc">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<button class="btn btn-success btn-lg btn-block" type="submit">Submit Payment</button>
+				</div>
+			</div>
+			<div class="row" style="display:none;">
+				<div class="col-xs-12">
+					<p class="payment-errors"></p>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- CREDIT CARD FORM ENDS HERE -->
