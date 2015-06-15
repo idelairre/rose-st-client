@@ -45,8 +45,6 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 		}
 	});
 
-	var buttons = [1, 2, 3, 4, 5, 6]
-
 	var options = {
 		name: "Rose St. Community Center",
 		image: "images/10322663_618915454865065_6177637275289747984_n.jpg",
@@ -71,14 +69,10 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 	};
 
 	this.doCheckoutById = function (id) {
-		for (var i = 0; i < buttons.length; i++) {
-			if (buttons[i] === id) {
-				options["amount"] = buttons[i] * 1000;
-				options["description"] = "Donate $" + buttons[i] * 10 + " to Rose St.";
+				options["amount"] = id * 1000;
+				options["description"] = "Donate $" + id * 10 + " to Rose St.";
 				doCheckout();
-			}
-		}
-	};
+		};
 
 	var doCheckout = function (token, args) {
 		// The default handler API is enhanced by having open()
