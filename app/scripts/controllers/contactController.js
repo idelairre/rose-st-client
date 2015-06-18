@@ -16,7 +16,7 @@ angular.module('roseStClient').controller('ContactController', function ($http, 
 	$scope.submitForm = function (data) {
 		$http({
 			method: 'POST',
-			url: 'process.php',
+			url: '././mail/contact_me.php',
 			data: $.param(data), // pass in data as strings
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
