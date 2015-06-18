@@ -3,7 +3,7 @@
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 			<div ng-repeat="post in posts" class="post-preview">
 				<a ng-href="#!/posts/{{ post.id }}">
-					<h2 class="post-title">{{ post.title }} <a class="btn btn-lg" ng-click="deletePost(post.id)"><span class="glyphicon glyphicon-remove"></span></a></h2>
+					<h2 class="post-title">{{ post.title }} <a class="btn btn-lg" ng-if="isAuthenticated() === true" ng-click="deletePost(post.id)"><span class="glyphicon glyphicon-remove"></span></a></h2>
 					<h3 class="post-subtitle">
 						<div ng-bind-html="post.subheading"></div>
 					</h3>
