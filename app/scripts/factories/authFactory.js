@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('roseStClient').factory('AuthFactory', ['$http', '$window', function ($http, $window) {
+angular.module('roseStClient').factory('AuthFactory', ['$http', '$window', 'ServerUrl', function ($http, $window, ServerUrl) {
 	
 	var userId = {};
 
 	var login = function (credentials) {
-		return $http.post('http://localhost:3000/users/login', credentials).success(function (response) {
+		return $http.post(ServerUrl + '/users/login', credentials).success(function (response) {
 			var userId = response.id;
 			_storeSession(response);
 			console.log("logged in")
@@ -13,7 +13,7 @@ angular.module('roseStClient').factory('AuthFactory', ['$http', '$window', funct
 	};
 
 	var logout = function () {
-		return $http.post('http://localhost:3000/users/logout').success(function (response) {
+		return $http.post(ServerUrl + '/users/logout').success(function (response) {
 			$window.localStorage.removeItem('rs-user');
 			var userId = {};
 			console.log("logged out")
@@ -21,7 +21,7 @@ angular.module('roseStClient').factory('AuthFactory', ['$http', '$window', funct
 	};
 
 	var register = function (credentials) {
-		return $http.post('http://localhost:3000/posts/users/', 
+		return $http.post(ServerUrl + '/posts/users/', 
 								{ user: { 
 									email: credentials.email,
 									password: credentials.password

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('roseStClient').factory('PostFactory', ['$http', '$window', 'AuthFactory', function ($http, $window, AuthFactory) {
+angular.module('roseStClient').factory('PostFactory', ['$http', '$window', 'AuthFactory', 'ServerUrl', function ($http, $window, AuthFactory, ServerUrl) {
 	var posts = [];
 	var post = {};
 
@@ -9,14 +9,14 @@ angular.module('roseStClient').factory('PostFactory', ['$http', '$window', 'Auth
 	};
 
 	var getPost = function (id) {
-		return $http.get('http://localhost:3000/posts/' + id).then(function (response) {
+		return $http.get(ServerUrl + '/posts/' + id).then(function (response) {
 			angular.copy(response.data, post);
 			console.log(response.data);
 		});
 	};
 
 	var getPosts = function () {
-		return $http.get('http://localhost:3000/posts/').then(function (response) {
+		return $http.get(ServerUrl + '/posts/').then(function (response) {
 			angular.copy(response.data, posts);
 			console.log(response.data);
 		});
@@ -32,11 +32,11 @@ angular.module('roseStClient').factory('PostFactory', ['$http', '$window', 'Auth
 			}
 		};
 		if (post.id) {
-			return $http.patch('http://localhost:3000/posts/' + post.id, params).then(function (response) {
+			return $http.patch(ServerUrl + '/posts/' + post.id, params).then(function (response) {
 				getPosts();
 			});
 		} else {
-			return $http.post('http://localhost:3000/posts', params).then(function (response) {
+			return $http.post(ServerUrl + '/posts', params).then(function (response) {
 				getPosts();
 			});
 		}
@@ -44,7 +44,7 @@ angular.module('roseStClient').factory('PostFactory', ['$http', '$window', 'Auth
 	};
 
 	var deletePost = function (id) {
-		return $http.delete('http://localhost:3000/posts/' + id).then(function (response) {
+		return $http.delete(ServerUrl + '/posts/' + id).then(function (response) {
 			posts.splice(findPostIndexById(id), 1);
 		});
 	};
