@@ -32,7 +32,9 @@ angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute
 				}
 			})
 			.when('/contact', {
-				templateUrl: 'views/contact.html'
+				templateUrl: 'views/contact.html',
+				controller: 'ContactController',
+				controllerAs: 'contactController'
 			})
 			.when('/login', {
 				templateUrl: 'views/login.html',
