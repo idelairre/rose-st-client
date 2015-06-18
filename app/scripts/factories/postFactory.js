@@ -1,9 +1,13 @@
 'use strict';
 
-angular.module('roseStClient').factory('PostFactory', ['$http', function ($http) {
+angular.module('roseStClient').factory('PostFactory', ['$http', '$window', 'AuthFactory', function ($http, $window, AuthFactory) {
 	var posts = [];
 	var post = {};
-	
+
+	var resetPost = function () {
+		angular.copy({}, post);
+	};
+
 	var getPost = function (id) {
 		return $http.get('http://localhost:3000/posts/' + id).then(function (response) {
 			angular.copy(response.data, post);
@@ -23,10 +27,12 @@ angular.module('roseStClient').factory('PostFactory', ['$http', function ($http)
 			post: {
 				title: post.title,
 				body: post.body,
+				subheading: post.subheading,
+				user_id: AuthFactory.userId
 			}
 		};
 		if (post.id) {
-			return $http.patch('http://localhost:3000/posts' + post.id, params).then(function (response) {
+			return $http.patch('http://localhost:3000/posts/' + post.id, params).then(function (response) {
 				getPosts();
 			});
 		} else {
@@ -34,6 +40,7 @@ angular.module('roseStClient').factory('PostFactory', ['$http', function ($http)
 				getPosts();
 			});
 		}
+		resetPost();
 	};
 
 	var deletePost = function (id) {
@@ -56,6 +63,7 @@ angular.module('roseStClient').factory('PostFactory', ['$http', function ($http)
 		posts: posts,
 		post: post,
 		upsertPost: upsertPost,
-		deletePost: deletePost
+		deletePost: deletePost,
+		resetPost: resetPost
 	};
 }]);

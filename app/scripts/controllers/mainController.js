@@ -2,8 +2,10 @@
 
 angular.module('roseStClient').controller('MainController', function ($scope, $modal, $route, $routeParams, AuthFactory, PostFactory) {
 	
+	PostFactory.resetPost();
 	PostFactory.getPosts();
-	console.log($route.current.$$route.originalPath === "/")
+//	console.log($route.current.$$route.originalPath === "/")
+	console.log("User ID:", AuthFactory.userId)
 	
 	$scope.posts = PostFactory.posts;
 	$scope.post = PostFactory.post;
@@ -36,7 +38,7 @@ angular.module('roseStClient').controller('MainController', function ($scope, $m
 	
 	$scope.upsertPost = function (post) {
 		PostFactory.upsertPost(post).then(function (response) {
-			$scope.post = {};
+			PostFactory.resetPost();
 		});
 	};
 	
