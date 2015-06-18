@@ -11,21 +11,22 @@ angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute
 			.when('/', {
 				templateUrl: 'views/main.html',
 				controller: 'MainController',
-				controllerAs: 'mainController'
+				activetab: 'home'
 			})
 			.when('/posts/:id', {
 				templateUrl: 'views/post.html',
 				controller: 'MainController',
-				controllerAs: 'mainController'
+				activetab: 'home'
 			})
 			.when('/about', {
 				templateUrl: 'views/about.html',
-				controller: 'AboutController'
+				controller: 'AboutController',
+				activetab: 'about'
 			})
 			.when('/donate', {
 				templateUrl: 'views/donate.html',
 				controller: 'DonateController',
-				controllerAs: 'donateController',
+				activetab: 'donate',
 				resolve: {
 					// checkout.js isn't fetched until this is resolved.
 					stripe: StripeCheckoutProvider.load
@@ -34,12 +35,11 @@ angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute
 			.when('/contact', {
 				templateUrl: 'views/contact.html',
 				controller: 'ContactController',
-				controllerAs: 'contactController'
+				activetab: 'contact'
 			})
 			.when('/login', {
 				templateUrl: 'views/main.html',
-				controller: 'AuthController',
-				controllerAs: 'authController'
+				controller: 'AuthController'
 			})
 			.otherwise({
 				redirectTo: '/'

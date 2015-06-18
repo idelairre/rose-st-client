@@ -2,6 +2,8 @@
 
 angular.module('roseStClient').controller('MainController', function ($scope, $modal, $route, $routeParams, AuthFactory, PostFactory) {
 	
+   $scope.$route = $route;
+	
 	PostFactory.resetPost();
 	PostFactory.getPosts();
 //	console.log($route.current.$$route.originalPath === "/")
