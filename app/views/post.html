@@ -7,9 +7,12 @@
 		</div>
 		<ul class="pager" ng-if="isAuthenticated() === true">
 			<li class="next">
-				<a class="btn btn-lg" ng-href="/#/">Back</a>
+				<a class="btn btn-lg" ng-href="/#!/">Back</a>
 			</li>
 		</ul>
+		<br>
+		<dir-disqus disqus-shortname="rosestcommunitycenter" disqus-identifier="{{ identifier }}" disqus-url="{{ url }}">
+		</dir-disqus>
 		<br>
 	</div>
 </article>

@@ -1,10 +1,12 @@
 'use strict';
 
-angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'payment', 'ui.bootstrap', 'textAngular', 'stripe.checkout'])
-	.config(function ($routeProvider, STRIPE, StripeCheckoutProvider) {
+angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'payment', 'ui.bootstrap', 'textAngular', 'stripe.checkout', 'angularUtils.directives.dirDisqus'])
+	.config(function ($routeProvider, $locationProvider, STRIPE, StripeCheckoutProvider) {
 		StripeCheckoutProvider.defaults({
 			key: STRIPE.PUBLISHABLE_KEY
 		});
+		//		$locationProvider.html5Mode(true);
+		$locationProvider.hashPrefix('!');
 		$routeProvider
 			.when('/', {
 				templateUrl: 'views/main.html',
