@@ -82,16 +82,6 @@ body {
   }
 }
 
-.tinted-image {
-  background: 
-    /* top, transparent red, faked with gradient */ 
-    linear-gradient(
-      rgba(255, 0, 0, 0.45), 
-      rgba(255, 0, 0, 0.45)
-    ),
-	 url('/images/rowhouses.jpg')
-}
-
 .col-md-4 {
 	margin-bottom: 20px;
 }
