@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('roseStClient').controller('DonateController', function ($scope, $modal, StripeFactory, $log, $timeout, StripeCheckout) {
+angular.module('roseStClient').controller('DonateController', function ($scope, $modal, $filter, StripeFactory, $log, $timeout, StripeCheckout) {
 
 	$scope.custom = true;
 	$scope.toggleCustom = function () {
@@ -17,25 +17,24 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 		$scope.xButton = $scope.xButton === false ? true : false;
 	};
 
-//	$scope.watchButton = function () {
-//		console.log("called")
-//		$scope.$watch(
-//			function () {
-//				return $scope.checkButton;
-//			},
-//			function (newValue, oldValue) {
-//				if (newValue !== oldValue) {
-//					$timeout(function () {
-//						$scope.checkButton = false;
-//					}, 5000)
-//				}
-//			}
-//		);
-//	};
+	//	$scope.watchButton = function () {
+	//		console.log("called")
+	//		$scope.$watch(
+	//			function () {
+	//				return $scope.checkButton;
+	//			},
+	//			function (newValue, oldValue) {
+	//				if (newValue !== oldValue) {
+	//					$timeout(function () {
+	//						$scope.checkButton = false;
+	//					}, 5000)
+	//				}
+	//			}
+	//		);
+	//	};
 
 	// consider experimenting with intervals to make the appearance of the "x" and "check" button more smooth
 	// note: this is really hard to do well
-
 
 
 	var handler = StripeCheckout.configure({
@@ -69,10 +68,10 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 	};
 
 	this.doCheckoutById = function (id) {
-				options["amount"] = id * 1000;
-				options["description"] = "Donate $" + id * 10 + " to Rose St.";
-				doCheckout();
-		};
+		options["amount"] = id * 1000;
+		options["description"] = "Donate $" + id * 10 + " to Rose St.";
+		doCheckout();
+	};
 
 	var doCheckout = function (token, args) {
 		// The default handler API is enhanced by having open()
@@ -91,19 +90,21 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 	};
 
 	this.setPayment = function (amount) {
-		console.log(amount)
-		$scope.amount = amount;
-		options["amount"] = parseFloat(amount.replace(/,/g, '')) * 100;
-		options["description"] = "Donate $" + amount;
+		options["description"] = "Donate " + $filter('currency')(amount) + " to Rose St.";
+
+		if (typeof amount === 'string') {
+			amount = parseFloat(amount.replace(/,/g, ''));
+		} else {
+			amount = parseFloat(amount);
+		}
+		console.log("string?", typeof amount, "amount:", amount)
+
+		options["amount"] = amount * 100;
 	};
 
 	this.doCustomCheckout = function () {
 		doCheckout();
 	};
-
-	//	parseFloat('100,000.00'.replace(/,/g, ''))
-
-	//	data-key="pk_test_f6MApsp3oUQNaZSejidOONkT" data-name="Rose St. Community Center" data-description="donate to Rose St." data-amount="1000" data-image="images/10322663_618915454865065_6177637275289747984_n.jpg" 
 
 	$scope.confirm = function (amount) {
 		$scope.amount = amount;
