@@ -139,7 +139,7 @@ hr.small {
       rgba(255, 0, 0, 0.45), 
       rgba(255, 0, 0, 0.45)
     ),
-  url('../images/rowhouses.jpg');
+  url('/rose_st_client/images/rowhouses.jpg');
   background-attachment: scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
