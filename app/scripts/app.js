@@ -1,12 +1,6 @@
 'use strict';
 
 angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'payment', 'ui.bootstrap', 'textAngular', 'stripe.checkout', 'angularUtils.directives.dirDisqus'])
-	.use(function (req, res, next) {
-		if (!req.secure) {
-			return res.redirect('https://idelairre.github.io/rose_st_client/');
-		}
-		next();
-	})
 	.config(function ($routeProvider, $locationProvider, STRIPE, StripeCheckoutProvider) {
 		StripeCheckoutProvider.defaults({
 			key: STRIPE.PUBLISHABLE_KEY
@@ -49,7 +43,7 @@ angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute
 			})
 			.otherwise({
 				redirectTo: '/'
-			})
+			});
 	})
 	.run(function ($log, StripeCheckout) {
 		// You can set defaults here, too.
@@ -62,6 +56,4 @@ angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute
 				$log.debug("Stripe Checkout closed");
 			}
 		});
-	})
-	//Stripe.setPublishableKey(STRIPE.PUBLISHABLE_KEY);
-	//});
+	});

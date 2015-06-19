@@ -31,42 +31,43 @@
 	<rst-nav></rst-nav>
 	<rst-header></rst-header>
 	<ng-view></ng-view>
-	
-<div class="footer">
-  <div class="container">
-		<div class="row">
-			 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-				  <ul class="list-inline text-center">
+
+	<div class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+					<ul class="list-inline text-center">
 						<li>
-							 <a href="https://plus.google.com/117410686442116418510/about?gl=us&hl=en">
-								  <span class="fa-stack fa-lg">
+							<a href="https://plus.google.com/117410686442116418510/about?gl=us&hl=en">
+								<span class="fa-stack fa-lg">
 										<i class="fa fa-circle fa-stack-2x"></i>
 										<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
 								  </span>
-							 </a>
+							</a>
 						</li>
 						<li>
-							 <a href="https://www.facebook.com/thepeaceisalreadyinyourheart?pnref=story">
-								  <span class="fa-stack fa-lg">
+							<a href="https://www.facebook.com/thepeaceisalreadyinyourheart?pnref=story">
+								<span class="fa-stack fa-lg">
 										<i class="fa fa-circle fa-stack-2x"></i>
 										<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
 								  </span>
-							 </a>
+							</a>
 						</li>
 						<li>
-							 <a href="https://github.com/idelairre/rose_st_client">
-								  <span class="fa-stack fa-lg">
+							<a href="https://github.com/idelairre/rose_st_client">
+								<span class="fa-stack fa-lg">
 										<i class="fa fa-circle fa-stack-2x"></i>
 										<i class="fa fa-github fa-stack-1x fa-inverse"></i>
 								  </span>
-							 </a>
+							</a>
 						</li>
-				  </ul>
-              <p class="copyright text-muted"><small>Copyright &copy; Rose Street Web Development Collective 2015</small></p>
-			 </div>
+					</ul>
+					<p class="copyright text-muted"><small>Copyright &copy; Rose Street Web Development Collective 2015</small>
+					</p>
+				</div>
+			</div>
 		</div>
-  </div>
-</div>
+	</div>
 
 	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 	<script>
@@ -79,6 +80,13 @@
 
 		ga('create', 'UA-XXXXX-X');
 		ga('send', 'pageview');
+	</script>
+
+	<script type="text/javascript">
+		if (window.location.protocol == "http:") {
+			var restOfUrl = window.location.href.substr(5);
+			window.location = "https:" + restOfUrl;
+		}
 	</script>
 
 	<!-- build:js(.) scripts/vendor.js -->
