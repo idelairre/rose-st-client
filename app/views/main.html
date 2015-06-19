@@ -5,7 +5,7 @@
 				<a ng-href="#!/posts/{{ post.id }}">
 					<h2 class="post-title">{{ post.title }}</h2>
 					<h3 class="post-subtitle">
-						<div ng-bind-html="post.subheading"></div>
+						{{ post.subheading }}
 					</h3>
 				</a>
 				<p class="post-meta">Posted by <a ng-href="#!/post/{{ post.id }}"> {{ post.user.email }}</a> on {{ post.created_at | date:'medium'}}</p>

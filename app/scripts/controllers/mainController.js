@@ -29,8 +29,6 @@ angular.module('roseStClient').controller('MainController', function ($scope, $m
 	if ($routeParams.id) {
 		console.log("getting post")
 		PostFactory.getPost($routeParams.id);
-		$scope.title = PostFactory.post;
-		$scope.subheading = "things";
 	}
 	// authentication
 	

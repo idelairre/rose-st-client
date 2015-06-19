@@ -33,14 +33,13 @@ angular.module('roseStClient').factory('PostFactory', ['$http', '$window', 'Auth
 		};
 		if (post.id) {
 			return $http.patch(ServerUrl + '/posts/' + post.id, params).then(function (response) {
-				getPosts();
+				getPost(post.id);
 			});
 		} else {
 			return $http.post(ServerUrl + '/posts', params).then(function (response) {
 				getPosts();
 			});
 		}
-		resetPost();
 	};
 
 	var deletePost = function (id) {
