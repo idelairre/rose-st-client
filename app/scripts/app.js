@@ -9,7 +9,6 @@ angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute
 		$routeProvider
 			.when('/', {
 				templateUrl: 'views/main.html',
-				controller: 'MainController',
 				activetab: 'home'
 			})
 			.when('/posts/:id', {
