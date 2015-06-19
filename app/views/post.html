@@ -5,9 +5,12 @@
 				<p ng-bind-html="post.body"></p>
 			</div>
 		</div>
-		<ul class="pager" ng-if="isAuthenticated() === true">
+		<ul class="pager">
 			<li class="next">
 				<a class="btn btn-lg" ng-href="/#!/">Back</a>
+			</li>
+			<li class="next">
+				<a ng-if="isAuthenticated() === true" class="btn btn-lg" ng-click="open()">Edit Post</a>
 			</li>
 		</ul>
 		<br>
