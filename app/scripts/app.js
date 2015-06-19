@@ -5,7 +5,6 @@ angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute
 		StripeCheckoutProvider.defaults({
 			key: STRIPE.PUBLISHABLE_KEY
 		});
-		//		$locationProvider.html5Mode(true);
 		$locationProvider.hashPrefix('!');
 		$routeProvider
 			.when('/', {
@@ -26,6 +25,7 @@ angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute
 			.when('/donate', {
 				templateUrl: 'views/donate.html',
 				controller: 'DonateController',
+				controllerAs: 'donateController',
 				activetab: 'donate',
 				resolve: {
 					// checkout.js isn't fetched until this is resolved.
