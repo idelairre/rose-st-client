@@ -151,17 +151,4 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 			console.log("Stripe Checkout closed without making a sale");
 		});
 	};
-
-
-
-	//	$scope.confirm = function (amount) {
-	//		$scope.amount = amount;
-	//		$scope.$modalInstance = $modal.open({
-	//			scope: $scope,
-	//			templateUrl: 'views/partials/payment-form.html',
-	//			size: 'lg',
-	//			controller: 'DonateController',
-	//			controllerAs: 'donateController'
-	//		});
-	//	};
 });
