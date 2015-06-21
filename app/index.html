@@ -23,7 +23,7 @@
 </head>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
-<body ng-app="roseStClient">
+<body ng-app="roseStClient" ui-keydown="{ 27: 'keypressCallback($event)' }">
 	<!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -115,6 +115,7 @@
 	<script src="bower_components/angular-stripe-checkout/angular-stripe-checkout.js"></script>
 	<script src="bower_components/angular-money-directive/angular-money-directive.js"></script>
 	<script src="bower_components/angular-utils-disqus/dirDisqus.js"></script>
+	<script src="bower_components/angular-ui-utils/ui-utils.js"></script>
 	<!-- endbower -->
 	<!-- endbuild -->
 
@@ -125,7 +126,6 @@
 
 	<!-- controller -->
 	<script src="scripts/controllers/mainController.js"></script>
-	<script src="scripts/controllers/aboutController.js"></script>
 	<script src="scripts/controllers/authController.js"></script>
 	<script src="scripts/controllers/donateController.js"></script>
 	<script src="scripts/controllers/contactController.js"></script>

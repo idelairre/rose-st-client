@@ -20,13 +20,15 @@
 		<div class="col-md-4">
 			<div class="input-group">
 				<span class="input-group-btn">
-					<input type="text" ng-show="custom1" ng-mouseover="checkButton1 = true" charge-amount-input placeholder="set amount" ng-model="amount" class="btn btn-default" />
-				<button class="btn btn-default" ng-click="donateController.doCustomCheckout(amount); xButton1 = false" ng-mouseenter="xButton1 = true" ng-hide="custom1">Donate {{ paymentAmount | currency }}</button>
+					<input type="text" charge-amount-input placeholder="set amount" ng-model="amount" class="btn btn-default" ng-enter="custom[1] = false; donateController.setPayment(amount)" ng-hide="custom[1] === false" />
+				<button class="btn btn-default" ng-click="donateController.doCustomCheckout(paymentAmount)" ng-if="!custom[1]">Donate {{ paymentAmount | currency }}</button>
 					</span>
-				<button ng-click="toggleCustom1(); donateController.setPayment(paymentAmount)" ng-show="custom1" ng-hide="custom1 && !checkButton1" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span>
+<!--
+				<button ng-click="toggleCustom(); donateController.setPayment(paymentAmount)" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span>
 				</button>
-				<button ng-click="toggleCustom1();" ng-show="!custom1 && xButton1" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span>
+				<button ng-click="toggleCustom()" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span>
 				</button>
+-->
 
 				<!--				Note: button is super tacky. Need to get rid of checkmark. Implement a clever way to indicate to the user that the input has changed into a button after they have edited the form. Idea: write the amount. The checkmark appears. Click the checkmark and the form freezes and becomes a button. Then you can click the button. -->
 			</div>
@@ -53,14 +55,20 @@
 		<div class="col-md-4">
 			<div class="input-group">
 				<span class="input-group-btn">
-					<input type="text" ng-show="custom2" ng-mouseover="checkButton2 = true" subscription-amount-input placeholder="set amount" ng-model="subscriptionAmount" class="btn btn-default" />
-				<button class="btn btn-default" ng-click="donateController.doCustomSubscriptionCheckout(subscriptionAmount); xButton2 = false" ng-mouseenter="xButton2 = true" ng-hide="custom2">Donate {{ subscriptionPaymentAmount | currency }}</button>
+					<input type="text" subscription-amount-input placeholder="set amount" ng-model="subscriptionAmount" ng-hide="!custom[2]" class="btn btn-default" ng-enter="custom[2] = false" />
+				<button class="btn btn-default" ng-click="donateController.doCustomSubscriptionCheckout(subscriptionAmount)" ng-if="!custom[2]">Donate {{ subscriptionPaymentAmount | currency }}</button>
 				</span>
-				<button ng-click="toggleCustom2(); donateController.setSubscriptionPayment(subscriptionPaymentAmount)" ng-show="custom2" ng-hide="custom2 && !checkButton2" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span>
+				<!--
+				<button ng-click="toggleCustom(); donateController.setSubscriptionPayment(subscriptionPaymentAmount)" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span>
 				</button>
-				<button ng-click="toggleCustom2();" ng-show="!custom2 && xButton2" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span>
+				<button ng-click="toggleCustom()" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span>
 				</button>
+-->
 			</div>
 		</div>
 	</div>
 </div>
+<div class="container">
+	<p class="text-muted">For custom donations, click "set amount" to input your desired donation amount. Press "enter" to set your amount. Hit "escape" to change your amount once you have set it. </p>
+</div>
+<br>

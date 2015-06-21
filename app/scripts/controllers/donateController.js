@@ -1,38 +1,6 @@
 'use strict';
 
-angular.module('roseStClient').controller('DonateController', function ($scope, $modal, $filter, StripeFactory, $log, $timeout, StripeCheckout) {
-
-	// custom donation button stuff
-
-	$scope.custom1 = true;
-	$scope.toggleCustom1 = function () {
-		$scope.custom1 = $scope.custom1 === false ? true : false;
-	};
-
-	$scope.checkButton1 = false;
-	$scope.toggleCheckButton1 = function () {
-		$scope.checkButton1 = $scope.checkButton1 === false ? true : false;
-	};
-
-	$scope.xButton1 = false;
-	$scope.toggleXButton1 = function () {
-		$scope.xButton1 = $scope.xButton1 === false ? true : false;
-	};
-
-	$scope.custom2 = true;
-	$scope.toggleCustom2 = function () {
-		$scope.custom2 = $scope.custom2 === false ? true : false;
-	};
-
-	$scope.checkButton2 = false;
-	$scope.toggleCheckButton1 = function () {
-		$scope.checkButton2 = $scope.checkButton2 === false ? true : false;
-	};
-
-	$scope.xButton2 = false;
-	$scope.toggleXButton2 = function () {
-		$scope.xButton2 = $scope.xButton2 === false ? true : false;
-	};
+angular.module('roseStClient').controller('DonateController', function ($scope, $modal, $filter, $window, StripeFactory, $log, $timeout, StripeCheckout) {
 
 	//	$scope.watchButton = function () {
 	//		console.log("called")

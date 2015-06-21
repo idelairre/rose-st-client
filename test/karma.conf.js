@@ -46,6 +46,7 @@ module.exports = function(config) {
       'bower_components/angular-stripe-checkout/angular-stripe-checkout.js',
       'bower_components/angular-money-directive/angular-money-directive.js',
       'bower_components/angular-utils-disqus/dirDisqus.js',
+      'bower_components/angular-ui-utils/ui-utils.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
