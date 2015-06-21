@@ -18,7 +18,6 @@ angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute
 			})
 			.when('/about', {
 				templateUrl: 'views/about.html',
-				controller: 'AboutController',
 				activetab: 'about'
 			})
 			.when('/donate', {
