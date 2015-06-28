@@ -24,12 +24,12 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 	// stripe handler for charges
 
 	var handler = StripeCheckout.configure({
-		name: "Custom Example",
+		name: "Rose St.",
 		token: function (token, args) {
 			$log.debug("Got stripe token: " + token.id);
 		}
 	});
-
+	
 	var chargeOptions = {
 		name: "Rose St. Community Center",
 		image: "images/10322663_618915454865065_6177637275289747984_n.jpg",
@@ -46,7 +46,9 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 		handler.open(chargeOptions).then(function (result) {
 			console.log("Got Stripe token: " + result[0].id);
 			console.log("Amount:", chargeOptions)
-			StripeFactory.sendChargeToken(result[0].id, chargeOptions)
+			StripeFactory.sendChargeToken(result[0].id, chargeOptions);
+			// this response has a number of entries that might be useful for making
+			// the stripe data more descriptive
 		}, function () {
 			console.log("Stripe Checkout closed without making a sale");
 		});

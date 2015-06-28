@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'payment', 'ui.bootstrap', 'textAngular', 'stripe.checkout', 'angularUtils.directives.dirDisqus', 'ui.keypress'])
+angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'payment', 'ui.bootstrap', 'textAngular', 'stripe.checkout', 'angularUtils.directives.dirDisqus', 'ui.keypress', '720kb.socialshare'])
 	.config(function ($routeProvider, $locationProvider, STRIPE, StripeCheckoutProvider) {
 		StripeCheckoutProvider.defaults({
 			key: STRIPE.PUBLISHABLE_KEY

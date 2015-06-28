@@ -1,11 +1,17 @@
-# rose-st-client
+# Rose St. Community Center
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.11.1.
+Angular app to collect donations for the 100 Block Homocide Free Zone project via Stripe.
 
 ## Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
+Run `grunt` for building and `grunt serve` for preview. Note: to run on localhost you must disable the following code in index.html since it will automatically redirect your browser to https.
+
+	'<script type="text/javascript">
+		if (window.location.protocol == "http:") {
+			var restOfUrl = window.location.href.substr(5);
+			window.location = "https:" + restOfUrl;
+		}
+	</script>'
 
 ## Testing
 

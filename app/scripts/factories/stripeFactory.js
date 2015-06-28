@@ -2,10 +2,11 @@
 
 angular.module('roseStClient').factory('StripeFactory', ['$http', 'ServerUrl', function ($http, ServerUrl) {
 
-	var sendChargeToken = function (token, options) {
+	var sendChargeToken = function (token, options, cardInfo) {
 		var params = {
 			token: token,
-			amount: options.amount
+			amount: options.amount,
+			cardInfo: cardInfo
 		}
 		return $http.post(ServerUrl + '/charges/', params).then(function (response) {
 			console.log(response)
