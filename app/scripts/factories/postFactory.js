@@ -8,19 +8,19 @@ angular.module('roseStClient').factory('PostFactory', ['$http', '$window', 'Auth
 		angular.copy({}, post);
 	};
 
-	var getPost = function (id) {
-		return $http.get(ServerUrl + '/posts/' + id).then(function (response) {
-			angular.copy(response.data, post);
-			console.log(response.data);
-		});
-	};
-
 	var getPosts = function () {
 		return $http.get(ServerUrl + '/posts/').then(function (response) {
 			angular.copy(response.data, posts);
 			console.log(response.data);
 		});
 	};
+
+	var getPost = function (title) {
+		return $http.get(ServerUrl + '/posts/' + title).then(function (response) {
+			angular.copy(response.data, post);
+		});
+	};
+
 
 	var upsertPost = function (post) {
 		var params = {

@@ -11,7 +11,7 @@ angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute
 				templateUrl: 'views/main.html',
 				activetab: 'home'
 			})
-			.when('/posts/:id', {
+			.when('/post/:post', {
 				templateUrl: 'views/post.html',
 				controller: 'MainController',
 				activetab: 'home'

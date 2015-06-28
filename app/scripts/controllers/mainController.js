@@ -39,7 +39,7 @@ angular.module('roseStClient').controller('MainController', function ($scope, $m
 	$scope.subheading = "100 Blocks Homocide-Free Zone";
 
 	$scope.atPost = function () {
-		if ($route.current.$$route.originalPath === "/posts/:id") {
+		if ($route.current.$$route.originalPath === "/post/:post") {
 			return true;
 		}
 	};
@@ -49,10 +49,11 @@ angular.module('roseStClient').controller('MainController', function ($scope, $m
 			return true;
 		}
 	};
+	
+//	console.log("route params:", $routeParams.post)
 
-	if ($routeParams.id) {
-		console.log("getting post")
-		PostFactory.getPost($routeParams.id);
+	if ($routeParams.post) {
+		PostFactory.getPost($routeParams.post);
 	}
 	
 	// authentication
