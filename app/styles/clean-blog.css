@@ -338,6 +338,8 @@ form .row:first-child .floating-label-form-group {
   letter-spacing: 1px;
   border-radius: 0;
   padding: 15px 25px;
+  width: 170.146px;
+
 }
 .btn-lg {
   font-size: 16px;
