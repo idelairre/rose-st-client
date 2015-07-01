@@ -20,10 +20,10 @@
 		<div class="col-md-4">
 			<div class="input-group">
 				<span class="input-group-btn">
-					<input type="text" charge-amount-input placeholder="set amount" ng-model="amount" class="btn btn-default" ng-enter="custom[1] = false; donateController.setPayment(amount)" ng-hide="custom[1] === false" />
+					<input type="text" charge-amount-input placeholder="set amount" ng-model="amount" class="btn btn-default" ng-enter="custom[1] = false; donateController.setPayment(paymentAmount)" ng-hide="custom[1] === false" />
 				<button class="btn btn-default" ng-click="donateController.doCustomCheckout(paymentAmount)" ng-if="!custom[1]">Donate {{ paymentAmount | currency }}</button>
 					</span>
-<!--
+				<!--
 				<button ng-click="toggleCustom(); donateController.setPayment(paymentAmount)" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span>
 				</button>
 				<button ng-click="toggleCustom()" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span>
@@ -55,8 +55,8 @@
 		<div class="col-md-4">
 			<div class="input-group">
 				<span class="input-group-btn">
-					<input type="text" subscription-amount-input placeholder="set amount" ng-model="subscriptionAmount" ng-hide="!custom[2]" class="btn btn-default" ng-enter="custom[2] = false" />
-				<button class="btn btn-default" ng-click="donateController.doCustomSubscriptionCheckout(subscriptionAmount)" ng-if="!custom[2]">Donate {{ subscriptionPaymentAmount | currency }}</button>
+					<input type="text" subscription-amount-input placeholder="set amount" ng-model="subscriptionAmount" ng-hide="!custom[2]" class="btn btn-default" ng-enter="custom[2] = false; donateController.setSubscriptionPayment(subscriptionPaymentAmount)" />
+				<button class="btn btn-default" ng-click="donateController.doCustomSubscriptionCheckout(subscriptionPaymentAmount)" ng-if="!custom[2]">Donate {{ subscriptionPaymentAmount | currency }}</button>
 				</span>
 				<!--
 				<button ng-click="toggleCustom(); donateController.setSubscriptionPayment(subscriptionPaymentAmount)" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span>

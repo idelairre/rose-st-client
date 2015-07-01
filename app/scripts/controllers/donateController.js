@@ -81,11 +81,11 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 	var subscriptionOptions = {
 		name: "Rose St. Community Center",
 		image: "images/10322663_618915454865065_6177637275289747984_n.jpg",
-		panelLabel: "Donate"
+		panelLabel: "Donate fdsa"
 	};
 
 	var doSubscriptionCheckout = function (subscriptionId) {
-		handler.open(chargeOptions).then(function (result) {
+		handler.open(subscriptionOptions).then(function (result) {
 			console.log("Got Stripe token: " + result[0].id);
 			console.log("Amount:", chargeOptions)
 			StripeFactory.sendSubscriptionToken(result[0].id, subscriptionId)
@@ -104,12 +104,15 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 		}
 
 		subscriptionOptions["amount"] = amount * 100;
+		console.log(subscriptionOptions)
 	};
 
 	this.doSubscriptionCheckoutById = function (id) {
+		console.log("called")
 		subscriptionOptions["amount"] = id * 1000;
 		subscriptionOptions["description"] = "Donate $" + id * 10 + " monthly to Rose St.";
 		doSubscriptionCheckout(id);
+		console.log(subscriptionOptions)
 	};
 
 	this.doCustomSubscriptionCheckout = function () {
