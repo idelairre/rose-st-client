@@ -14,6 +14,7 @@
 			</div>
 			<br>
 			<a class="btn btn-default" role="button" ng-click="cancel()">Cancel</a>
-			<a class="btn btn-warning" role="button" ng-click="ok(); upsertPost(post)">Submit</a>
+			<a class="btn btn-default" role="button" ng-click="deletePost(post.id, post.title_url)">Delete Post <span class="glyphicon glyphicon-remove"></span></a>
+			<a class="btn btn-warning pull-right" role="button" ng-click="ok(); upsertPost(post, userId)">Submit</a>
 	</form>
 </div>

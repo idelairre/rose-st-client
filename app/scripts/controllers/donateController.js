@@ -1,25 +1,6 @@
 'use strict';
 
-angular.module('roseStClient').controller('DonateController', function ($scope, $modal, $filter, $window, StripeFactory, $log, $timeout, StripeCheckout) {
-
-	//	$scope.watchButton = function () {
-	//		console.log("called")
-	//		$scope.$watch(
-	//			function () {
-	//				return $scope.checkButton;
-	//			},
-	//			function (newValue, oldValue) {
-	//				if (newValue !== oldValue) {
-	//					$timeout(function () {
-	//						$scope.checkButton = false;
-	//					}, 5000)
-	//				}
-	//			}
-	//		);
-	//	};
-
-	// consider experimenting with intervals to make the appearance of the "x" and "check" button more smooth
-	// note: this is really hard to do well
+angular.module('roseStClient').controller('DonateController', ['$scope', '$modal', '$filter', '$window', 'StripeFactory', '$log', '$timeout', 'StripeCheckout', function ($scope, $modal, $filter, $window, StripeFactory, $log, $timeout, StripeCheckout) {
 
 	// stripe handler for charges
 
@@ -86,9 +67,9 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 
 	var doSubscriptionCheckout = function (subscriptionId) {
 		handler.open(subscriptionOptions).then(function (result) {
-			console.log("Got Stripe token: " + result[0].id);
+			console.log("Got Stripe token: " + result[0].id)
 			console.log("Amount:", chargeOptions)
-			StripeFactory.sendSubscriptionToken(result[0].id, subscriptionId)
+			StripeFactory.sendSubscriptionToken(result[0].id, subscriptionId);
 		}, function () {
 			console.log("Stripe Checkout closed without making a sale");
 		});
@@ -124,4 +105,4 @@ angular.module('roseStClient').controller('DonateController', function ($scope, 
 			console.log("Stripe Checkout closed without making a sale");
 		});
 	};
-});
+}]);

@@ -6,8 +6,7 @@
 			</div>
 		</div>
 		<hr>
-		<button class="btn btn-default" socialshare="" socialshare-provider="facebook" socialshare-text="{{ post.body }}" socialshare-url="#!/posts/{{ post.id }}"><i class="fa fa-facebook"></i></button> <button class="btn btn-default" socialshare socialshare-provider="twitter" socialshare-text="{{ post.body }}" socialshare-url="#!/posts/{{ post.id }}"><i class="fa fa-twitter"></i></button> <button class="btn btn-default" socialshare socialshare-provider="tumblr" socialshare-text="{{ post.body }}" socialshare-url="#!/posts/{{ post.id }}"><i class="fa fa-tumblr"></i></button>	<a class="btn btn-default pull-right" href="#!/">Back</a> 
-		<a ng-if="isAuthenticated() === true" class="btn btn-default" ng-click="open()">Edit Post</a>
+		<button class="btn btn-default" socialshare="" socialshare-provider="facebook" socialshare-text="{{ post.body }}" socialshare-url="/posts/{{ post.id }}"><i class="fa fa-facebook"></i></button> <button class="btn btn-default" socialshare socialshare-provider="twitter" socialshare-text="{{ post.body }}" socialshare-url="/posts/{{ post.id }}"><i class="fa fa-twitter"></i></button> <button class="btn btn-default" socialshare socialshare-provider="tumblr" socialshare-text="{{ post.body }}" socialshare-url="/posts/{{ post.id }}"><i class="fa fa-tumblr"></i></button>	<a class="btn btn-default pull-right" href="/">Back</a> 
 		<br>
 		<hr>
 		<dir-disqus disqus-shortname="rosestcommunitycenter" disqus-identifier="{{ identifier }}" disqus-url="{{ url }}">

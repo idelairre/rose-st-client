@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('roseStClient').controller('ContactController', function ($http, $scope, ServerUrl) {
+angular.module('roseStClient').controller('ContactController', ['$http', '$scope', 'ServerUrl', function ($http, $scope, ServerUrl) {
 	
 	 $scope.result = 'hidden'
     $scope.resultMessage;
@@ -14,8 +14,8 @@ angular.module('roseStClient').controller('ContactController', function ($http, 
         if (contactform.$valid) {
             $http({
                 method  : 'POST',
-                url     : '././mail/contact-form.php',
-                data    : $.param($scope.formData),  //param method from jQuery
+                url     : ServerUrl + "/contact",
+                data    : $scope.formData,  //param method from jQuery
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  //set the headers so angular passing info as form data (not request payload)
             }).success(function(data){
                 console.log(data);
@@ -35,4 +35,4 @@ angular.module('roseStClient').controller('ContactController', function ($http, 
             $scope.result='bg-danger';
         }
     }
-});
+}]);

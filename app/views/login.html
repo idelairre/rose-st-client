@@ -1,5 +1,5 @@
 <div class="container">
-	<form name="loginForm" ng-submit="login(credentials)" novalidate>
+	<form name="loginForm" novalidate>
 		<div class="form-group">
 			<label for="email">Email address</label>
 			<input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="credentials.email" required>
@@ -8,7 +8,7 @@
 			<label for="password">Password</label>
 			<input type="password" class="form-control" id="password" placeholder="Password" ng-model="credentials.password" required>
 		</div>
-		<button class="btn btn-primary" class="button-submit" ng-disabled="loginForm.$invalid" value="Login">Submit</button>
+		<button class="btn btn-primary" class="button-submit" value="Login" ng-click="login(credentials)">Submit</button>
 	</form>
 	<br>
 </div>

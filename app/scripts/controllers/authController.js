@@ -1,24 +1,16 @@
 'use strict';
 
-angular.module('roseStClient').controller('AuthController', function ($location, $scope, $window, AuthFactory) {
+angular.module('roseStClient').controller('AuthController', ['$location', '$scope', '$window', '$route', '$modal', 'AuthFactory', function ($location, $scope, $window, $route, $modal, AuthFactory) {
 	console.log("authController loaded")
 
 	$scope.credentials = {};
 
-	var postCredentials = function (credentials) {
+	$scope.postCredentials = function (credentials) {
 		console.log("clicked");
 		AuthFactory.login(credentials).then(function (response) {
 			console.log("user id: ", response.data.id);
 			$location.path('/');
+			$route.reload();
 		});
 	};
-
-	var login = function () {
-		$scope.credentials.email = prompt("email");
-		$scope.credentials.password = prompt("password");
-		postCredentials($scope.credentials);
-	}
-
-	login();
-
-});
+}]);

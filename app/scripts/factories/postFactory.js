@@ -15,25 +15,26 @@ angular.module('roseStClient').factory('PostFactory', ['$http', '$window', 'Auth
 		});
 	};
 
-	var getPost = function (title) {
-		return $http.get(ServerUrl + '/posts/' + title).then(function (response) {
+	var getPost = function (title_url) {
+		return $http.get(ServerUrl + '/posts/' + title_url).then(function (response) {
 			angular.copy(response.data, post);
 		});
 	};
 
 
-	var upsertPost = function (post) {
+	var upsertPost = function (post, userId) {
 		var params = {
 			post: {
 				title: post.title,
 				body: post.body,
 				subheading: post.subheading,
-				user_id: AuthFactory.userId
+				user_id: userId,
+				title_url: post.title.replace(/\s/g, "-").replace(/[`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi, '')
 			}
 		};
 		if (post.id) {
-			return $http.patch(ServerUrl + '/posts/' + post.id, params).then(function (response) {
-				getPost(post.id);
+			return $http.patch(ServerUrl + '/posts/' + post.title_url, params).then(function (response) {
+				getPost(post.title_url);
 			});
 		} else {
 			return $http.post(ServerUrl + '/posts', params).then(function (response) {
@@ -42,8 +43,9 @@ angular.module('roseStClient').factory('PostFactory', ['$http', '$window', 'Auth
 		}
 	};
 
-	var deletePost = function (id) {
-		return $http.delete(ServerUrl + '/posts/' + id).then(function (response) {
+	var deletePost = function (id, title_url) {
+		console.log("id: ", id, "title url: ", title_url)
+		return $http.delete(ServerUrl + '/posts/' + title_url).then(function (response) {
 			posts.splice(findPostIndexById(id), 1);
 		});
 	};

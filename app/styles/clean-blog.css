@@ -376,8 +376,9 @@ form .row:first-child .floating-label-form-group {
 .pager .disabled > a:focus,
 .pager .disabled > span {
   color: #808080;
-  background-color: #404040;
+/*  background-color: #404040;*/
   cursor: not-allowed;
+	
 }
 ::-moz-selection {
   color: white;
