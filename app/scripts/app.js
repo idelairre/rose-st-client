@@ -10,13 +10,18 @@ import 'babel-polyfill';
 import 'reflect-metadata';
 
 @StateConfig([{
+		name: 'main',
+		url: '/',
+		component: components.MainComponent,
+		as: 'mainCtrl'
+	}, {
 		name: 'posts',
-	  url: '/',
+	  url: '/posts',
 		component: components.PostsComponent,
 		as: 'postsCtrl'
 	}, {
 	  name: 'posts-detail',
-	  url: '/post/:post',
+	  url: '/posts/:post',
 		component: components.PostsDetailComponent,
 		as: 'postsDetailCtrl'
 	}, {

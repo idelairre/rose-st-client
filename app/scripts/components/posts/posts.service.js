@@ -14,32 +14,30 @@ export default class PostsService {
 		this.post = {};
 	}
 
-	resetPost () {
+	reset() {
 		angular.copy({}, this.post);
 	}
 
-	async getPosts() {
+	async query() {
 		try {
 			let response = await axios.get(`${SERVER_URL}/posts/`);
 			angular.copy(response.data, this.posts);
-			console.log(this.posts);
 		} catch (error) {
 			console.error(error);
 		}
 	}
 
-	async getPost(titleUrl) {
+	async get(titleUrl) {
 		try {
 			let response = await axios.get(`${SERVER_URL}/posts/${titleUrl}`);
 			angular.copy(response.data, this.post);
-			console.log(this.post);
 		} catch (error) {
 			console.error(error);
 		}
 	}
 
 
-	async upsertPost(post, userId) {
+	async upsert(post, userId) {
 	  let params = {
 	    post: {
 	      title: post.title,
@@ -51,8 +49,7 @@ export default class PostsService {
 	  };
 	  try {
 	    if (post.id) {
-	      let response = await axios.patch(`${SERVER_URL}/posts/${post.title_url}`, params);
-	      console.log(response);
+	      axios.patch(`${SERVER_URL}/posts/${post.title_url}`, params);
 	    } else {
 	      let response = await axios.post(`${SERVER_URL}/posts/`, params);
 	      this.posts.push(response.data);
@@ -62,7 +59,7 @@ export default class PostsService {
 	  }
 	}
 
-	async deletePost(id, titleUrl) {
+	async delete(id, titleUrl) {
 		try {
 			await axios.delete(`${SERVER_URL}/posts/${titleUrl}`);
 			this.posts.splice(this.findById(id), 1);

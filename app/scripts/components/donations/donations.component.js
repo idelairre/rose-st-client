@@ -32,14 +32,13 @@ export default class DonationsComponent {
 
 		this.DonationsService = DonationsService;
 
-		// stripe handler for charges
-		// this.handler = this.StripeCheckout.configure({
-		// 	name: 'Rose St.',
-		// 	token: (token, args) => {
-		// 		console.log(`Got stripe token: ${token.id}`);
-		// 	}
-		// });
-		//
+		this.handler = this.StripeCheckout.configure({
+			name: 'Rose St.',
+			token: (token, args) => {
+				console.log(`Got stripe token: ${token.id}`);
+			}
+		});
+
 		this.chargeOptions = {
 			name: 'Rose St. Community Center',
 			image: 'images/10322663_618915454865065_6177637275289747984_n.jpg',

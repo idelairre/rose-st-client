@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Inject } from 'ng-forward';
 import CurrencyInput from './currency-input.component';
 
-const ESC_KEY = 27;
 const ENTER_KEY = 13;
 
 @Component({
@@ -26,7 +25,6 @@ export default class DonationButton {
   @Input() keyup;
   @Output() checkout;
   constructor($document, $rootScope, $scope) {
-    console.log(this);
     this.$document = $document;
     this.$rootScope = $rootScope;
     this.$scope = $scope;
@@ -38,17 +36,14 @@ export default class DonationButton {
 
   focus(event) {
     this.hasFocus = true;
-    console.log(event);
   }
 
   esc(event) {
-    console.log(event);
     this.hidden = false;
     this.$scope.$digest();
   }
 
   keyup(event) {
-    console.log(event);
     if (event.keyCode === ENTER_KEY) {
       this.hidden = true;
     }

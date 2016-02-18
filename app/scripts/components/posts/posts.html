@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<div dir-paginate="post in postsCtrl.posts | itemsPerPage: 5 | orderBy: '-created_at' | filter:filter | filter:search" current-page="currentPage" class="post-preview">
+			<div ng-repeat="post in postsCtrl.posts.slice(((postsCtrl.currentPage - 1) * postsCtrl.itemsPerPage), ((postsCtrl.currentPage) * postsCtrl.itemsPerPage))" current-page="currentPage" class="post-preview">
 				<a ui-sref="posts-detail({ post: post.title_url })">
 					<h2 class="post-title">{{ post.title }}</h2>
 					<h3 class="post-subtitle">
@@ -15,7 +15,7 @@
 			<!-- Pager -->
 
 			<ul class="pager">
-				<dir-pagination-controls template-url="./scripts/components/layout/pagination/pagination.html"></dir-pagination-controls>
+				<uib-pagination total-items="postsCtrl.totalItems" ng-model="postsCtrl.currentPage" items-per-page="postsCtrl.itemsPerPage"></uib-pagination>
 			</ul>
 			<br>
 		</div>

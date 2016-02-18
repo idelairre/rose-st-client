@@ -9,7 +9,7 @@ String.prototype.splice = function(idx, rem, s) {
   selector: 'currency-input',
   controllerAs: 'currencyInputCtrl',
   directives: [RestrictNumeric],
-  template: '<input class="{{ currencyInputCtrl.css }}" placeholder="{{ currencyInputCtrl.placeholder }}" type="text" ng-model="currencyInputCtrl.value"></input>',
+  template: '<input restrict-numeric class="{{ currencyInputCtrl.css }}" placeholder="{{ currencyInputCtrl.placeholder }}" type="text" ng-model="currencyInputCtrl.value"></input>',
   inputs: ['value', 'css', 'placeholder']
 })
 
@@ -20,7 +20,6 @@ export default class CurrencyInput {
   constructor($scope, $element, $attrs) {
     this.$scope = $scope;
     this.input = $element.find('input')[0];
-    console.log($element, this.input);
     $element.bind('keyup', ::this.format);
   }
 

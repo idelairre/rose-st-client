@@ -8,7 +8,6 @@ class StripeLogger {
       opened: () => {
         console.log('Stripe Checkout opened');
       },
-
       closed: () => {
         console.log('Stripe Checkout closed');
       }
