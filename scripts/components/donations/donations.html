@@ -1,0 +1,58 @@
+<div class="container">
+  <h1>Card Donation</h1>
+  <hr>
+  <p class="text-muted">For custom donation amounts, click "set amount" and type your desired contribution. When you are done, press "enter" to set your amount. Press "esc" if you want to change your contribution once it is set.
+  </p>
+  <div class="row">
+    <div class="col-md-4">
+      <button (click)="donationsCtrl.checkoutById(1)" class="btn btn-default">Donate $10</button>
+    </div>
+    <div class="col-md-4">
+      <button (click)="donationsCtrl.checkoutById(2)" class="btn btn-default">Donate $20</button>
+    </div>
+    <div class="col-md-4">
+      <button (click)="donationsCtrl.checkoutById(3)" class="btn btn-default">Donate $30</button>
+    </div>
+    <div class="col-md-4">
+      <button (click)="donationsCtrl.checkoutById(4)" class="btn btn-default">Donate $40</button>
+    </div>
+    <div class="col-md-4">
+      <button (click)="donationsCtrl.checkoutById(5)" class="btn btn-default">Donate $50</button>
+    </div>
+    <div class="col-md-4">
+      <donation-button
+			[(value)]="donationsCtrl.amount"
+			(keyup)="donationsCtrl.setPayment($event, donationsCtrl.amount, 'charge')"
+			(checkout)="donationsCtrl.doCheckout(donationsCtrl.amount, 'charge')">
+		</donation-button>
+    </div>
+  </div>
+  <h1>Monthly Donation</h1>
+  <hr>
+  <div class="row">
+    <div class="col-md-4">
+      <button (click)="donationsCtrl.checkoutSubscriptionById(1)" class="btn btn-default">Donate $10</button>
+    </div>
+    <div class="col-md-4">
+      <button (click)="donationsCtrl.checkoutSubscriptionById(2)" class="btn btn-default">Donate $20</button>
+    </div>
+    <div class="col-md-4">
+      <button (click)="donationsCtrl.checkoutSubscriptionById(3)" class="btn btn-default">Donate $30</button>
+    </div>
+    <div class="col-md-4">
+      <button (click)="donationsCtrl.checkoutSubscriptionById(4)" class="btn btn-default">Donate $40</button>
+    </div>
+    <div class="col-md-4">
+      <button (click)="donationsCtrl.checkoutSubscriptionById(5)" class="btn btn-default">Donate $50</button>
+    </div>
+    <div class="col-md-4">
+			<donation-button
+			[(value)]="donationsCtrl.subscriptonAmount"
+			(keyup)="donationsCtrl.setPayment($event, donationsCtrl.subscriptionAmount, 'subscription')"
+			(checkout)="donationsCtrl.doCheckout(donationsCtrl.subscriptionAmount, 'subscription')">
+			</donation-button>
+
+    </div>
+  </div>
+</div>
+<br>

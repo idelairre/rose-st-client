@@ -1,0 +1,19 @@
+<article>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<p ng-bind-html="postsDetailCtrl.post.body | ToTrusted"></p>
+			</div>
+		</div>
+		<hr>
+		<button class="btn btn-default" socialshare="" socialshare-provider="facebook" socialshare-text="{{ post.body }}" socialshare-url="/posts/{{ post.id }}"><i class="fa fa-facebook"></i></button>
+    <button class="btn btn-default" socialshare socialshare-provider="twitter" socialshare-text="{{ post.body }}" socialshare-url="/posts/{{ post.id }}"><i class="fa fa-twitter"></i></button>
+    <button class="btn btn-default" socialshare socialshare-provider="tumblr" socialshare-text="{{ post.body }}" socialshare-url="/posts/{{ post.id }}"><i class="fa fa-tumblr"></i></button>
+    <a class="btn btn-default pull-right" ui-sref="posts">Back</a>
+		<br>
+		<hr>
+		<dir-disqus disqus-shortname="rosestcommunitycenter" disqus-identifier="{{ postsDetailCtrl.identifier }}" disqus-url="{{ postsDetailCtrl.url }}">
+		</dir-disqus>
+		<br>
+	</div>
+</article>

@@ -1,0 +1,20 @@
+<div class="well well-lg">
+	<h1>Submit Post</h1>
+	<form>
+		<input type="hidden" ng-model="post.user_id" value="userId">
+		<div class="form-group">
+			<label for="title">Title</label>
+			<input type="text" class="form-control" placeholder="" ng-model="post.title">
+			<br>
+			<label for="title">Subheading</label>
+			<input type="text" class="form-control" placeholder="" ng-model="post.subheading">
+			<br>
+			<label for="title">Body</label>
+			<div text-angular ng-model="post.body"></div>
+			</div>
+			<br>
+			<a class="btn btn-default" role="button" (click)="postsModalCtrl.cancel()">Cancel</a>
+			<a class="btn btn-default" role="button" (click)="postsModalCtrl.deletePost(post.id, post.title_url)">Delete Post <span class="glyphicon glyphicon-remove"></span></a>
+			<a class="btn btn-warning pull-right" role="button" (click)="postsModalCtrl.ok(); upsertPost(post, userId)">Submit</a>
+	</form>
+</div>

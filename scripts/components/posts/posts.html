@@ -1,0 +1,23 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<div ng-repeat="post in postsCtrl.posts.slice(((postsCtrl.currentPage - 1) * postsCtrl.itemsPerPage), ((postsCtrl.currentPage) * postsCtrl.itemsPerPage))" current-page="currentPage" class="post-preview">
+				<a ui-sref="posts-detail({ post: post.title_url })">
+					<h2 class="post-title">{{ post.title }}</h2>
+					<h3 class="post-subtitle">
+						{{ post.subheading }}
+					</h3>
+				</a>
+				<p class="post-meta">Posted by <a ui-sref="posts-detail({ post: post.title_url })"> {{ post.user.email }}</a> on {{ post.created_at | date:'medium'}}</p>
+				<hr>
+			</div>
+
+			<!-- Pager -->
+
+			<ul class="pager">
+				<uib-pagination total-items="postsCtrl.totalItems" ng-model="postsCtrl.currentPage" items-per-page="postsCtrl.itemsPerPage"></uib-pagination>
+			</ul>
+			<br>
+		</div>
+	</div>
+</div>
