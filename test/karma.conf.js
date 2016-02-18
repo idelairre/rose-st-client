@@ -22,7 +22,6 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // bower:js
-      'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
@@ -39,7 +38,6 @@ module.exports = function(config) {
       'bower_components/angular-utils-disqus/dirDisqus.js',
       'bower_components/angularjs-socialshare/dist/angular-socialshare.min.js',
       'bower_components/angularUtils-pagination/dirPagination.js',
-      'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/rangy/rangy-core.js',
       'bower_components/rangy/rangy-classapplier.js',
       'bower_components/rangy/rangy-highlighter.js',

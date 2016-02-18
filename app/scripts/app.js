@@ -1,57 +1,59 @@
-'use strict';
+import angular from 'angular';
+import { bootstrap, Component, Inject, StateConfig } from 'ng-forward';
+import { STRIPE } from './constants/constants';
+import RouteConfig from './config/routes.config';
+import uiRouter from 'angular-ui-router';
+import EscListener from './directives/esc-listener.directive';
+import * as components from './components/components.module';
+import 'angular-ui-utils/modules/keypress/keypress';
+import 'babel-polyfill';
+import 'reflect-metadata';
 
-angular.module('roseStClient', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'payment', 'ui.bootstrap', 'textAngular', 'stripe.checkout', 'angularUtils.directives.dirDisqus', 'angularUtils.directives.dirPagination', 'ui.keypress', '720kb.socialshare'])
-	.config(function ($routeProvider, $locationProvider, STRIPE, StripeCheckoutProvider) {
-		StripeCheckoutProvider.defaults({
-			key: STRIPE.PUBLISHABLE_KEY
-		});
-		$routeProvider
-			.when('/', {
-				templateUrl: 'views/main.html',
-				activetab: 'home'
-			})
-			.when('/post/:post', {
-				templateUrl: 'views/post.html',
-				controller: 'MainController',
-				activetab: 'home'
-			})
-			.when('/about', {
-				templateUrl: 'views/about.html',
-				activetab: 'about'
-			})
-			.when('/donate', {
-				templateUrl: 'views/donate.html',
-				controller: 'DonateController',
-				controllerAs: 'donateController',
-				activetab: 'donate',
-				resolve: {
-					// checkout.js isn't fetched until this is resolved.
-					stripe: StripeCheckoutProvider.load
-				}
-			})
-			.when('/contact', {
-				templateUrl: 'views/contact.html',
-				controller: 'ContactController',
-				activetab: 'contact'
-			})
-			.when('/login', {
-				templateUrl: 'views/login.html',
-				activetab: 'login'
-			})
-			.otherwise({
-				redirectTo: '/'
-			});
-			$locationProvider.html5Mode(true);
-	})
-	.run(function ($log, StripeCheckout) {
-		// You can set defaults here, too.
-		StripeCheckout.defaults({
-			opened: function () {
-				$log.debug("Stripe Checkout opened");
-			},
+@StateConfig([{
+		name: 'posts',
+	  url: '/',
+		component: components.PostsComponent,
+		as: 'postsCtrl'
+	}, {
+	  name: 'posts-detail',
+	  url: '/post/:post',
+		component: components.PostsDetailComponent,
+		as: 'postsDetailCtrl'
+	}, {
+	  name: 'about',
+	  url: '/about',
+		component: components.AboutComponent,
+		as: 'aboutCtrl'
+	}, {
+	  name: 'contact',
+	  url: '/contact',
+		component: components.ContactComponent,
+		as: 'contactCtrl'
+	}, {
+		name: 'donate',
+		url: '/donations',
+		component: components.DonationsComponent,
+		as: 'donationsCtrl'
+	}, {
+	  name: 'login',
+	  url: '/login',
+		component: components.LoginComponent,
+		as: 'loginCtrl'
+}])
 
-			closed: function () {
-				$log.debug("Stripe Checkout closed");
-			}
-		});
-	});
+@Component({
+	selector: 'rose-st-client',
+	controllerAs: 'roseStClient',
+	providers: [uiRouter],
+	directives: [components.Nav, components.Header, components.Footer, EscListener],
+	template: `
+		<rose-st-nav></rose-st-nav>
+		<rose-st-header esc-listener></rose-st-header>
+		<ui-view></ui-view>
+		<rose-st-footer></rose-st-footer>
+	`
+})
+
+export default class RoseStClient {}
+
+bootstrap(RoseStClient, ['ui.router', RouteConfig.name]);

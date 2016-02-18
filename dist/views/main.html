@@ -1,1 +1,23 @@
-<div class="container"> <div class="row"> <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <div dir-paginate="post in posts | itemsPerPage: 5 | orderBy: '-created_at' | filter:filter | filter:search" current-page="currentPage" class="post-preview"> <a ng-href="/post/{{ post.title_url }}"> <h2 class="post-title">{{ post.title }}</h2> <h3 class="post-subtitle"> {{ post.subheading }} </h3> </a> <p class="post-meta">Posted by <a ng-href="/post/{{ post }}"> {{ post.user.email }}</a> on {{ post.created_at | date:'medium'}}</p> <hr> </div> <!-- Pager --> <ul class="pager"> <dir-pagination-controls template-url="/views/partials/pagination.tpl.html"></dir-pagination-controls> </ul> <br> </div> </div> </div>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<div dir-paginate="post in posts | itemsPerPage: 5 | orderBy: '-created_at' | filter:filter | filter:search" current-page="currentPage" class="post-preview">
+				<a ng-href="/post/{{ post.title_url }}">
+					<h2 class="post-title">{{ post.title }}</h2>
+					<h3 class="post-subtitle">
+						{{ post.subheading }}
+					</h3>
+				</a>
+				<p class="post-meta">Posted by <a ng-href="/post/{{ post }}"> {{ post.user.email }}</a> on {{ post.created_at | date:'medium'}}</p>
+				<hr>
+			</div>
+
+			<!-- Pager -->
+			
+			<ul class="pager">
+				<dir-pagination-controls template-url="/views/partials/pagination.tpl.html"></dir-pagination-controls>
+			</ul>
+			<br>
+		</div>
+	</div>
+</div>

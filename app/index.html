@@ -7,32 +7,21 @@
 	<title>Rose St. Community Center</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width">
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<!-- build:css(.) styles/vendor.css -->
-	<!-- bower:css -->
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-	<link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css" />
-	<!-- endbower -->
-	<!-- endbuild -->
-	<!-- build:css(.tmp) styles/main.css -->
-	<link rel="stylesheet" href="styles/main.css">
-	<link rel="stylesheet" href="styles/clean-blog.css">
+
 	<link rel="icon" type="image/png" href="rose_st_client/favicon.ico" />
 
-	<!-- endbuild -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="styles/main.css">
 </head>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
-<body ng-app="roseStClient" ui-keydown="{ 27: 'keypressCallback($event)' }">
+<body>
 	<!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-	<rst-nav></rst-nav>
-	<rst-header></rst-header>
-	<ng-view></ng-view>
-	<rst-footer></rst-footer>
+<rose-st-client></rose-st-client>
 
 	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 	<script>
@@ -46,72 +35,7 @@
 		ga('create', 'UA-XXXXX-X');
 		ga('send', 'pageview');
 	</script>
-
-<!--
-	<script type="text/javascript">
-		if (window.location.protocol == "http:") {
-			var restOfUrl = window.location.href.substr(5);
-			window.location = "https:" + restOfUrl;
-		}
-	</script>
--->
-
-	<!-- build:js(.) scripts/vendor.js -->
-	<!-- bower:js -->
-	<script src="bower_components/jquery/dist/jquery.js"></script>
-	<script src="bower_components/angular/angular.js"></script>
-	<script src="bower_components/angular-animate/angular-animate.js"></script>
-	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-	<script src="bower_components/angular-money-directive/angular-money-directive.js"></script>
-	<script src="bower_components/angular-payment/dist/angular-payment-tpls-0.3.0.js"></script>
-	<script src="bower_components/angular-resource/angular-resource.js"></script>
-	<script src="bower_components/angular-route/angular-route.js"></script>
-	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-	<script src="bower_components/angular-scroll/angular-scroll.js"></script>
-	<script src="bower_components/angular-stripe-checkout/angular-stripe-checkout.js"></script>
-	<script src="bower_components/angular-touch/angular-touch.js"></script>
-	<script src="bower_components/angular-ui-utils/ui-utils.js"></script>
-	<script src="bower_components/angular-utils-disqus/dirDisqus.js"></script>
-	<script src="bower_components/angularjs-socialshare/dist/angular-socialshare.min.js"></script>
-	<script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
-	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="bower_components/rangy/rangy-core.js"></script>
-	<script src="bower_components/rangy/rangy-classapplier.js"></script>
-	<script src="bower_components/rangy/rangy-highlighter.js"></script>
-	<script src="bower_components/rangy/rangy-selectionsaverestore.js"></script>
-	<script src="bower_components/rangy/rangy-serializer.js"></script>
-	<script src="bower_components/rangy/rangy-textrange.js"></script>
-	<script src="bower_components/textAngular/dist/textAngular.js"></script>
-	<script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
-	<script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
-	<!-- endbower -->
-	<!-- endbuild -->
-
-	<!-- build:js({.tmp,app}) scripts/scripts.js -->
 	<script src="scripts/app.js"></script>
-	<script src="scripts/theme/clean-blog.js"></script>
-	<script src="scripts/constants/constants.js"></script>
-
-	<!-- controller -->
-	<script src="scripts/controllers/mainController.js"></script>
-	<script src="scripts/controllers/authController.js"></script>
-	<script src="scripts/controllers/donateController.js"></script>
-	<script src="scripts/controllers/contactController.js"></script>
-
-	<!-- directives -->
-	<script src="scripts/directives/mainDirective.js"></script>
-	<script src="scripts/directives/donateDirective.js"></script>
-	<script src="scripts/directives/navDirective.js"></script>
-	<script src="scripts/directives/headerDirective.js"></script>
-	<script src="scripts/directives/footerDirective.js"></script>
-
-	<!-- factory -->
-	<script src="scripts/factories/postFactory.js"></script>
-	<script src="scripts/factories/authFactory.js"></script>
-	<script src="scripts/factories/stripeFactory.js"></script>
-	<!-- endbuild -->
-
 </body>
 
 </html>
