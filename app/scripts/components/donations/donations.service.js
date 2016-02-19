@@ -13,19 +13,9 @@ export default class DonationsService {
 		this.stripeContainer = {};
 	}
 
-	importScript() {
-		try {
-			let doc = this.$document[0];
-			let script = doc.createElement('script');
-			script.src = STRIPE_CHECKOUT_URL;
-			script.type = 'text\/javacsript';
-			script.onerror = this.handleLoadError;
-			let container = doc.getElementsByTagName('head')[0];
-			this.stripeContainer = container.appendChild(script);
-			return Promise.resolve();
-		} catch (error) {
-			return Promise.reject(error);
-		}
+	@Inject('StripeCheckout')
+	static loadCheckout(StripeCheckoutProvider) {
+		return StripeCheckoutProvider.load;
 	}
 
 	handleLoadError(error) {

@@ -2,8 +2,8 @@ import angular from 'angular';
 import { bootstrap, Component, Inject, StateConfig } from 'ng-forward';
 import { STRIPE } from './constants/constants';
 import RouteConfig from './config/routes.config';
+import StateReload from './config/state-reload.config';
 import SceWhitelist from './config/sce-whitelist.config';
-import StripeLogger from './config/stripe-logger.run';
 import uiRouter from 'angular-ui-router';
 import EscListener from './directives/esc-listener.directive';
 import * as components from './components/components.module';
@@ -62,4 +62,4 @@ import 'reflect-metadata';
 
 export default class RoseStClient {}
 
-bootstrap(RoseStClient, ['ui.router', RouteConfig.name, SceWhitelist.name, StripeLogger.name]);
+bootstrap(RoseStClient, ['ui.router', RouteConfig.name, SceWhitelist.name]);

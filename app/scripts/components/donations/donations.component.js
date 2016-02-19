@@ -1,7 +1,6 @@
 import { Component, Inject, Resolve } from 'ng-forward';
 import DonationButton from './donations.directives/donation-button.component';
 import DonationsService from './donations.service';
-// import StripeCheckout from 'angular-stripe-checkout';
 import 'angular-ui-bootstrap';
 import 'babel-polyfill';
 
@@ -19,9 +18,9 @@ const ENTER_KEY = 13;
 @Inject('$filter', '$scope', 'StripeCheckout', DonationsService)
 export default class DonationsComponent {
 	@Resolve()
-	@Inject(DonationsService)
-	static resolve(DonationsService) {
-	  return DonationsService.importScript() && DonationsService.loadLibrary();
+	@Inject('StripeCheckout')
+	static resolve(StripeCheckoutProvider) {
+		return StripeCheckoutProvider.load;
 	}
 
 	constructor($filter, $scope, StripeCheckout, DonationsService) {
@@ -32,19 +31,35 @@ export default class DonationsComponent {
 		this.subscriptionAmount = null;
 
 		this.DonationsService = DonationsService;
+	}
 
-		this.handler = StripeCheckout.configure({
-			name: 'Rose St.',
-			token: (token, args) => {
-				console.log(`Got stripe token: ${token.id}`);
-			}
-		});
+	ngOnInit() {
+		try {
+			this.initializeStripe();
+		} catch (error) {
+			this.DonationsService.loadCheckout().then(this.initializeStripe());
+		}
+	}
 
-		this.chargeOptions = {
-			name: 'Rose St. Community Center',
-			image: 'images/10322663_618915454865065_6177637275289747984_n.jpg',
-			panelLabel: 'Donate'
-		};
+	initializeStripe() {
+		try {
+			this.StripeCheckout = StripeCheckout;
+
+			this.handler = this.StripeCheckout.configure({
+				name: 'Rose St.',
+				token: (token, args) => {
+					console.log(`Got stripe token: ${token.id}`);
+				}
+			});
+
+			this.chargeOptions = {
+				name: 'Rose St. Community Center',
+				image: 'images/10322663_618915454865065_6177637275289747984_n.jpg',
+				panelLabel: 'Donate'
+			};
+		} catch (error) {
+			console.info(error);
+		}
 	}
 
 	async doCheckout(token, args) {
@@ -58,8 +73,8 @@ export default class DonationsComponent {
 		try {
 			let result = await this.handler.open(this.chargeOptions);
 			console.log(`Got Stripe token: ${result[0].id}`);
-			console.log(`Amount: ${this.chargeOptions}`);
-			this.DonationsService.sendChargeToken(result[0].id, chargeOptions);
+			console.log(`Amount: ${this.chargeOptions.amount}`);
+			this.DonationsService.sendChargeToken(result[0].id, this.chargeOptions);
 		} catch (error) {
 			console.error(error);
 		}

@@ -1,6 +1,9 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<div ng-show="postsCtrl.posts.length === 0">
+				<h2 class="post-title">No posts yet, check back soon!</h2>
+			</div>
 			<div ng-repeat="post in postsCtrl.posts.slice(((postsCtrl.currentPage - 1) * postsCtrl.itemsPerPage), ((postsCtrl.currentPage) * postsCtrl.itemsPerPage))" current-page="currentPage" class="post-preview">
 				<a ui-sref="posts-detail({ post: post.title_url })">
 					<h2 class="post-title">{{ post.title }}</h2>
@@ -14,7 +17,7 @@
 
 			<!-- Pager -->
 
-			<ul class="pager">
+			<ul class="pager" ng-hide="postsCtrl.posts.length === 0">
 				<uib-pagination total-items="postsCtrl.totalItems" ng-model="postsCtrl.currentPage" items-per-page="postsCtrl.itemsPerPage" template-url="https://raw.githubusercontent.com/angular-ui/bootstrap/master/template/pagination/pagination.html"></uib-pagination>
 			</ul>
 			<br>
