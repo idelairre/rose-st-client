@@ -10,8 +10,9 @@ const ENTER_KEY = 13;
 @Component({
 	selector: 'donations',
 	controllerAs: 'donationsCtrl',
+	providers: ['stripe.checkout'],
 	directives: [DonationButton],
-	templateUrl: './scripts/components/donations/donations.html'
+	template: require('./donations.html')
 })
 
 @Inject('$filter', '$scope', 'StripeCheckout')

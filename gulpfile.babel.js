@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var gulpsync = require('gulp-sync')(gulp);
 var babel = require('gulp-babel');
 var browserSync = require('browser-sync');
 var gulpFilter = require('gulp-filter');
@@ -7,8 +8,8 @@ var $ = require('gulp-load-plugins')(); // loads other gulp plugins
 var browserify = require('browserify');
 var babelify = require('babelify');
 var watchify = require('watchify');
-var wiredep = require('wiredep').stream;
 var source = require('vinyl-source-stream');
+var stringify = require('stringify');
 
 // $.util.log.bind($.util, 'Browserify Error')
 
@@ -19,16 +20,29 @@ var bundler = {
       entries: ['./app/scripts/app.js'],
       extensions: ['.js'],
       debug: true
-    }).transform(babelify.configure({
+    })
+    .transform(babelify.configure({
       presets: ['es2015', 'stage-0'],
       plugins: ['transform-class-properties', 'transform-decorators-legacy', 'transform-function-bind']
-    })));
+    })))
+    // .transform(stringify({
+    //   extensions: ['.html'],
+    //   minify: true,
+    //   minifier: {
+    //     extensions: ['.html'],
+    //     options: {
+    //       customEventAttributes: [ /^on[a-z]{3,}$/ ],
+    //       customAttrAssign: []
+    //     }
+    //   }
+    // })));
   },
   bundle: function() {
     return this.w && this.w.bundle()
       .on('start', logger.start)
       .on('error', handleErrors)
       .pipe(source('app.js'))
+      .pipe($.ngAnnotate())
       .pipe(gulp.dest('./dist/scripts/'))
       .pipe(browserSync.reload({
         stream: true
@@ -41,6 +55,18 @@ var bundler = {
     this.w && this.w.close();
   }
 };
+
+gulp.task('change-paths', function() {
+  return gulp.src(['./dist/**/*.html', './dist/**/*.js'])
+    .pipe($.assetpaths({
+      newDomain: 'https://idelairre.github.io/rose_st_client',
+      oldDomain: 'http://idelairre.github.io/rose_st_client',
+      docRoot: 'dist',
+      filetypes: ['jpg', 'jpeg', 'png', 'ico', 'gif', 'js', 'css'],
+      templates: true
+    }))
+    .pipe(gulp.dest('./dist'));
+});
 
 gulp.task('images', function() {
   return gulp.src('app/images/**/*')
@@ -98,6 +124,12 @@ gulp.task('html:assets', function() {
     .pipe($.size());
 });
 
+gulp.task('html:compile', function() {
+  return gulp.src('dist/**/*.html')
+    .pipe($.htmlToJs())
+    .pipe(gulp.dest('dist'));
+});
+
 gulp.task('deploy', function() {
   return gulp.src('./dist/**/*')
     .pipe($.ghPages());
@@ -109,15 +141,11 @@ gulp.task('extras', function() {
     .pipe($.size());
 });
 
-gulp.task('wiredep', function() {
-  gulp.src('app/*.html')
-    .pipe(wiredep())
-    .pipe(gulp.dest('app'));
-});
-
 gulp.task('minify:js', function() {
   return gulp.src('dist/scripts/**/*.js')
-    .pipe($.uglify())
+    .pipe($.uglify({
+      mangle: false
+    }))
     .pipe(gulp.dest('dist/scripts'))
     .pipe($.size());
 });
@@ -171,15 +199,15 @@ var handleErrors = function() {
   this.emit('end');
 };
 
-gulp.task('html', ['html:main', 'html:assets']);
+gulp.task('html', ['html:main', 'html:assets', 'html:compile']);
 
 gulp.task('minify', ['minify:js', 'minify:css']);
 
 gulp.task('build', bundler.stop.bind(bundler));
 
-gulp.task('bundle', ['html', 'images', 'styles', 'scripts', 'extras']);
+gulp.task('bundle', gulpsync.sync(['html', 'images', 'styles', 'scripts', 'extras']));
 
-gulp.task('build:production', ['set-production', 'minify', 'build']);
+gulp.task('build:production', gulpsync.sync(['set-production', 'bundle', 'change-paths', 'minify', 'build']));
 
 gulp.task('serve:production', ['build:production', 'serve']);
 

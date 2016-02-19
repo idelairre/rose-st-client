@@ -3,7 +3,7 @@ import { Component, Inject } from 'ng-forward';
 @Component({
   selector: 'posts-modal',
   controllerAs: 'postsModalCtrl',
-  templateUrl: './scripts/components/posts/posts.modal/posts.modal.html',
+  template: require('./posts.modal.html'),
   providers: ['ui.bootstrap.modal']
 })
 

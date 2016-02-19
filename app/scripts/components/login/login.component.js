@@ -6,7 +6,7 @@ import 'babel-polyfill';
   selector: 'login',
   controllerAs: 'loginCtrl',
   providers: [AuthService],
-  templateUrl: './scripts/components/login/login.html'
+  template: require('./login.html')
 })
 
 @Inject(AuthService)

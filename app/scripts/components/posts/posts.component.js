@@ -5,7 +5,7 @@ import 'angular-utils-pagination';
 @Component({
   selector: 'posts',
   controllerAs: 'postsCtrl',
-  templateUrl: './scripts/components/posts/posts.html',
+  template: require('./posts.html'),
   providers: ['ui.bootstrap.pagination', PostsService]
 })
 

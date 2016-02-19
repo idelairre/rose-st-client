@@ -5,7 +5,7 @@ import PostsService from '../../posts/posts.service';
 @Component({
 	selector: 'rose-st-header',
 	controllerAs: 'headerCtrl',
-	templateUrl: './scripts/components/layout/header/header.html',
+	template: require('./header.html'),
 	providers: [AuthFactory, PostsService]
 })
 

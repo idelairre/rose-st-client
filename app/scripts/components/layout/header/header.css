@@ -1,4 +1,15 @@
-
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
 .intro-header {
   background-color: #808080;
   background:
@@ -6,7 +17,7 @@
       rgba(255, 0, 0, 0.45),
       rgba(255, 0, 0, 0.45)
     ),
-  url('../../images/rowhouses.jpg');
+  url('https://idelairre.github.io/rose_st_client/images/rowhouses.jpg');
   background-attachment: scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;

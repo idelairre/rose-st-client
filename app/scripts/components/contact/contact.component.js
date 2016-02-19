@@ -5,7 +5,7 @@ import 'babel-polyfill';
 
 @Component({
 	selector: 'contact',
-	templateUrl: './scripts/components/contact/contact.html',
+	template: require('./contact.html'),
 	controllerAs: 'contactCtrl'
 })
 

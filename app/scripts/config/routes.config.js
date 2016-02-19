@@ -3,7 +3,7 @@ import { STRIPE } from '../constants/constants';
 import 'angular-stripe-checkout';
 import 'reflect-metadata';
 
-@Inject('$stateProvider', '$urlRouterProvider', '$locationProvider', 'StripeCheckoutProvider')
+@Inject('$stateProvider', '$urlRouterProvider', '$locationProvider', 'StripeCheckout')
 class RouteConfig {
   constructor($stateProvider, $urlRouterProvider, $locationProvider, StripeCheckoutProvider) {
     $locationProvider.html5Mode({

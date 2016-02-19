@@ -4,7 +4,7 @@ import AuthFactory from '../../../services/authentication.service';
 @Component({
 	selector: 'rose-st-nav',
 	controllerAs: 'navCtrl',
-	templateUrl: './scripts/components/layout/nav/nav.html',
+	template: require('./nav.html'),
 	providers: [AuthFactory]
 })
 
