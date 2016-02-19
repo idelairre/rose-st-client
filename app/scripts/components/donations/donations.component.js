@@ -1,6 +1,7 @@
 import { Component, Inject, Resolve } from 'ng-forward';
 import DonationButton from './donations.directives/donation-button.component';
 import DonationsService from './donations.service';
+// import StripeCheckout from 'angular-stripe-checkout';
 import 'angular-ui-bootstrap';
 import 'babel-polyfill';
 
@@ -10,30 +11,29 @@ const ENTER_KEY = 13;
 @Component({
 	selector: 'donations',
 	controllerAs: 'donationsCtrl',
-	providers: ['stripe.checkout'],
+	providers: ['stripe.checkout', DonationsService],
 	directives: [DonationButton],
 	template: require('./donations.html')
 })
 
-@Inject('$filter', '$scope', 'StripeCheckout')
+@Inject('$filter', '$scope', 'StripeCheckout', DonationsService)
 export default class DonationsComponent {
 	@Resolve()
-	@Inject('StripeCheckout')
-	static resolve(StripeCheckoutProvider) {
-	  // checkout.js isn't fetched until this is resolved.
-	  return StripeCheckoutProvider.load;
+	@Inject(DonationsService)
+	static resolve(DonationsService) {
+	  return DonationsService.importScript() && DonationsService.loadLibrary();
 	}
 
-	constructor($filter, $scope, StripeCheckout) {
+	constructor($filter, $scope, StripeCheckout, DonationsService) {
 		this.$filter = $filter;
 		this.$scope = $scope;
-		this.StripeCheckout = StripeCheckout;
+		this.DonationsService = DonationsService;
 		this.amount = null;
 		this.subscriptionAmount = null;
 
 		this.DonationsService = DonationsService;
 
-		this.handler = this.StripeCheckout.configure({
+		this.handler = StripeCheckout.configure({
 			name: 'Rose St.',
 			token: (token, args) => {
 				console.log(`Got stripe token: ${token.id}`);

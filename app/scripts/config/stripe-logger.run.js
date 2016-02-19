@@ -1,23 +1,25 @@
 import { Inject } from 'ng-forward';
+import 'angular-stripe-checkout';
 
-@Inject('stripe.checkout')
+@Inject('StripeCheckout')
 class StripeLogger {
-  constructor(StripeCheckoutProvider) {
-    // You can set defaults here, too.
-    StripeCheckoutProvider.defaults({
-      opened: () => {
-        console.log('Stripe Checkout opened');
-      },
-      closed: () => {
-        console.log('Stripe Checkout closed');
-      }
-    });
+  constructor() {
+    console.log(arguments);
+    // // You can set defaults here, too.
+    // StripeCheckoutProvider.defaults({
+    //   opened: () => {
+    //     console.log('Stripe Checkout opened');
+    //   },
+    //   closed: () => {
+    //     console.log('Stripe Checkout closed');
+    //   }
+    // });
   }
 
-  static init(StripeCheckoutProvider) {
-    StripeLogger.instance = new RouteConfig(StripeCheckoutProvider);
+  static init() {
+    StripeLogger.instance = new StripeLogger();
     return StripeLogger.instance;
   }
 }
 
-export default angular.module('roseStClient.config', []).run(StripeLogger.init);
+export default angular.module('roseStClient.logger', ['stripe.checkout']).run(StripeLogger.init);

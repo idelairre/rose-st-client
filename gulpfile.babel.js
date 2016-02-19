@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var gulpsync = require('gulp-sync')(gulp);
 var babel = require('gulp-babel');
+var replace = require('gulp-replace-path');
 var browserSync = require('browser-sync');
 var gulpFilter = require('gulp-filter');
 var fs = require('fs');
@@ -10,8 +11,7 @@ var babelify = require('babelify');
 var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var stringify = require('stringify');
-
-// $.util.log.bind($.util, 'Browserify Error')
+var del = require('del');
 
 var bundler = {
   w: null,
@@ -21,21 +21,13 @@ var bundler = {
       extensions: ['.js'],
       debug: true
     })
+    .transform(stringify({
+      extensions: ['.html']
+    }))
     .transform(babelify.configure({
       presets: ['es2015', 'stage-0'],
       plugins: ['transform-class-properties', 'transform-decorators-legacy', 'transform-function-bind']
     })))
-    // .transform(stringify({
-    //   extensions: ['.html'],
-    //   minify: true,
-    //   minifier: {
-    //     extensions: ['.html'],
-    //     options: {
-    //       customEventAttributes: [ /^on[a-z]{3,}$/ ],
-    //       customAttrAssign: []
-    //     }
-    //   }
-    // })));
   },
   bundle: function() {
     return this.w && this.w.bundle()
@@ -55,18 +47,6 @@ var bundler = {
     this.w && this.w.close();
   }
 };
-
-gulp.task('change-paths', function() {
-  return gulp.src(['./dist/**/*.html', './dist/**/*.js'])
-    .pipe($.assetpaths({
-      newDomain: 'https://idelairre.github.io/rose_st_client',
-      oldDomain: 'http://idelairre.github.io/rose_st_client',
-      docRoot: 'dist',
-      filetypes: ['jpg', 'jpeg', 'png', 'ico', 'gif', 'js', 'css'],
-      templates: true
-    }))
-    .pipe(gulp.dest('./dist'));
-});
 
 gulp.task('images', function() {
   return gulp.src('app/images/**/*')
@@ -109,8 +89,8 @@ gulp.task('scripts', function() {
   return bundler.bundle();
 });
 
-gulp.task('html:main', function() {
-  return gulp.src(['app/**/*.html', 'app/index.html'])
+gulp.task('html:main', function() { // not in the mood for regex today
+  return gulp.src(['app/index.html'])
     .pipe(gulp.dest('dist'))
     .pipe(browserSync.reload({
       stream: true
@@ -118,17 +98,25 @@ gulp.task('html:main', function() {
   .pipe($.size());
 });
 
-gulp.task('html:assets', function() {
+gulp.task('html:change-path', function() { // not in the mood for regex today
+  var prodUrl = 'https://idelairre.github.io/rose_st_client/';
+  return gulp.src(['app/index.html'])
+    .pipe(replace(/scripts/g, prodUrl + 'scripts'))
+    .pipe(replace(/styles\/main.css/g, prodUrl + 'styles/main.css'))
+    .pipe(replace(/favicon.ico/g, prodUrl + 'favicon.ico'))
+    .pipe(gulp.dest('dist'))
+    .pipe($.size());
+});
+
+gulp.task('html:node', function() {
   return gulp.src(['node_modules/angular-ui-bootstrap/**/*.html', '!node_modules/angular-ui-bootstrap/src/**/*.html'])
     .pipe(gulp.dest('dist/uib'))
     .pipe($.size());
 });
 
-gulp.task('html:compile', function() {
-  return gulp.src('dist/**/*.html')
-    .pipe($.htmlToJs())
-    .pipe(gulp.dest('dist'));
-});
+gulp.task('html:clean', function () {
+  return del.sync(['dist/components']);
+})
 
 gulp.task('deploy', function() {
   return gulp.src('./dist/**/*')
@@ -199,21 +187,28 @@ var handleErrors = function() {
   this.emit('end');
 };
 
-gulp.task('html', ['html:main', 'html:assets', 'html:compile']);
+
+gulp.task('clean', ['html:clean']);
 
 gulp.task('minify', ['minify:js', 'minify:css']);
 
 gulp.task('build', bundler.stop.bind(bundler));
 
-gulp.task('bundle', gulpsync.sync(['html', 'images', 'styles', 'scripts', 'extras']));
+gulp.task('assets', gulpsync.sync(['images', 'styles']));
 
-gulp.task('build:production', gulpsync.sync(['set-production', 'bundle', 'change-paths', 'minify', 'build']));
+gulp.task('html', gulpsync.sync(['html:main', 'html:node']));
+
+gulp.task('html:production', gulpsync.sync(['html:change-path']));
+
+gulp.task('bundle', gulpsync.sync(['assets', 'scripts', 'extras']));
+
+gulp.task('build:production', gulpsync.sync(['set-production', 'html:production', 'bundle', 'minify', 'build']));
 
 gulp.task('serve:production', ['build:production', 'serve']);
 
 gulp.task('default', ['build']);
 
-gulp.task('watch', ['bundle', 'serve']),
+gulp.task('watch', gulpsync.sync(['html', 'bundle', 'serve'])),
   function() {
     bundler.watch();
     gulp.watch('app/styles/**/*.css', ['styles']);
