@@ -29,19 +29,26 @@ export default class DonationsComponent {
 		this.DonationsService = DonationsService;
 		this.amount = null;
 		this.subscriptionAmount = null;
+		this.lastClicked = null;
 
 		this.DonationsService = DonationsService;
+		this.handler = {};
+		this.StripeCheckout = {};
+		this.chargeOptions = {};
+		this.donationButtons = [];
 	}
 
 	ngOnInit() {
-		try {
-			this.initializeStripe();
-		} catch (error) {
-			this.DonationsService.loadCheckout().then(this.initializeStripe());
-		}
+	  this.initializeStripe();
+	}
+
+	ngAfterViewInit() {
+		let donationButtons = Array.prototype.slice.call(document.getElementsByTagName('donation-button'));
+		this.donationButtons.length = donationButtons.length;
 	}
 
 	initializeStripe() {
+		console.log('initializing stripe...');
 		try {
 			this.StripeCheckout = StripeCheckout;
 
@@ -57,13 +64,15 @@ export default class DonationsComponent {
 				image: 'images/10322663_618915454865065_6177637275289747984_n.jpg',
 				panelLabel: 'Donate'
 			};
+
 		} catch (error) {
 			console.info(error);
+			this.DonationsService.loadCheckout().then(() => this.initializeStripe());
 		}
 	}
 
-	async doCheckout(token, args) {
-		console.log(arguments);
+	async doCheckout(type) {
+		console.log('do checkout', arguments);
 	  // The default handler API is enhanced by having open()
 	  // return a promise. This promise can be used in lieu of or
 	  // in addition to the token callback (or you can just ignore
@@ -74,61 +83,42 @@ export default class DonationsComponent {
 			let result = await this.handler.open(this.chargeOptions);
 			console.log(`Got Stripe token: ${result[0].id}`);
 			console.log(`Amount: ${this.chargeOptions.amount}`);
-			this.DonationsService.sendChargeToken(result[0].id, this.chargeOptions);
+			if (type === 'charge') {
+				this.DonationsService.sendChargeToken(result[0].id, this.chargeOptions);
+			} else if (type === 'subscription') {
+				this.DonationsService.sendSubscriptionToken(result[0].id, this.chargeOptions);
+			}
 		} catch (error) {
 			console.error(error);
 		}
 	}
 
-	checkoutById (id) {
-		this.chargeOptions['amount'] = (id * 1000);
-		this.chargeOptions['description'] = `Donate $${(id * 10)} to Rose St.`;
-		this.doCheckout();
-	}
-
-	setPayment(event, amount) {
-		if (event.keyCode === ENTER_KEY) {
-			this.chargeOptions['description'] = `Donate ${amount} to Rose St.`;
+	setPayment(event, amount, type) {
+		if (typeof amount === 'string') {
 			amount = parseFloat(amount.replace(/\D/g, ''));
-			this.chargeOptions['amount'] = (amount * 100);
-			console.log(this.chargeOptions);
+		}
+		this.chargeOptions['amount'] = (amount * 100);
+		if (event.keyCode === ENTER_KEY || event.type === 'click') {
+			if (type === 'charge') {
+				this.chargeOptions['description'] = `Donate $${amount} to Rose St.`;
+			} else if (type === 'subscription') {
+				this.chargeOptions['description'] = `Donate $${amount} monthly to Rose St.`;
+			}
 		}
 	}
 
-	//
-	// async doSubscriptionCheckout(subscriptionId) {
-	// 	try {
-	// 		let result = await this.handler.open(this.subscriptionOptions);
-	// 		console.log(`Got Stripe token: ${result[0].id}`)
-	// 		console.log(`Amount: ${this.chargeOptions}`)
-	// 		this.DonationsService.sendSubscriptionToken(result[0].id, subscriptionId);
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 	}
-	// }
-	//
-	// setSubscriptionPayment(amount) {
-	// 	this.subscriptionOptions['description'] = `Donate ${$filter('currency')(amount)} monthly to Rose St.`;
-	// 	if (typeof amount === 'string') {
-	// 		amount = parseFloat(amount.replace(/,/g, ''));
-	// 	} else {
-	// 		amount = parseFloat(amount);
-	// 	}
-	// 	this.subscriptionOptions['amount'] = amount * 100;
-	// 	console.log(subscriptionOptions)
-	// }
-	//
-	// doSubscriptionCheckoutById(id) {
-	// 	this.subscriptionOptions['amount'] = id * 1000;
-	// 	this.subscriptionOptions['description'] = `Donate $${(id * 10)} monthly to Rose St.`;
-	// 	this.doSubscriptionCheckout(id);
-	// 	console.log(this.subscriptionOptions)
-	// };
-	//
-	// async doCustomSubscriptionCheckout() {
-	// 	let result = await this.handler.open(subscriptionOptions);
-	// 	console.log(`Got Stripe token: ${result[0].id}`);
-	// 	console.log(`Amount: ${subscriptionOptions}`)
-	// 	this.DonationsService.sendCustomSubscriptionToken(result[0].id, this.subscriptionOptions.amount);
-	// }
+	setClicked(event, id) {
+		for (let i in this.donationButtons) {
+			this.donationButtons[i] = false;
+		}
+		this.donationButtons[id] = true;
+	}
+
+	resetClicked(id) {
+		for (let i = 0; this.donationButtons.length > i; i += 1) {
+			if (i !== id) {
+				this.donationButtons[i] = true;
+			}
+		}
+	}
 }

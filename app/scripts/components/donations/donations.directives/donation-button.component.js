@@ -7,10 +7,10 @@ const ENTER_KEY = 13;
   selector: 'donation-button',
   controllerAs: 'donationButtonCtrl',
   directives: [CurrencyInput],
-  inputs: ['value', 'keyup', 'hidden'],
-  outputs: ['checkout'],
+  inputs: ['value', 'keyup', 'hidden', 'clicked'],
+  outputs: ['checkout', 'reset'],
   template: `
-  <div class="input-group">
+  <div class="input-group" ng-model="donationButtonCtrl.clicked">
     <span class="input-group-btn">
       <currency-input css="btn btn-default" placeholder="set amount" ng-show="!donationButtonCtrl.hidden" [(value)]="donationButtonCtrl.value" (keyup)="donationButtonCtrl.keyup($event)"></currency-input>
       <button class="btn btn-default" ng-show="donationButtonCtrl.hidden" (click)="donationButtonCtrl.click()">Donate {{ donationButtonCtrl.value }}</button>
@@ -19,17 +19,20 @@ const ENTER_KEY = 13;
   `
 })
 
-@Inject('$document', '$rootScope', '$scope')
+@Inject('$document', '$element', '$rootScope', '$scope')
 export default class DonationButton {
   @Input() value;
   @Input() keyup;
+  @Input() clicked;
   @Output() checkout;
-  constructor($document, $rootScope, $scope) {
+  constructor($document, $element, $rootScope, $scope) {
     this.$document = $document;
+    this.$element = $element;
     this.$rootScope = $rootScope;
     this.$scope = $scope;
     this.hidden = false;
     this.checkout = new EventEmitter();
+    this.reset = new EventEmitter();
     this.hasFocus = false;
     this.$scope.$on('esc', ::this.esc);
   }
@@ -39,8 +42,12 @@ export default class DonationButton {
   }
 
   esc(event) {
-    this.hidden = false;
-    this.$scope.$digest();
+    if (this.clicked === true) {
+      this.clicked = false;
+      this.hidden = false;
+      this.reset.next();
+      this.$scope.$digest();
+    }
   }
 
   keyup(event) {

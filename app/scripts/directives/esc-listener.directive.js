@@ -14,7 +14,6 @@ export default class EscListener {
     this.$document.bind('keydown', $event => {
       if ($event.keyCode === ESC_KEY) {
         $event.preventDefault();
-        console.log($event);
         this.$rootScope.$broadcast('esc', $event);
       }
     });

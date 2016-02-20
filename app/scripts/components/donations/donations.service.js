@@ -6,24 +6,19 @@ import 'babel-polyfill';
 const STRIPE_CHECKOUT_URL = 'https://checkout.stripe.com/checkout.js';
 
 @Injectable()
-@Inject('$document')
+@Inject('StripeCheckout')
 export default class DonationsService {
-	constructor($document) {
-		this.$document = $document;
-		this.stripeContainer = {};
+	constructor(StripeCheckout) {
+		this.StripeCheckout = StripeCheckout;
 	}
 
-	@Inject('StripeCheckout')
-	static loadCheckout(StripeCheckoutProvider) {
-		return StripeCheckoutProvider.load;
+	loadCheckout() {
+		console.log('running stripe load script...');
+		return this.StripeCheckout.load();
 	}
 
 	handleLoadError(error) {
 		return new URIError('Unable to load checkout.js', error);
-	}
-
-	loadLibrary() {
-		console.log(angular.element(this.stripeContainer).scope());
 	}
 
 	async sendChargeToken(token, options) {

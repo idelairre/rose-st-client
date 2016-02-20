@@ -118,7 +118,7 @@ gulp.task('html:clean', function () {
   return del.sync(['dist/components']);
 })
 
-gulp.task('deploy', function() {
+gulp.task('gh-pages', function() {
   return gulp.src('./dist/**/*')
     .pipe($.ghPages());
 });
@@ -204,7 +204,7 @@ gulp.task('bundle', gulpsync.sync(['assets', 'scripts', 'extras']));
 
 gulp.task('build:production', gulpsync.sync(['set-production', 'html:production', 'bundle', 'minify', 'build']));
 
-gulp.task('serve:production', ['build:production', 'serve']);
+gulp.task('deploy', gulpsync.sync(['build:production', 'gh-pages']));
 
 gulp.task('default', ['build']);
 
@@ -212,4 +212,5 @@ gulp.task('watch', gulpsync.sync(['html', 'bundle', 'serve'])),
   function() {
     bundler.watch();
     gulp.watch('app/styles/**/*.css', ['styles']);
+    gulp.watch('app/**/*.html', ['html']);
   };
