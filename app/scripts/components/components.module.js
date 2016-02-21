@@ -5,7 +5,6 @@ export Footer from './layout/footer/footer.component';
 export Header from './layout/header/header.component';
 export Nav from './layout/nav/nav.component';
 
-export LoginComponent from './login/login.component';
 export MainComponent from './main/main.component';
 export PostsComponent from './posts/posts.component';
 export PostsDetailComponent from './posts/posts.detail/posts.detail.component';

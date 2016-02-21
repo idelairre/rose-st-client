@@ -13,8 +13,12 @@ export default class DonationsService {
 	}
 
 	loadCheckout() {
-		console.log('running stripe load script...');
-		return this.StripeCheckout.load();
+		try {
+			console.log('running stripe load script...');
+			return this.StripeCheckout.load();
+		} catch (error) {
+			this.handleLoadError(error);
+		}
 	}
 
 	handleLoadError(error) {
@@ -28,35 +32,35 @@ export default class DonationsService {
 		};
 		try {
 			let response = await axios.post(`${SERVER_URL}/charges/`, params);
-			console.log(response);
+			return Promise.resolve(response);
 		} catch (error) {
-			console.error(error);
+			return Promise.reject(error);
 		}
 	}
 
-	async sendSubscriptionToken(token, subscriptionId) {
+	async sendSubscriptionToken(token, options) {
 		let params = {
 			token: token,
-			subscription_id: subscriptionId
+			subscription_id: options.id
 		};
 		try {
 			let response = await axios.post(`${SERVER_URL}/charges/subscription`, params);
-			console.log(response);
+			return Promise.resolve(response);
 		} catch (error) {
-			console.error(error);
+			return Promise.reject(error);
 		}
 	}
 
-	async sendCustomSubscriptionToken(token, amount) {
+	async sendCustomSubscriptionToken(token, options) {
 		let params = {
 			token: token,
-			amount: amount
+			amount: options.amount
 		};
 		try {
 			let response = await axios.post(`${SERVER_URL}/charges/custom_subscription`, params);
-			console.log(response);
+			return Promise.resolve(response);
 		} catch (error) {
-			console.error(error);
+			return Promise.reject(error);
 		}
 	}
 }

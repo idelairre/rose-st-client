@@ -4,60 +4,60 @@
   <p class="text-muted">For custom donation amounts, click "set amount" and type your desired contribution. When you are done, press "enter" to set your amount. Press "esc" if you want to change your contribution after it's set.
   </p>
   <div class="row">
-    <div class="col-md-4">
-      <button (click)="donationsCtrl.setPayment($event, 10, 'charge'); donationsCtrl.doCheckout('charge')" class="btn btn-default">Donate $10</button>
+    <div class="col-md-4 col-sm-4 col-xs-6">
+      <button (click)="donationsCtrl.setPayment($event, { amount: 10, type: 'charge' }); donationsCtrl.doCheckout('charge')" class="btn btn-default">Donate $10</button>
     </div>
-    <div class="col-md-4">
-      <button (click)="donationsCtrl.setPayment($event, 20, 'charge'); donationsCtrl.doCheckout('charge')" class="btn btn-default">Donate $20</button>
+    <div class="col-md-4 col-sm-4 col-xs-6">
+      <button (click)="donationsCtrl.setPayment($event, { amount: 20, type: 'charge' }); donationsCtrl.doCheckout('charge')" class="btn btn-default">Donate $20</button>
     </div>
-    <div class="col-md-4">
-      <button (click)="donationsCtrl.setPayment($event, 30, 'charge'); donationsCtrl.doCheckout('charge')" class="btn btn-default">Donate $30</button>
+    <div class="col-md-4 col-sm-4 col-xs-6">
+      <button (click)="donationsCtrl.setPayment($event, { amount: 30, type: 'charge' }); donationsCtrl.doCheckout('charge')" class="btn btn-default">Donate $30</button>
     </div>
-    <div class="col-md-4">
-      <button (click)="donationsCtrl.setPayment($event, 40, 'charge'); donationsCtrl.doCheckout('charge')" class="btn btn-default">Donate $40</button>
+    <div class="col-md-4 col-sm-4 col-xs-6">
+      <button (click)="donationsCtrl.setPayment($event, { amount: 40, type: 'charge' }); donationsCtrl.doCheckout('charge')" class="btn btn-default">Donate $40</button>
     </div>
-    <div class="col-md-4">
-      <button (click)="donationsCtrl.setPayment($event, 50, 'charge'); donationsCtrl.doCheckout('charge')" class="btn btn-default">Donate $50</button>
+    <div class="col-md-4 col-sm-4 col-xs-6">
+      <button (click)="donationsCtrl.setPayment($event, { amount: 50, type: 'charge' }); donationsCtrl.doCheckout('charge')" class="btn btn-default">Donate $50</button>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-4 col-xs-6">
       <donation-button
       id="0"
       (click)="donationsCtrl.setClicked($event, 0)"
       [(clicked)]="donationsCtrl.donationButtons[0]"
       (reset)="donationsCtrl.resetClicked(0)"
 			[(value)]="donationsCtrl.amount"
-			(keyup)="donationsCtrl.setPayment($event, donationsCtrl.amount, 'charge')"
-			(checkout)="donationsCtrl.setPayment($event, 50, 'charge'); donationsCtrl.doCheckout('charge')">
+			(keyup)="donationsCtrl.setPayment($event, { amount: donationsCtrl.amount, type: 'charge' })"
+			(checkout)="donationsCtrl.setPayment($event, { amount: donationsCtrl.amount, type: 'charge' }); donationsCtrl.doCheckout('charge')">
 		</donation-button>
     </div>
   </div>
   <h1>Monthly Donation</h1>
   <hr>
   <div class="row">
-    <div class="col-md-4">
-      <button (click)="donationsCtrl.setPayment($event, 10, 'subscription'); donationsCtrl.doCheckout('subscription')" class="btn btn-default">Donate $10</button>
+    <div class="col-md-4 col-sm-4 col-xs-6">
+      <button (click)="donationsCtrl.setPayment($event, { amount: 10, type: 'subscription', id: 1 }); donationsCtrl.doCheckout('subscription')" class="btn btn-default">Donate $10</button>
     </div>
-    <div class="col-md-4">
-      <button (click)="donationsCtrl.setPayment($event, 10, 'subscription'); donationsCtrl.doCheckout('subscription')" class="btn btn-default">Donate $20</button>
+    <div class="col-md-4 col-sm-4 col-xs-6">
+      <button (click)="donationsCtrl.setPayment($event, { amount: 20, type: 'subscription', id: 2 }); donationsCtrl.doCheckout('subscription')" class="btn btn-default">Donate $20</button>
     </div>
-    <div class="col-md-4">
-      <button (click)="donationsCtrl.setPayment($event, 10, 'subscription'); donationsCtrl.doCheckout('subscription')" class="btn btn-default">Donate $30</button>
+    <div class="col-md-4 col-sm-4 col-xs-6">
+      <button (click)="donationsCtrl.setPayment($event, { amount: 30, type: 'subscription', id: 3 }); donationsCtrl.doCheckout('subscription')" class="btn btn-default">Donate $30</button>
     </div>
-    <div class="col-md-4">
-      <button (click)="donationsCtrl.setPayment($event, 10, 'subscription'); donationsCtrl.doCheckout('subscription')" class="btn btn-default">Donate $40</button>
+    <div class="col-md-4 col-sm-4 col-xs-6">
+      <button (click)="donationsCtrl.setPayment($event, { amount: 40, type: 'subscription', id: 4 }); donationsCtrl.doCheckout('subscription')" class="btn btn-default">Donate $40</button>
     </div>
-    <div class="col-md-4">
-      <button (click)="donationsCtrl.setPayment($event, 10, 'subscription'); donationsCtrl.doCheckout('subscription')" class="btn btn-default">Donate $50</button>
+    <div class="col-md-4 col-sm-4 col-xs-6">
+      <button (click)="donationsCtrl.setPayment($event, { amount: 50, type: 'subscription', id: 5 }); donationsCtrl.doCheckout('subscription')" class="btn btn-default">Donate $50</button>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-4 col-xs-6">
 			<donation-button
       id="1"
       (click)="donationsCtrl.setClicked($event, 1)"
       [(clicked)]="donationsCtrl.donationButtons[1]"
       (reset)="donationsCtrl.resetClicked(1)"
 			[(value)]="donationsCtrl.subscriptionAmount"
-			(keyup)="donationsCtrl.setPayment($event, donationsCtrl.subscriptionAmount, 'subscription')"
-			(checkout)="donationsCtrl.setPayment($event, donationsCtrl.subscriptionAmount, 'subscription'); donationsCtrl.doCheckout('subscription')">
+			(keyup)="donationsCtrl.setPayment($event, { amount: donationsCtrl.subscriptionAmount, type: 'subscription-custom' })"
+			(checkout)="donationsCtrl.setPayment($event, { amount: donationsCtrl.subscriptionAmount, type: 'subscription-custom' }); donationsCtrl.doCheckout('subscription-custom')">
 			</donation-button>
     </div>
   </div>

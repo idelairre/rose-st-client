@@ -40,12 +40,7 @@ import 'reflect-metadata';
 		url: '/donations',
 		component: components.DonationsComponent,
 		as: 'donationsCtrl'
-	}, {
-	  name: 'login',
-	  url: '/login',
-		component: components.LoginComponent,
-		as: 'loginCtrl'
-}])
+	}])
 
 @Component({
 	selector: 'rose-st-client',

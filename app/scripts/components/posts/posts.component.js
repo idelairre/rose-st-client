@@ -28,11 +28,4 @@ export default class PostsComponent {
   setPage(pageNo) {
     this.currentPage = pageNo;
   }
-
-  // open() {
-  //   this.$uibModalInstance = this.$uibModal.open({
-  //     templateUrl: './app/scripts/components/posts/posts.form/posts.form.html',
-  //     size: 'lg'
-  //   });
-  // }
 }

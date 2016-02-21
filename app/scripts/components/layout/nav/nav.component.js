@@ -1,16 +1,9 @@
-import { Component, Inject } from 'ng-forward'
-import AuthFactory from '../../../services/authentication.service';
+import { Component } from 'ng-forward';
 
 @Component({
 	selector: 'rose-st-nav',
 	controllerAs: 'navCtrl',
-	template: require('./nav.html'),
-	providers: [AuthFactory]
+	template: require('./nav.html')
 })
 
-@Inject(AuthFactory)
-export default class NavComponent {
-	constructor(AuthFactory) {
-		this.AuthFactory = AuthFactory;
-	}
-}
+export default class NavComponent {}

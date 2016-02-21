@@ -6,7 +6,7 @@ import 'angular-utils-disqus';
 @Component({
   selector: 'posts-detail',
   controllerAs: 'postsDetailCtrl',
-  templateUrl: require('./posts.detail.html'),
+  template: require('./posts.detail.html'),
   pipes: [ToTrusted],
   providers: ['angularUtils.directives.dirDisqus', PostsService]
 })

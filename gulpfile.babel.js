@@ -64,16 +64,16 @@ gulp.task('serve', function() {
     server: {
       baseDir: './dist'
     },
-    https: true
+    // https: true
   });
   gulp.watch('app/**/*.js', ['scripts']);
-  gulp.watch('app/**/*.html', ['html']);
+  gulp.watch('app/**/*.html', ['scripts']); // html is now js
   gulp.watch('app/**/*.css', ['styles']);
 });
 
 //watch scss for changes and render into minified css with nice auto-prefixing
 gulp.task('styles', function() {
-  return gulp.src('app/**/*.css')
+  return gulp.src(['app/**/*.css', 'node_modules/angular-ui-notification/dist/angular-ui-notification.css'])
     .on('error', handleErrors)
     .pipe($.autoprefixer('last 1 version'))
     .pipe($.concat('main.css'))
@@ -212,5 +212,5 @@ gulp.task('watch', gulpsync.sync(['html', 'bundle', 'serve'])),
   function() {
     bundler.watch();
     gulp.watch('app/styles/**/*.css', ['styles']);
-    gulp.watch('app/**/*.html', ['html']);
+    gulp.watch('app/**/*.html', ['scripts']);
   };
