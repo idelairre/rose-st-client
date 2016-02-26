@@ -4,5 +4,4 @@ export const STRIPE = {
 
 // export const SERVER_URL = 'https://rose-st-api.herokuapp.com';
 
-// export const SERVER_URL = 'https://0.0.0.0:3000';
 export const SERVER_URL = 'http://localhost:3000';

@@ -20,6 +20,7 @@ export default class PostsDetailComponent {
   }
 
   constructor($state, PostsService) {
+    console.log(PostsService, PostsService.post);
     this.post = PostsService.post;
     this.url = $state.href($state.current.name, $state.params, {absolute: true});
     this.identifier = $state.href($state.current.name, $state.params, {absolute: false});

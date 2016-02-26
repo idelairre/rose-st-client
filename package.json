@@ -2,8 +2,8 @@
   "name": "rosestclient",
   "version": "0.0.0",
   "dependencies": {
-    "AngularDevise": "git+https://github.com/cloudspace/angular_devise.git",
     "angular": "^1.5.0",
+    "angular-animate": "^1.5.0",
     "angular-money-directive": "^1.2.4",
     "angular-resource": "^1.5.0",
     "angular-sanitize": "^1.5.0",
@@ -18,8 +18,7 @@
     "axios": "^0.9.1",
     "connect-modrewrite": "^0.8.2",
     "ng-forward": "0.0.1-alpha.12",
-    "slug": "^0.9.1",
-    "textangular": "^1.5.0"
+    "slug": "^0.9.1"
   },
   "scripts": {
     "start": "gulp watch",
