@@ -6,7 +6,8 @@ import 'babel-polyfill';
 @Component({
 	selector: 'contact',
 	template: require('./contact.html'),
-	controllerAs: 'contactCtrl'
+	controllerAs: 'contactCtrl',
+	providers: ['ngMessages']
 })
 
 @Inject('$scope')

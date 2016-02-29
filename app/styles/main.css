@@ -71,3 +71,8 @@ body {
 input {
 	width: 171.007px;
 }
+
+.error-wrapper {
+	max-height: 30px;
+	min-height: 30px;
+}

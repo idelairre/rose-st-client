@@ -31,7 +31,7 @@ export default class DonationsService {
 			amount: options.amount,
 		};
 		try {
-			let response = await axios.post(`${SERVER_URL}/charges/`, params);
+			let response = await axios.post(`${SERVER_URL}/donations/`, params);
 			return Promise.resolve(response);
 		} catch (error) {
 			return Promise.reject(error);
@@ -44,7 +44,7 @@ export default class DonationsService {
 			subscription_id: options.id
 		};
 		try {
-			let response = await axios.post(`${SERVER_URL}/charges/subscription`, params);
+			let response = await axios.post(`${SERVER_URL}/donations/subscription`, params);
 			return Promise.resolve(response);
 		} catch (error) {
 			return Promise.reject(error);
@@ -57,7 +57,7 @@ export default class DonationsService {
 			amount: options.amount
 		};
 		try {
-			let response = await axios.post(`${SERVER_URL}/charges/custom_subscription`, params);
+			let response = await axios.post(`${SERVER_URL}/donations/custom_subscription`, params);
 			return Promise.resolve(response);
 		} catch (error) {
 			return Promise.reject(error);

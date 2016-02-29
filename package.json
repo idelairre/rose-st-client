@@ -4,6 +4,8 @@
   "dependencies": {
     "angular": "^1.5.0",
     "angular-animate": "^1.5.0",
+    "angular-input-masks": "^2.1.1",
+    "angular-messages": "^1.5.0",
     "angular-money-directive": "^1.2.4",
     "angular-resource": "^1.5.0",
     "angular-sanitize": "^1.5.0",
@@ -17,6 +19,7 @@
     "angular-utils-pagination": "^0.10.0",
     "axios": "^0.9.1",
     "connect-modrewrite": "^0.8.2",
+    "ng-currency-mask": "git+https://github.com/vtex/ng-currency-mask.git",
     "ng-forward": "0.0.1-alpha.12",
     "slug": "^0.9.1"
   },

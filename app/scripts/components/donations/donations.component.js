@@ -3,7 +3,6 @@ import DonationButton from './donations.directives/donation-button.component';
 import DonationsService from './donations.service';
 import { STRIPE } from '../../constants/constants';
 import 'angular-ui-bootstrap';
-import 'angular-ui-notification';
 import 'babel-polyfill';
 
 const ESC_KEY = 27;
@@ -14,12 +13,12 @@ const STRIPE_THUMBNAIL_URL = 'https://raw.githubusercontent.com/idelairre/rose_s
 @Component({
 	selector: 'donations',
 	controllerAs: 'donationsCtrl',
-	providers: ['stripe.checkout', 'ui-notification', DonationsService],
+	providers: ['stripe.checkout', DonationsService],
 	directives: [DonationButton],
 	template: require('./donations.html')
 })
 
-@Inject('$filter', '$scope', 'StripeCheckout', 'Notification', DonationsService)
+@Inject('$filter', '$scope', 'StripeCheckout', DonationsService)
 export default class DonationsComponent {
 	@Resolve()
 	@Inject('StripeCheckout')
@@ -27,7 +26,7 @@ export default class DonationsComponent {
 		return StripeCheckoutProvider.load;
 	}
 
-	constructor($filter, $scope, StripeCheckout, Notification, DonationsService) {
+	constructor($filter, $scope, StripeCheckout, DonationsService) {
 		this.$filter = $filter;
 		this.$scope = $scope;
 		this.DonationsService = DonationsService;
@@ -35,8 +34,6 @@ export default class DonationsComponent {
 		this.subscriptionAmount = null;
 
 		this.DonationsService = DonationsService;
-
-		this.Notification = Notification;
 
 		this.handler = {};
 		this.StripeCheckout = {};
@@ -77,9 +74,10 @@ export default class DonationsComponent {
 	// NB: The rejection callback doesn't work in IE6-7.
 	doCheckout(type) {
 		console.log(`charge slug: [type: ${type}, amount: ${this.chargeOptions.amount}]`);
-		if (typeof this.chargeOptions.amount !== 'number') {
-			return;
-		}
+		console.log(typeof this.chargeOptions.amount);
+		// if (typeof this.chargeOptions.amount !== 'number') {
+		// 	return;
+		// }
 		try {
 			this.handler = this.StripeCheckout.configure({
 				name: 'Rose St.',
@@ -96,34 +94,34 @@ export default class DonationsComponent {
 
 	async handleCharge(token, type) {
 		try {
-			console.log(`charge type: ${type}`);
-			console.log(`Got stripe token: ${token.id}`);
-			console.log(`Amount: ${this.chargeOptions.amount}`);
+			// console.log(`charge type: ${type}`);
+			// console.log(`Got stripe token: ${token.id}`);
+			// console.log(`Amount: ${this.chargeOptions.amount}`);
+			let result = {};
 			if (type === 'charge') {
-				let result = await this.DonationsService.sendChargeToken(token.id, this.chargeOptions);
-				console.log(result);
+				result = await this.DonationsService.sendChargeToken(token.id, this.chargeOptions);
 			} else if (type === 'subscription') {
-				let result = await this.DonationsService.sendSubscriptionToken(token.id, this.chargeOptions);
-				console.log(result);
+				result = await this.DonationsService.sendSubscriptionToken(token.id, this.chargeOptions);
 			} else if (type === 'subscription-custom') {
-				let result = await this.DonationsService.sendCustomSubscriptionToken(token.id, this.chargeOptions);
-				console.log(result);
+				result = await this.DonationsService.sendCustomSubscriptionToken(token.id, this.chargeOptions);
 			}
+			// console.log(result);
 		} catch (error) {
 			console.error(error);
-			this.Notification.error({
-				message: PAYMENT_ERROR
-			});
 		}
 	}
 
 	setPayment(event, opts) {
-		if (typeof opts.amount === 'string') {
-			opts.amount = parseFloat(opts.amount.replace(/\D/g, ''));
-		}
 		if (event.keyCode === ENTER_KEY || event.type === 'click') {
-			this.chargeOptions.amount = opts.amount * 100;
-			console.log('payment set: ', this.chargeOptions.amount);
+			// console.log(opts.amount);
+			if (typeof opts.amount !== 'number') {
+				return;
+			}
+			if (opts.amount < 10) {
+				return;
+			}
+			this.chargeOptions.amount = Math.round((opts.amount * 100) * 10 ) / 10;
+			// console.log('payment set: ', this.chargeOptions.amount);
 			if (opts.type === 'charge') {
 				this.chargeOptions.description = `Donate $${opts.amount} to Rose St.`;
 			} else if (opts.type === 'subscription') {

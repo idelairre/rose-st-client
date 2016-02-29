@@ -8,8 +8,11 @@ import uiRouter from 'angular-ui-router';
 import EscListener from './directives/esc-listener.directive';
 import * as components from './components/components.module';
 import 'angular-animate';
+import 'angular-messages';
 import 'angular-ui-bootstrap';
+import 'angular-input-masks';
 import 'babel-polyfill';
+import 'ng-currency-mask';
 import 'reflect-metadata';
 
 @StateConfig([{
@@ -57,6 +60,6 @@ import 'reflect-metadata';
 	`
 })
 
-export default class RoseStClient {}
+export default class RoseStClient { }
 
-bootstrap(RoseStClient, ['ngAnimate', 'ui.bootstrap', 'ui.router', RouteConfig.name, SceWhitelist.name]);
+bootstrap(RoseStClient, ['ngAnimate', 'ngMessages', 'ui.bootstrap', 'ui.router', 'ui.utils.masks', RouteConfig.name, SceWhitelist.name]);

@@ -7,13 +7,13 @@ const ENTER_KEY = 13;
   selector: 'donation-button',
   controllerAs: 'donationButtonCtrl',
   directives: [CurrencyInput],
-  inputs: ['value', 'keyup', 'hidden', 'clicked'],
+  inputs: ['name', 'value', 'keyup', 'hidden', 'clicked'],
   outputs: ['checkout', 'reset'],
   template: `
   <div class="input-group" ng-model="donationButtonCtrl.clicked">
     <span class="input-group-btn">
-      <currency-input css="btn btn-default" placeholder="set amount" ng-show="!donationButtonCtrl.hidden" [(value)]="donationButtonCtrl.value" (keyup)="donationButtonCtrl.keyup($event)"></currency-input>
-      <button class="btn btn-default" ng-show="donationButtonCtrl.hidden" (click)="donationButtonCtrl.click()">Donate {{ donationButtonCtrl.value }}</button>
+      <currency-input [focus]="donationButtonCtrl.focus" [name]="donationButtonCtrl.name" css="btn btn-default" placeholder="set amount" ng-show="!donationButtonCtrl.hidden" [(value)]="donationButtonCtrl.value" (keyup)="donationButtonCtrl.keyup($event)"></currency-input>
+      <button class="btn btn-default" ng-show="donationButtonCtrl.hidden" (click)="donationButtonCtrl.click()">Donate {{ donationButtonCtrl.value | currency }}</button>
     </span>
   </div>
   `
@@ -24,35 +24,38 @@ export default class DonationButton {
   @Input() value;
   @Input() keyup;
   @Input() clicked;
+  @Input() hidden;
+  @Input() name;
   @Output() checkout;
-  constructor($document, $element, $rootScope, $scope) {
+  @Output() reset;
+  constructor($document, $element, $scope) {
     this.$document = $document;
     this.$element = $element;
-    this.$rootScope = $rootScope;
     this.$scope = $scope;
     this.hidden = false;
     this.checkout = new EventEmitter();
     this.reset = new EventEmitter();
-    this.hasFocus = false;
+    this.focus = false;
     this.$scope.$on('esc', ::this.esc);
-  }
-
-  focus(event) {
-    this.hasFocus = true;
   }
 
   esc(event) {
     if (this.clicked === true) {
       this.clicked = false;
       this.hidden = false;
+      this.focus = true;
       this.reset.next();
-      this.$scope.$digest();
+      this.$scope.$apply();
     }
   }
 
   keyup(event) {
     if (event.keyCode === ENTER_KEY) {
-      this.hidden = true;
+      if (this.value >= 10) {
+        this.clicked = true;
+        this.hidden = true;
+        this.focus = false;
+      }
     }
   }
 
