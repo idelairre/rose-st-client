@@ -33,7 +33,7 @@ export default class ContactCtrl {
 		} catch (error) {
 			console.error(error);
 			this.result = 'bg-danger';
-			this.resultMessage = `Post failed: ${error}`;
+			this.resultMessage = `Post failed: ${error.statusText}`;
 			this.$scope.$digest();
 		}
 	}
