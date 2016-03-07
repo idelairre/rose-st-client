@@ -9,6 +9,7 @@ import EscListener from './directives/esc-listener.directive';
 import * as components from './components/components.module';
 import 'angular-animate';
 import 'angular-messages';
+import 'angular-socialshare';
 import 'angular-ui-bootstrap';
 import 'angular-input-masks';
 import 'babel-polyfill';
@@ -62,4 +63,4 @@ import 'reflect-metadata';
 
 export default class RoseStClient { }
 
-bootstrap(RoseStClient, ['ngAnimate', 'ngMessages', 'ui.bootstrap', 'ui.router', 'ui.utils.masks', RouteConfig.name, SceWhitelist.name]);
+bootstrap(RoseStClient, ['720kb.socialshare', 'ngAnimate', 'ngMessages', 'ui.bootstrap', 'ui.router', 'ui.utils.masks', RouteConfig.name, SceWhitelist.name]);

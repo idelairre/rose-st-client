@@ -11,7 +11,7 @@
 						{{ post.subheading }}
 					</h3>
 				</a>
-				<p class="post-meta">Posted by <a ui-sref="posts-detail({ post: post.title_url })"> {{ post.user.email }}</a> on {{ post.created_at | date:'medium'}}</p>
+				<p class="post-meta">Posted by <a ui-sref="posts-detail({ post: post.title_url })"> {{ post.user }}</a> on {{ post.created_at | date:'medium'}}</p>
 				<hr>
 			</div>
 
