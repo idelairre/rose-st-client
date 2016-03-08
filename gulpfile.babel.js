@@ -15,6 +15,8 @@ var del = require('del');
 var argv = require('yargs').argv; // for args parsing
 var spawn = require('child_process').spawn;
 
+var OUTPUT = './static';
+
 var bundler = {
   w: null,
   init: function() {
@@ -37,7 +39,7 @@ var bundler = {
       .on('error', handleErrors)
       .pipe(source('app.js'))
       .pipe($.ngAnnotate())
-      .pipe(gulp.dest('./dist/scripts/'))
+      .pipe(gulp.dest(OUTPUT + '/dist/scripts/'))
       .pipe(browserSync.reload({
         stream: true
       }));
@@ -57,7 +59,7 @@ gulp.task('images', function() {
       progressive: true,
       interlaced: true
     })))
-    .pipe(gulp.dest('dist/images'))
+    .pipe(gulp.dest(OUTPUT + '/dist/images'))
     .pipe($.size());
 });
 
@@ -78,7 +80,7 @@ gulp.task('styles', function() {
     .on('error', handleErrors)
     .pipe($.autoprefixer('last 1 version'))
     .pipe($.concat('main.css'))
-    .pipe(gulp.dest('dist/styles'))
+    .pipe(gulp.dest(OUTPUT + '/dist/styles'))
     .pipe(browserSync.reload({
       stream: true
     }))
@@ -90,7 +92,7 @@ gulp.task('bootstrap', function() {
   .on('error', handleErrors)
   .pipe($.autoprefixer('last 1 version'))
   .pipe($.cssnano())
-  .pipe(gulp.dest('dist/styles'))
+  .pipe(gulp.dest(OUTPUT + '/dist/styles'))
   .pipe($.size());
 });
 
@@ -101,7 +103,7 @@ gulp.task('scripts', function() {
 
 gulp.task('html:main', function() { // not in the mood for regex today
   return gulp.src(['app/index.html'])
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest(OUTPUT + '/dist'))
     .pipe(browserSync.reload({
       stream: true
     }))
@@ -115,18 +117,18 @@ gulp.task('change-path', function() { // not in the mood for regex today
     .pipe(replace(/styles\/main.css/g, prodUrl + 'styles/main.css'))
     .pipe(replace(/styles\/bootstrap.css/g, prodUrl + 'styles/bootstrap.css'))
     .pipe(replace(/favicon.ico/g, prodUrl + 'favicon.ico'))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest(OUTPUT + '/dist'))
     .pipe($.size());
 });
 
 gulp.task('html:node', function() {
   return gulp.src(['node_modules/angular-ui-bootstrap/**/*.html', '!node_modules/angular-ui-bootstrap/src/**/*.html'])
-    .pipe(gulp.dest('dist/uib'))
+    .pipe(gulp.dest(OUTPUT + '/dist/uib'))
     .pipe($.size());
 });
 
 gulp.task('clean', function () {
-  return del.sync(['dist']);
+  return del.sync([OUTPUT + '/dist']);
 });
 
 gulp.task('gh-pages', function() {
@@ -136,16 +138,16 @@ gulp.task('gh-pages', function() {
 
 gulp.task('extras', function() {
   return gulp.src(['app/*.txt', 'app/*.ico', 'app/CNAME'])
-    .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest(OUTPUT + '/dist'))
     .pipe($.size());
 });
 
 gulp.task('minify:js', function() {
-  return gulp.src('dist/scripts/**/*.js')
+  return gulp.src(OUTPUT + '/dist/scripts/**/*.js')
     .pipe($.uglify({
       mangle: false
     }))
-    .pipe(gulp.dest('dist/scripts'))
+    .pipe(gulp.dest(OUTPUT + '/dist/scripts'))
     .pipe($.size());
 });
 
@@ -155,7 +157,7 @@ gulp.task('minify:css', function() {
       html: ['app/index.html']
     }))
     .pipe($.cssnano())
-    .pipe(gulp.dest('dist/styles'))
+    .pipe(gulp.dest(OUTPUT + '/dist/styles'))
     .pipe($.size());
 });
 
@@ -229,11 +231,11 @@ gulp.task('build:production', gulpsync.sync(['clean', 'set-production', 'bundle'
 
 gulp.task('serve:production', gulpsync.sync(['build:production', 'html', 'serve']));
 
-gulp.task('deploy', gulpsync.sync(['build:production', 'html:production']));
+gulp.task('deploy', gulpsync.sync(['build:production', 'html:production', 'gh-pages']));
 
 gulp.task('default', ['build']);
 
-gulp.task('watch', gulpsync.sync(['html', 'bundle', 'serve'])),
+gulp.task('watch', gulpsync.sync(['html', 'bundle', 'build'])),
   function() {
     bundler.watch();
     gulp.watch('app/styles/**/*.css', ['styles']);

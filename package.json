@@ -20,12 +20,21 @@
     "angular-utils-pagination": "^0.10.0",
     "axios": "^0.9.1",
     "connect-modrewrite": "^0.8.2",
+    "jade": "^1.11.0",
+    "koa": "^1.2.0",
+    "koa-proxy": "^0.5.0",
+    "koa-render": "^0.2.1",
+    "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0",
+    "koa-useragent": "^0.1.2",
     "ng-currency-mask": "git+https://github.com/vtex/ng-currency-mask.git",
     "ng-forward": "0.0.1-alpha.12",
+    "piping": "^0.3.0",
     "slug": "^0.9.1"
   },
   "scripts": {
-    "start": "gulp auto-reload --task watch",
+    "start": "gulp watch && node babel.server.js",
+    "build": "gulp build:production",
     "deploy": "gulp deploy",
     "install": "node ./node_modules/protractor/bin/webdriver-manager update",
     "test": "karma start karma.conf.js"

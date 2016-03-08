@@ -7,8 +7,8 @@ import 'reflect-metadata';
 class RouteConfig {
   constructor($stateProvider, $urlRouterProvider, $locationProvider, StripeCheckoutProvider) {
     $locationProvider.html5Mode({
-      enabled: false
-    }).hashPrefix('!');
+      enabled: true
+    })
     StripeCheckoutProvider.defaults({
       key: STRIPE.PUBLISHABLE_KEY
     });
