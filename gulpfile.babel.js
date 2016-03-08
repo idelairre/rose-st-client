@@ -209,9 +209,9 @@ gulp.task('html:production', ['html:node']);
 
 gulp.task('bundle', ['assets', 'extras', 'scripts']);
 
-gulp.task('build:production', gulpsync.sync(['clean', 'set-production', 'bundle', 'minify', 'build']));
+gulp.task('build:production', gulpsync.sync(['clean', 'set-production', 'html', 'bundle', 'minify', 'build']));
 
-gulp.task('serve:production', gulpsync.sync(['build:production', 'html', 'serve']));
+gulp.task('serve:production', gulpsync.sync(['build:production', 'serve']));
 
 gulp.task('default', ['build']);
 
