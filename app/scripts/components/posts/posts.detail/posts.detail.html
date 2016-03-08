@@ -6,9 +6,32 @@
 			</div>
 		</div>
 		<hr>
-		<button class="btn btn-default" socialshare socialshare-description="{{ post.subheading }}" socialshare-provider="facebook" socialshare-text="{{ post.body }}" socialshare-url="{{ postsDetailCtrl.url }}"><i class="fa fa-facebook"></i></button>
-    <button class="btn btn-default" socialshare socialshare-description="{{ post.subheading }}" socialshare-provider="twitter" socialshare-text="{{ post.body }}" socialshare-url="{{ postsDetailCtrl.url }}"><i class="fa fa-twitter"></i></button>
-    <button class="btn btn-default" socialshare socialshare-description="{{ post.subheading }}" socialshare-provider="tumblr" socialshare-text="{{ post.body }}" socialshare-url="{{ postsDetailCtrl.url }}"><i class="fa fa-tumblr"></i></button>
+		<button class="btn btn-default"
+			socialshare
+			socialshare-description="{{ post.subheading }}"
+			socialshare-provider="facebook"
+			socialshare-text="{{ post.body }}"
+			socialshare-caption="{{ post.subheading }}"
+			socialshare-type="article"
+			socialshare-url="{{ postsDetailCtrl.url }}">
+			<i class="fa fa-facebook"></i>
+		</button>
+    <button class="btn btn-default"
+			socialshare
+			socialshare-description="{{ post.subheading }}"
+			socialshare-provider="twitter"
+			socialshare-text="{{ post.body }}"
+			socialshare-url="{{ postsDetailCtrl.url }}">
+			<i class="fa fa-twitter"></i>
+		</button>
+    <button class="btn btn-default"
+			socialshare
+			socialshare-description="{{ post.subheading }}"
+			socialshare-provider="tumblr"
+			socialshare-text="{{ post.body }}"
+			socialshare-url="{{ postsDetailCtrl.url }}">
+			<i class="fa fa-tumblr"></i>
+		</button>
     <a class="btn btn-default pull-right" ui-sref="posts">Back</a>
 		<br>
 		<hr>

@@ -15,6 +15,8 @@ const app = koa();
 const hostname = process.env.HOSTNAME || 'localhost';
 const port = process.env.PORT || 8000;
 
+const IMAGE_URL = 'https://raw.githubusercontent.com/idelairre/rose_st_client/master/app/images/10612805_674783332611610_5602889381423136186_n.jpg';
+
 function renderTemplate(meta) {
   const template = (`
     <!doctype html>
@@ -24,6 +26,8 @@ function renderTemplate(meta) {
       <base href="/">
       <title>Rose St. Community Center</title>
       <meta name="viewport" content="width=device-width">
+      <meta property="og:image" content="${IMAGE_URL}" />
+      <meta property="twitter:image" content="${IMAGE_URL}" />
       ${meta || ''}
       <link rel="icon" type="image/png" href="favicon.ico" />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -54,13 +58,11 @@ function compileTemplate (request, data) {
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:description" content="${striptags(data.subheading)}" />
     <meta property="twitter:title" content="${data.title}" />
-    <meta property="twitter:image" content="https://raw.githubusercontent.com/idelairre/rose_st_client/master/app/images/10612805_674783332611610_5602889381423136186_n.jpg" />
     <meta property="og:title" content="${data.title}" />
     <meta property="og:url" content="${url}" />
     <meta property="og:site_name" content="Rose St. Community Center" />
     <meta property="og:type" content="article" />
     <meta property="og:description" content="${striptags(data.subheading)}" />
-    <meta property="og:image" content="https://raw.githubusercontent.com/idelairre/rose_st_client/master/app/images/10612805_674783332611610_5602889381423136186_n.jpg" />
   `);
   return renderTemplate(meta);
 }
