@@ -51,9 +51,15 @@ var bundler = {
   }
 };
 
+gulp.task('add', function(){
+  return gulp.src('.')
+    .pipe($.git.add());
+});
+
 gulp.task('commit', function(){
   git.long(function (str) {
   return gulp.src('.')
+    .on('error', handleErrors)
     .pipe($.git.commit('heroku deploy: ' + str));
   });
 });
@@ -207,7 +213,7 @@ var handleErrors = function() {
 
 gulp.task('minify', ['minify:js']);
 
-gulp.task('git', gulpsync.sync(['commit']));
+gulp.task('git', gulpsync.sync(['add', 'commit']));
 
 gulp.task('build', bundler.stop.bind(bundler));
 
