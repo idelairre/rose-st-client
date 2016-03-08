@@ -2,7 +2,7 @@
   "name": "rosestclient",
   "version": "0.0.0",
   "scripts": {
-    "start": "NODE_PATH=\"./app/scripts\" node --harmony ./babel.server",
+    "start": "NODE_PATH=\"./app\" node --harmony ./babel.server",
     "watch": "gulp watch && npm run start",
     "build": "gulp build:production",
     "deploy": "npm run build && git push heroku master",

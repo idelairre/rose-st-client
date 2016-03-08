@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 try {
-	require('./app/scripts/server');
+	require('./app/server');
 } catch (error) {
 	console.error(error.stack);
 }

@@ -1,7 +1,6 @@
 import koa from 'koa';
 import serve from 'koa-static';
 import userAgent from 'koa-useragent';
-import routes from './routes';
 import views from 'koa-render';
 import path from 'path';
 import fs from 'fs';
