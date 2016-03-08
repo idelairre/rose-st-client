@@ -46,7 +46,7 @@ function renderTemplate(meta) {
 }
 
 function compileTemplate (request, data) {
-  const url = `${request.headers.host}${request.url}`;
+  const url = `https://${request.headers.host}${request.url}`;
   const meta = (`
     <meta property="twitter:url" content="${url}" />
     <meta property="twitter:site" content="@rosestreet" />
