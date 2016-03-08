@@ -36,7 +36,6 @@
     "start": "gulp watch && node babel.server.js",
     "build": "gulp build:production",
     "deploy": "gulp deploy",
-    "install": "node ./node_modules/protractor/bin/webdriver-manager update",
     "test": "karma start karma.conf.js"
   },
   "devDependencies": {

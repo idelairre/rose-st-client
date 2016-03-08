@@ -132,7 +132,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('gh-pages', function() {
-  return gulp.src('./dist/**/*')
+  return gulp.src('./static/**/*')
     .pipe($.ghPages());
 });
 
