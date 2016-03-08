@@ -33,7 +33,7 @@
     "slug": "^0.9.1"
   },
   "scripts": {
-    "start": "gulp watch && node babel.server.js",
+    "start": "NODE_PATH=\"./app\" node --harmony ./babel.server",
     "build": "gulp build:production",
     "deploy": "gulp deploy",
     "test": "karma start karma.conf.js"
