@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var gulpsync = require('gulp-sync')(gulp);
 var babel = require('gulp-babel');
-var replace = require('gulp-replace-path');
 var browserSync = require('browser-sync');
 var gulpFilter = require('gulp-filter');
 var fs = require('fs');
@@ -110,17 +109,6 @@ gulp.task('html:main', function() { // not in the mood for regex today
   .pipe($.size());
 });
 
-gulp.task('change-path', function() { // not in the mood for regex today
-  var prodUrl = 'https://idelairre.github.io/rose_st_client/';
-  return gulp.src(['app/index.html'])
-    .pipe(replace(/scripts/g, prodUrl + 'scripts'))
-    .pipe(replace(/styles\/main.css/g, prodUrl + 'styles/main.css'))
-    .pipe(replace(/styles\/bootstrap.css/g, prodUrl + 'styles/bootstrap.css'))
-    .pipe(replace(/favicon.ico/g, prodUrl + 'favicon.ico'))
-    .pipe(gulp.dest(OUTPUT + '/dist'))
-    .pipe($.size());
-});
-
 gulp.task('html:node', function() {
   return gulp.src(['node_modules/angular-ui-bootstrap/**/*.html', '!node_modules/angular-ui-bootstrap/src/**/*.html'])
     .pipe(gulp.dest(OUTPUT + '/dist/uib'))
@@ -218,7 +206,7 @@ gulp.task('assets', ['images', 'bootstrap', 'styles']);
 
 gulp.task('html', ['html:main', 'html:node']);
 
-gulp.task('html:production', ['html:node', 'change-path']);
+gulp.task('html:production', ['html:node']);
 
 gulp.task('bundle', ['assets', 'extras', 'scripts']);
 
