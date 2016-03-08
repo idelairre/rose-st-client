@@ -4,7 +4,7 @@ Angular app to collect donations for the 100 Block Homocide Free Zone project vi
 
 ## Build & development
 
-Run `npm run build` for building and `grunt start` for preview.
+Run `npm run build` to build and `gulp watch` for preview.
 
 ## Testing
 
