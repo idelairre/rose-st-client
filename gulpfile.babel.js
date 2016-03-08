@@ -57,8 +57,10 @@ gulp.task('add', function(){
 });
 
 gulp.task('commit', function(){
+  git.long(function (str) {
   return gulp.src('.')
-  .pipe(git.long($.git.commit));
+    .pipe( $.git.commit('heroku deploy: ', str));
+  });
 });
 
 gulp.task('images', function() {
