@@ -131,11 +131,6 @@ gulp.task('clean', function () {
   return del.sync([OUTPUT + '/dist']);
 });
 
-gulp.task('gh-pages', function() {
-  return gulp.src('./static/**/*')
-    .pipe($.ghPages());
-});
-
 gulp.task('extras', function() {
   return gulp.src(['app/*.txt', 'app/*.ico', 'app/CNAME'])
     .pipe(gulp.dest(OUTPUT + '/dist'))
@@ -230,8 +225,6 @@ gulp.task('bundle', ['assets', 'extras', 'scripts']);
 gulp.task('build:production', gulpsync.sync(['clean', 'set-production', 'bundle', 'minify', 'build']));
 
 gulp.task('serve:production', gulpsync.sync(['build:production', 'html', 'serve']));
-
-gulp.task('deploy', gulpsync.sync(['build:production', 'html:production', 'gh-pages']));
 
 gulp.task('default', ['build']);
 
