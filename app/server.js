@@ -6,6 +6,7 @@ import path from 'path';
 import axios from 'axios';
 import util from 'util';
 import request from 'koa-request';
+import striptags from 'striptags';
 
 import { SERVER_URL } from './scripts/constants/constants';
 
@@ -51,13 +52,14 @@ function compileTemplate (request, data) {
     <meta property="twitter:url" content="${url}" />
     <meta property="twitter:site" content="@rosestreet" />
     <meta property="twitter:card" content="summary" />
+    <meta property="twitter:description" content="${striptags(data.subheading)}" />
     <meta property="twitter:title" content="${data.title}" />
     <meta property="twitter:image" content="https://raw.githubusercontent.com/idelairre/rose_st_client/master/app/images/10612805_674783332611610_5602889381423136186_n.jpg" />
     <meta property="og:title" content="${data.title}" />
     <meta property="og:url" content="${url}" />
     <meta property="og:site_name" content="Rose St. Community Center" />
     <meta property="og:type" content="article" />
-    <meta property="og:description" content="${data.body}" />
+    <meta property="og:description" content="${striptags(data.subheading)}" />
     <meta property="og:image" content="https://raw.githubusercontent.com/idelairre/rose_st_client/master/app/images/10612805_674783332611610_5602889381423136186_n.jpg" />
   `);
   return renderTemplate(meta);
