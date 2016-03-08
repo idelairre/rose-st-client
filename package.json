@@ -25,7 +25,7 @@
     "slug": "^0.9.1"
   },
   "scripts": {
-    "start": "gulp watch",
+    "start": "gulp auto-reload --task watch",
     "deploy": "gulp deploy",
     "install": "node ./node_modules/protractor/bin/webdriver-manager update",
     "test": "karma start karma.conf.js"

@@ -12,6 +12,8 @@ var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var stringify = require('stringify');
 var del = require('del');
+var argv = require('yargs').argv; // for args parsing
+var spawn = require('child_process').spawn;
 
 var bundler = {
   w: null,
@@ -71,9 +73,8 @@ gulp.task('serve', function() {
   gulp.watch('app/**/*.css', ['styles']);
 });
 
-//watch scss for changes and render into minified css with nice auto-prefixing
 gulp.task('styles', function() {
-  return gulp.src(['app/**/*.css', 'node_modules/angular-ui-notification/dist/angular-ui-notification.css'])
+  return gulp.src(['app/**/*.css', 'node_modules/angular-ui-notification/dist/angular-ui-notification.css', '!app/styles/bootstrap.css'])
     .on('error', handleErrors)
     .pipe($.autoprefixer('last 1 version'))
     .pipe($.concat('main.css'))
@@ -82,6 +83,15 @@ gulp.task('styles', function() {
       stream: true
     }))
     .pipe($.size());
+});
+
+gulp.task('bootstrap', function() {
+  return gulp.src('app/styles/bootstrap.css')
+  .on('error', handleErrors)
+  .pipe($.autoprefixer('last 1 version'))
+  .pipe($.cssnano())
+  .pipe(gulp.dest('dist/styles'))
+  .pipe($.size());
 });
 
 gulp.task('scripts', function() {
@@ -98,11 +108,12 @@ gulp.task('html:main', function() { // not in the mood for regex today
   .pipe($.size());
 });
 
-gulp.task('html:change-path', function() { // not in the mood for regex today
+gulp.task('change-path', function() { // not in the mood for regex today
   var prodUrl = 'https://idelairre.github.io/rose_st_client/';
   return gulp.src(['app/index.html'])
     .pipe(replace(/scripts/g, prodUrl + 'scripts'))
     .pipe(replace(/styles\/main.css/g, prodUrl + 'styles/main.css'))
+    .pipe(replace(/styles\/bootstrap.css/g, prodUrl + 'styles/bootstrap.css'))
     .pipe(replace(/favicon.ico/g, prodUrl + 'favicon.ico'))
     .pipe(gulp.dest('dist'))
     .pipe($.size());
@@ -114,9 +125,9 @@ gulp.task('html:node', function() {
     .pipe($.size());
 });
 
-gulp.task('html:clean', function () {
-  return del.sync(['dist/components']);
-})
+gulp.task('clean', function () {
+  return del.sync(['dist']);
+});
 
 gulp.task('gh-pages', function() {
   return gulp.src('./dist/**/*')
@@ -139,9 +150,9 @@ gulp.task('minify:js', function() {
 });
 
 gulp.task('minify:css', function() {
-  return gulp.src('dist/styles/**/*.css')
+  return gulp.src(['dist/styles/**/*.css'])
     .pipe($.uncss({
-      html: ['app/**/*.html', 'app/index.html']
+      html: ['app/index.html']
     }))
     .pipe($.cssnano())
     .pipe(gulp.dest('dist/styles'))
@@ -150,6 +161,21 @@ gulp.task('minify:css', function() {
 
 gulp.task('set-production', function() {
   process.env.NODE_ENV = 'production';
+});
+
+gulp.task('auto-reload', function() {
+  var p;
+
+  gulp.watch('gulpfile.js', spawnChildren);
+  spawnChildren();
+
+  function spawnChildren(e) {
+    // kill previous spawned process
+    if(p) { p.kill(); }
+
+    // `spawn` a child `gulp` process linked to the parent `stdio`
+    p = spawn('gulp', [argv.task], {stdio: 'inherit'});
+  }
 });
 
 var logger = (function() {
@@ -187,24 +213,23 @@ var handleErrors = function() {
   this.emit('end');
 };
 
-
-gulp.task('clean', ['html:clean']);
-
-gulp.task('minify', ['minify:js', 'minify:css']);
+gulp.task('minify', ['minify:js']);
 
 gulp.task('build', bundler.stop.bind(bundler));
 
-gulp.task('assets', gulpsync.sync(['images', 'styles']));
+gulp.task('assets', ['images', 'bootstrap', 'styles']);
 
-gulp.task('html', gulpsync.sync(['html:main', 'html:node']));
+gulp.task('html', ['html:main', 'html:node']);
 
-gulp.task('html:production', gulpsync.sync(['html:change-path']));
+gulp.task('html:production', ['html', 'change-path']);
 
-gulp.task('bundle', gulpsync.sync(['assets', 'scripts', 'extras']));
+gulp.task('bundle', ['assets', 'extras', 'scripts']);
 
-gulp.task('build:production', gulpsync.sync(['set-production', 'html:production', 'bundle', 'minify', 'build']));
+gulp.task('build:production', gulpsync.sync(['clean', 'set-production', 'html', 'bundle', 'minify', 'build']));
 
-gulp.task('deploy', gulpsync.sync(['build:production', 'gh-pages']));
+gulp.task('serve:production', gulpsync.sync(['build:production', 'serve']));
+
+gulp.task('deploy', gulpsync.sync(['html:production', 'build:production', 'gh-pages']));
 
 gulp.task('default', ['build']);
 
