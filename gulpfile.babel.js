@@ -37,7 +37,6 @@ var bundler = {
       .on('start', logger.start)
       .on('error', handleErrors)
       .pipe(source('app.js'))
-      .pipe($.ngAnnotate())
       .pipe(gulp.dest(OUTPUT + '/dist/scripts/'))
       .pipe(browserSync.reload({
         stream: true
