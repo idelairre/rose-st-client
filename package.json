@@ -16,7 +16,7 @@
     "angular-ui-notification": "^0.1.0",
     "angular-ui-router": "^0.2.18",
     "angular-ui-utils": "^0.1.1",
-    "angular-utils-disqus": "^1.0.0",
+    "angular-utils-disqus": "https://github.com/michaelbromley/angularUtils-disqus.git",
     "angular-utils-pagination": "^0.10.0",
     "axios": "^0.9.1",
     "connect-modrewrite": "^0.8.2",
