@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var gulpsync = require('gulp-sync')(gulp);
+var git = require('git-rev')
 var babel = require('gulp-babel');
 var browserSync = require('browser-sync');
 var gulpFilter = require('gulp-filter');
@@ -49,6 +50,16 @@ var bundler = {
     this.w && this.w.close();
   }
 };
+
+gulp.task('add', function(){
+  return gulp.src('.')
+    .pipe($.git.add());
+});
+
+gulp.task('commit', function(){
+  return gulp.src('.')
+  .pipe(git.long($.git.commit));
+});
 
 gulp.task('images', function() {
   return gulp.src('app/images/**/*')
@@ -198,6 +209,8 @@ var handleErrors = function() {
 };
 
 gulp.task('minify', ['minify:js']);
+
+gulp.task('git', gulpsync.sync(['add', 'commit']));
 
 gulp.task('build', bundler.stop.bind(bundler));
 

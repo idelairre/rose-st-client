@@ -44,9 +44,9 @@ app.use(function *(next) {
   yield next;
 });
 
-router.get('/', function *() {
-  serve('index.html');
-});
+// router.get('/', function *() {
+//   serve('index.html');
+// });
 
 router.get('/(.*)', function *(next) {
   yield next;
