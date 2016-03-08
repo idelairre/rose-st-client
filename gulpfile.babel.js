@@ -221,15 +221,15 @@ gulp.task('assets', ['images', 'bootstrap', 'styles']);
 
 gulp.task('html', ['html:main', 'html:node']);
 
-gulp.task('html:production', ['html', 'change-path']);
+gulp.task('html:production', ['html:node', 'change-path']);
 
 gulp.task('bundle', ['assets', 'extras', 'scripts']);
 
-gulp.task('build:production', gulpsync.sync(['clean', 'set-production', 'html', 'bundle', 'minify', 'build']));
+gulp.task('build:production', gulpsync.sync(['clean', 'set-production', 'bundle', 'minify', 'build']));
 
-gulp.task('serve:production', gulpsync.sync(['build:production', 'serve']));
+gulp.task('serve:production', gulpsync.sync(['build:production', 'html', 'serve']));
 
-gulp.task('deploy', gulpsync.sync(['html:production', 'build:production', 'gh-pages']));
+gulp.task('deploy', gulpsync.sync(['build:production', 'html:production']));
 
 gulp.task('default', ['build']);
 
