@@ -3,57 +3,83 @@ import serve from 'koa-static';
 import userAgent from 'koa-useragent';
 import views from 'koa-render';
 import path from 'path';
-import fs from 'fs';
+import axios from 'axios';
+import util from 'util';
+import request from 'koa-request';
+
+import { SERVER_URL } from './scripts/constants/constants';
 
 const router = require('koa-router')();
 const app = koa();
 const hostname = process.env.HOSTNAME || 'localhost';
 const port = process.env.PORT || 8000;
 
-const template = (`
-  <!doctype html>
-  <html class="no-js">
-  <head>
-  	<meta charset="utf-8">
-  	<base href="/">
-  	<title>Rose St. Community Center</title>
-  	<meta name="description" content="">
-  	<meta name="viewport" content="width=device-width">
+function renderTemplate(meta) {
+  const template = (`
+    <!doctype html>
+    <html class="no-js">
+    <head>
+      <meta charset="utf-8">
+      <base href="/">
+      <title>Rose St. Community Center</title>
+      <meta name="viewport" content="width=device-width">
+      ${meta || ''}
+      <link rel="icon" type="image/png" href="favicon.ico" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="styles/bootstrap.css">
+      <link rel="stylesheet" href="styles/main.css">
+    </head>
+    <body>
+      <!--[if lt IE 7]>
+          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
 
-  	<link rel="icon" type="image/png" href="favicon.ico" />
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  	<link rel="stylesheet" href="styles/bootstrap.css">
-  	<link rel="stylesheet" href="styles/main.css">
-  </head>
-  <body>
-  	<!--[if lt IE 7]>
-        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-      <![endif]-->
+      <rose-st-client></rose-st-client>
 
-  	<rose-st-client></rose-st-client>
+      <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 
-  	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+      <script src="scripts/app.js"></script>
+    </body>
+    </html>`
+  );
+  return template;
+}
 
-  	<script src="scripts/app.js"></script>
-  </body>
-  </html>`
-);
+function compileTemplate (data) {
+  const meta = (`
+    <meta property="og:title" content="${data.title}" />
+    <meta property="og:description" content="${data.subheading}" />
+    <meta property="og:image" content="https://raw.githubusercontent.com/idelairre/rose_st_client/master/app/images/10612805_674783332611610_5602889381423136186_n.jpg" />
+  `);
+  return renderTemplate(meta);
+}
 
 app.use(function *(next) {
   console.log('%s - %s %s', new Date().toISOString(), this.req.method, this.req.url);
   yield next;
 });
 
-// router.get('/', function *() {
-//   serve('index.html');
-// });
-
-router.get('/(.*)', function *(next) {
+router.get('/', function *(next) {
   yield next;
-  this.body = template;
+  this.body = renderTemplate(); // this stays
 });
 
-app.use(serve('static/dist'));
+router.get('/posts/', function *(next) {
+  yield next;
+  this.body = renderTemplate(); // this stays
+});
+
+router.get('/posts/:title_url', function *(next) {
+  const options = {
+    method: 'GET',
+    url: `${SERVER_URL}/posts/${this.params.title_url}`
+  };
+  const response = yield request(options); //Yay, HTTP requests with no callbacks!
+  this.body = compileTemplate(JSON.parse(response.body));
+  console.log(this.body);
+});
+
+app.use(serve('static/dist')); // this stays
 
 app.use(router.routes());
 
