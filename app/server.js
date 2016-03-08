@@ -45,14 +45,24 @@ function renderTemplate(meta) {
   return template;
 }
 
-function compileTemplate (data) {
+function compileTemplate (request, data) {
+  const url = `${request.headers.host}${request.url}`;
   const meta = (`
+    <meta property="twitter:url" content="${url}" />
+    <meta property="twitter:site" content="@rosestreet" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:title" content="${data.title}" />
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/idelairre/rose_st_client/master/app/images/10612805_674783332611610_5602889381423136186_n.jpg" />
     <meta property="og:title" content="${data.title}" />
-    <meta property="og:description" content="${data.subheading}" />
+    <meta property="og:url" content="${url}" />
+    <meta property="og:site_name" content="Rose St. Community Center" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="${data.body}" />
     <meta property="og:image" content="https://raw.githubusercontent.com/idelairre/rose_st_client/master/app/images/10612805_674783332611610_5602889381423136186_n.jpg" />
   `);
   return renderTemplate(meta);
 }
+
 
 app.use(function *(next) {
   console.log('%s - %s %s', new Date().toISOString(), this.req.method, this.req.url);
@@ -74,10 +84,11 @@ router.get('/posts/:title_url', function *(next) {
     method: 'GET',
     url: `${SERVER_URL}/posts/${this.params.title_url}`
   };
+  console.log();
   const response = yield request(options); //Yay, HTTP requests with no callbacks!
-  this.body = compileTemplate(JSON.parse(response.body));
-  console.log(this.body);
+  this.body = compileTemplate(this.req, JSON.parse(response.body));
 });
+
 
 app.use(serve('static/dist')); // this stays
 
