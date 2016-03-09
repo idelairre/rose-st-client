@@ -37,6 +37,9 @@
   <div ng-messages="customDonation.donation.$error" ng-show="customDonation.$submitted || customDonation.donation.$error || customDonation.donation.$touched">
     <small class="text-muted help-block text-danger error-wrapper" ng-message="min">This is below the allowable limit of our payments provider!</small>
   </div>
+  <div ng-show="donationsCtrl.chargeSubmitted" class="text-center">
+    <h1 class="text-muted help-block">Thank you for your contribution!</h1>
+  </div>
   <h1>Monthly Donation</h1>
   <hr>
   <div class="row">
@@ -72,6 +75,9 @@
   </div>
   <div ng-messages="customSubscription.subscription.$error" ng-show="customSubscription.$submitted || customSubscription.subscription.$error || customSubscription.subscription.$touched">
     <small class="text-muted help-block text-danger error-wrapper" ng-message="min">This is below the allowable limit of our payments provider!</small>
+  </div>
+  <div ng-show="donationsCtrl.subscriptionSubmitted" class="text-center">
+    <h1 class="text-muted help-block">Thank you for your contribution!</h1>
   </div>
 </div>
 <br>

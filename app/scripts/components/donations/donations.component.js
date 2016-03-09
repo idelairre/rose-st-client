@@ -32,6 +32,8 @@ export default class DonationsComponent {
 		this.DonationsService = DonationsService;
 		this.amount = null;
 		this.subscriptionAmount = null;
+		this.chargeSubmitted = false;
+		this.subscriptionSubmitted = false;
 
 		this.DonationsService = DonationsService;
 
@@ -105,7 +107,10 @@ export default class DonationsComponent {
 			} else if (type === 'subscription-custom') {
 				result = await this.DonationsService.sendCustomSubscriptionToken(token.id, this.chargeOptions);
 			}
-			// console.log(result);
+			if (result) {
+				type === 'charge' ? this.chargeSubmitted = true : this.subscriptionSubmitted = true;
+				this.$scope.$apply();
+			}
 		} catch (error) {
 			console.error(error);
 		}

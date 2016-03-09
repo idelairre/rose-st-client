@@ -38,6 +38,7 @@
     "git-rev": "^0.2.1",
     "gulp-git": "^1.7.0",
     "koa": "^1.2.0",
+    "koa-cors": "0.0.16",
     "koa-proxy": "^0.5.0",
     "koa-render": "^0.2.1",
     "koa-request": "^1.0.0",

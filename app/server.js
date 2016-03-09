@@ -6,6 +6,7 @@ import path from 'path';
 import axios from 'axios';
 import util from 'util';
 import request from 'koa-request';
+import cors from 'koa-cors';
 
 import { SERVER_URL } from './scripts/constants/constants';
 
@@ -96,9 +97,10 @@ function renderTemplate(request, data) {
     </body>
     </html>`
   );
-  console.log(template);
   return template;
 }
+
+app.use(cors());
 
 app.use(function *(next) {
   console.log('%s - %s %s', new Date().toISOString(), this.req.method, this.req.url);
