@@ -35,7 +35,8 @@
     <a class="btn btn-default pull-right" ui-sref="posts">Back</a>
 		<br>
 		<hr>
-		<dir-disqus disqus-shortname="rosestcommunitycenter" disqus-identifier="{{ postsDetailCtrl.identifier }}" disqus-url="{{ postsDetailCtrl.url }}">
+		<dir-disqus
+			config="postsDetailCtrl.config"
 		</dir-disqus>
 		<br>
 	</div>
