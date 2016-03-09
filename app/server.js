@@ -6,11 +6,11 @@ import path from 'path';
 import axios from 'axios';
 import util from 'util';
 import request from 'koa-request';
-import striptags from 'striptags';
 
 import { SERVER_URL } from './scripts/constants/constants';
 
 const router = require('koa-router')();
+
 const app = koa();
 const hostname = process.env.HOSTNAME || 'localhost';
 const port = process.env.PORT || 8000;
@@ -56,13 +56,13 @@ function compileTemplate (request, data) {
     <meta property="twitter:url" content="${url}" />
     <meta property="twitter:site" content="@rosestreet" />
     <meta property="twitter:card" content="summary" />
-    <meta property="twitter:description" content="${striptags(data.subheading)}" />
+    <meta property="twitter:description" content="${data.subheading}" />
     <meta property="twitter:title" content="${data.title}" />
     <meta property="og:title" content="${data.title}" />
     <meta property="og:url" content="${url}" />
     <meta property="og:site_name" content="Rose St. Community Center" />
     <meta property="og:type" content="article" />
-    <meta property="og:description" content="${striptags(data.subheading)}" />
+    <meta property="og:description" content="${data.subheading}" />
   `);
   return renderTemplate(meta);
 }
@@ -88,7 +88,6 @@ router.get('/posts/:title_url', function *(next) {
     method: 'GET',
     url: `${SERVER_URL}/posts/${this.params.title_url}`
   };
-  console.log();
   const response = yield request(options); //Yay, HTTP requests with no callbacks!
   this.body = compileTemplate(this.req, JSON.parse(response.body));
 });
