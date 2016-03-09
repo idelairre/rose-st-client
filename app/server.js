@@ -21,42 +21,42 @@ const DESCRIPTION = '74 blocks (with the goal of 100) in East Baltimore where th
 const SITE_NAME = 'Rose St. Community Center';
 
 function renderMeta(request, data) {
-  const URL = `https://${request.headers.host}${request.url}`;
+  const URL = request.href;
 
   if (data) {
     const meta = (`
-      <meta itemprop="name" content="${data.title}">
-      <meta itemprop="description" content="${data.subheading}">
-      <meta itemprop="image" content="${IMAGE_URL}">
-      <meta property="twitter:url" content="${URL}" />
-      <meta property="twitter:site" content="@rosestreet" />
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:description" content="${data.subheading}" />
-      <meta property="twitter:title" content="${data.title}" />
-      <meta property="og:title" content="${data.title}" />
-      <meta property="og:url" content="${URL}" />
-      <meta property="og:site_name" content="${SITE_NAME}" />
-      <meta property="og:type" content="article" />
-      <meta property="og:description" content="${data.subheading}" />
-      <meta property="article:published_time" content="${data.created_at}" />
-      <meta property="article:modified_time" content="${data.updated_at}" />
+      <meta itemprop='name' content='${data.title}'>
+      <meta itemprop='description' content='${data.subheading}'>
+      <meta itemprop='image' content='${IMAGE_URL}'>
+      <meta property='twitter:url' content='${URL}' />
+      <meta property='twitter:site' content='@rosestreet' />
+      <meta property='twitter:card' content='summary' />
+      <meta property='twitter:description' content='${data.subheading}' />
+      <meta property='twitter:title' content='${data.title}' />
+      <meta property='og:title' content='${data.title}' />
+      <meta property='og:url' content='${URL}' />
+      <meta property='og:site_name' content='${SITE_NAME}' />
+      <meta property='og:type' content='article' />
+      <meta property='og:description' content='${data.subheading}' />
+      <meta property='article:published_time' content='${data.created_at}' />
+      <meta property='article:modified_time' content='${data.updated_at}' />
     `);
     return meta;
   } else {
      const meta = (`
-      <meta itemprop="name" content="${SITE_NAME}">
-      <meta itemprop="description" content="${DESCRIPTION}">
-      <meta itemprop="image" content="${IMAGE_URL}">
-      <meta property="twitter:url" content="${URL}" />
-      <meta property="twitter:site" content="@rosestreet" />
-      <meta property="twitter:card" content="website" />
-      <meta property="twitter:description" content="${DESCRIPTION}" />
-      <meta property="twitter:title" content="${SITE_NAME}" />
-      <meta property="og:title" content="${SITE_NAME}" />
-      <meta property="og:url" content="${URL}" />
-      <meta property="og:site_name" content="${SITE_NAME}" />
-      <meta property="og:type" content="website" />
-      <meta property="og:description" content="${DESCRIPTION}" />
+      <meta itemprop='name' content='${SITE_NAME}'>
+      <meta itemprop='description' content='${DESCRIPTION}'>
+      <meta itemprop='image' content='${IMAGE_URL}'>
+      <meta property='twitter:url' content='${URL}' />
+      <meta property='twitter:site' content='@rosestreet' />
+      <meta property='twitter:card' content='website' />
+      <meta property='twitter:description' content='${DESCRIPTION}' />
+      <meta property='twitter:title' content='${SITE_NAME}' />
+      <meta property='og:title' content='${SITE_NAME}' />
+      <meta property='og:url' content='${URL}' />
+      <meta property='og:site_name' content='${SITE_NAME}' />
+      <meta property='og:type' content='website' />
+      <meta property='og:description' content='${DESCRIPTION}' />
     `);
     return meta;
   }
@@ -65,21 +65,21 @@ function renderMeta(request, data) {
 function renderTemplate(request, data) {
   const template = (`
     <!doctype html>
-    <html class="no-js">
+    <html class='no-js'>
     <head>
-      <meta charset="utf-8">
-      <base href="/">
+      <meta charset='utf-8'>
+      <base href='/'>
       <title>Rose St. Community Center</title>
-      <meta name="viewport" content="width=device-width">
+      <meta name='viewport' content='width=device-width'>
       ${renderMeta(request, data)}
-      <link rel="icon" type="image/png" href="favicon.ico" />
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-      <link rel="stylesheet" href="styles/bootstrap.css">
-      <link rel="stylesheet" href="styles/main.css">
+      <link rel='icon' type='image/png' href='favicon.ico' />
+      <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+      <link rel='stylesheet' href='styles/bootstrap.css'>
+      <link rel='stylesheet' href='styles/main.css'>
     </head>
     <body>
       <!--[if lt IE 7]>
-          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+          <p class='browsehappy'>You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'>upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
       <rose-st-client></rose-st-client>
       <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -90,10 +90,10 @@ function renderTemplate(request, data) {
             }, A[l].l = +new Date, a = n.createElement(g),
             r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
         }(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-XXXXX-X');
+        ga('create', 'UA-74903814-1');
         ga('send', 'pageview');
       </script>
-      <script src="scripts/app.js"></script>
+      <script src='scripts/app.js'></script>
     </body>
     </html>`
   );
@@ -107,44 +107,33 @@ app.use(function *(next) {
   yield next;
 });
 
-router.get('/', function *(next) {
-  yield next;
-  this.body = renderTemplate(this.req);
-});
+router.get('*', function *(next) {
+  let req = this.request.href.split('/');
+  let params = req.slice(req.length - 2, req.length);
+  if (params[0] === 'posts' && params[1]) {
+    const options = {
+      method: 'GET',
+      url: `${SERVER_URL}/posts/${this.params.title_url}`
+    };
 
-router.get('/donations', function *(next) {
-  yield next;
-  this.body = renderTemplate(this.req);
-});
+    const response = yield request(options);
 
-router.get('/contact', function *(next) {
-  yield next;
-  this.body = renderTemplate(this.req);
+    this.type = 'text/html';
+    this.body = renderTemplate(this.request, JSON.parse(response.body));
+  } else {
+    yield (callback) => {
+      this.type = 'text/html';
+      this.body = renderTemplate(this.request);
+      callback(null);
+    }
+  }
 });
-
-router.get('/about', function *(next) {
-  yield next;
-  this.body = renderTemplate(this.req);
-});
-
-router.get('/posts', function *(next) {
-  yield next;
-  this.body = renderTemplate(this.req);
-});
-
-router.get('/posts/:title_url', function *(next) {
-  const options = {
-    method: 'GET',
-    url: `${SERVER_URL}/posts/${this.params.title_url}`
-  };
-  const response = yield request(options);
-  this.body = renderTemplate(this.req, JSON.parse(response.body));
-});
-
 
 app.use(serve('static/dist')); // this stays
 
 app.use(router.routes());
+
+app.use(router.allowedMethods());
 
 app.use(userAgent());
 
