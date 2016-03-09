@@ -25,6 +25,7 @@
     "angular-ui-utils": "^0.1.1",
     "angular-utils-disqus": "https://github.com/michaelbromley/angularUtils-disqus.git",
     "angular-utils-pagination": "^0.10.0",
+    "angular-uuid": "0.0.2",
     "axios": "^0.9.1",
     "babel-core": "^6.4.5",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",

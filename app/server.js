@@ -73,7 +73,7 @@ app.use(function *(next) {
   yield next;
 });
 
-router.get('/', function *(next) {
+router.get('/(.*)', function *(next) {
   yield next;
   this.body = renderTemplate(); // this stays
 });
