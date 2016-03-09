@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { Injectable, Inject } from 'ng-forward';
 import { SERVER_URL } from '../../constants/constants';
-import slug from 'slug';
 import 'babel-polyfill';
 
 @Injectable()

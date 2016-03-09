@@ -2,7 +2,7 @@
   "name": "rosestclient",
   "version": "0.0.0",
   "scripts": {
-    "start": "NODE_PATH=\"./app\" node --harmony ./babel.server",
+    "start": "NODE_PATH=\"./app\" node --harmony ./babel.server | bunyan --color -o short",
     "watch": "gulp watch && npm run start",
     "build": "gulp build:production",
     "deploy": "npm run build && gulp git && git push heroku master",
@@ -39,6 +39,7 @@
     "gulp-git": "^1.7.0",
     "koa": "^1.2.0",
     "koa-cors": "0.0.16",
+    "koa-logging": "^0.1.0",
     "koa-proxy": "^0.5.0",
     "koa-render": "^0.2.1",
     "koa-request": "^1.0.0",
@@ -47,9 +48,7 @@
     "koa-useragent": "^0.1.2",
     "ng-currency-mask": "git+https://github.com/vtex/ng-currency-mask.git",
     "ng-forward": "0.0.1-alpha.12",
-    "piping": "^0.3.0",
-    "slug": "^0.9.1",
-    "striptags": "^2.1.1"
+    "piping": "^0.3.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.0",

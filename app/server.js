@@ -7,6 +7,8 @@ import axios from 'axios';
 import util from 'util';
 import request from 'koa-request';
 import cors from 'koa-cors';
+import logger from 'koa-logging';
+import bunyan from 'bunyan';
 
 import { SERVER_URL } from './scripts/constants/constants';
 
@@ -100,10 +102,24 @@ function renderTemplate(request, data) {
   return template;
 }
 
+const opts = {
+    name: 'rose-st-client',
+    logRequest: false,
+    logResponse: true,
+    logError: true,
+    serializers: bunyan.stdSerializers, // bunyan serializers, { logId, req, res, ctx, err, start, responseTime, contentLength }
+    bunyanArgs: {}
+};
+
+app.use(logger(opts));
+
 app.use(cors());
 
 app.use(function *(next) {
-  console.log('%s - %s %s', new Date().toISOString(), this.req.method, this.req.url);
+  this.log.info({
+    logId: this.logId
+  });
+  // console.log('%s - %s %s', new Date().toISOString(), this.req.method, this.req.url);
   yield next;
 });
 
