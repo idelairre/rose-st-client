@@ -219,7 +219,7 @@ gulp.task('build', bundler.stop.bind(bundler));
 
 gulp.task('assets', ['images', 'bootstrap', 'styles']);
 
-gulp.task('html', ['html:main', 'html:node']);
+gulp.task('html', ['html:main']);
 
 gulp.task('html:production', ['html:node']);
 

@@ -24,9 +24,9 @@ export default class PostsDetailComponent {
     this.post = PostsService.post;
     this.disqusConfig = {
       disqus_shortname: 'rosestcommunitycenter',
-      disqus_identifier: this.post.identifier,
+      disqus_identifier: $state.href($state.current.name, $state.params, {absolute: false}),
       disqus_url: $state.href($state.current.name, $state.params, {absolute: true}),
-      disqus_title: this.post.title
+      disqus_title: this.title
     };
   }
 }
