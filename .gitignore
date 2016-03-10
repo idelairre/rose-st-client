@@ -3,4 +3,5 @@ app/Thumbs.db
 .tmp
 .sass-cache
 .publish
+static
 bower_components

@@ -1,6 +1,7 @@
 import { Component, Inject, Resolve } from 'ng-forward';
 import PostsService from './posts.service';
 import 'angular-utils-pagination';
+import 'angular-resource';
 
 @Component({
   selector: 'posts',
@@ -9,17 +10,10 @@ import 'angular-utils-pagination';
   providers: ['ui.bootstrap.pagination', PostsService]
 })
 
-@Inject('$scope', PostsService)
+@Inject(PostsService)
 export default class PostsComponent {
-  @Resolve()
-  @Inject(PostsService)
-  static resolve(PostsService) {
-    return PostsService.query();
-  }
-
-  constructor($scope, PostsService) {
-    this.PostsService = PostsService;
-    this.posts = PostsService.posts;
+  constructor(PostsService) {
+    this.posts = PostsService.query();
     this.itemsPerPage = 3;
     this.totalItems = this.posts.length;
     this.currentPage = 1;

@@ -15,9 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/angular/angular.js',
+      'app/scripts/app.js',
       'node_modules/angular-mocks/angular-mocks.js',
-      'app/scripts/**/*.js',
       'test/**/*.js'
     ],
 
@@ -30,12 +29,12 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'app/**/*.js': ['browserify'],
+      'app/scripts/components/**/*.html': ['browserify'],
       'test/**/*.js': ['browserify']
     },
 
     browserify: {
       debug: true,
-      extensions: ['.js'],
       transform: ['babelify', 'stringify']
     },
 
@@ -66,7 +65,7 @@ module.exports = function(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
-    // PhantomJS, Chrome, Firefox
+    // [PhantomJS, Chrome, Firefox],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits

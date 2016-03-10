@@ -1,28 +1,33 @@
-import { Component, Inject } from 'ng-forward';
+import { Component, EventEmitter, Inject } from 'ng-forward';
 import PostsService from '../posts/posts.service';
+
+const TITLE = 'Rose St. Community Center';
+const SUBHEADING = '100 Blocks Homocide-Free Zone'
 
 @Component({
 	selector: 'rose-st-header',
 	controllerAs: 'headerCtrl',
-	template: require('./header.html'),
-	providers: [PostsService]
+	template: require('./header.html')
 })
 
-@Inject('$rootScope', PostsService)
+@Inject('$rootScope', '$stateParams')
 export default class Header {
-	constructor($rootScope, PostsService) {
-		this.PostsService = PostsService;
-		this.title = 'Rose St. Community Center';
-		this.subheading = '100 Blocks Homocide-Free Zone';
-		this.$rootScope = $rootScope;
-		this.$rootScope.$on('$stateChangeSuccess', (event, toState) => {
-			if (toState.name === 'posts-detail') {
-				this.title = this.PostsService.post.title;
-				this.subheading = this.PostsService.post.subheading;
-			} else {
-				this.title = 'Rose St. Community Center';
-				this.subheading = '100 Blocks Homocide-Free Zone';
+	constructor($rootScope, $stateParams, PostsService) {
+		this.title = TITLE;
+		this.subheading = SUBHEADING;
+		$rootScope.$on('post', ::this.setHeader);
+		$rootScope.$on('$stateChangeSuccess', (event, toState) => {
+			if (toState.name !== 'posts-detail') {
+				this.title = TITLE;
+				this.subheading = SUBHEADING;
 			}
+			console.log(this);
 		});
+	}
+
+	setHeader(event, post) {
+		console.log(event, post, post.title, post.subheading);
+		this.title = post.title;
+		this.subheading = post.subheading;
 	}
 }

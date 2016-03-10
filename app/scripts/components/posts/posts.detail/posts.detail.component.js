@@ -1,7 +1,8 @@
-import { Component, Resolve, Inject } from 'ng-forward';
+import { Component, Resolve, Inject, EventEmitter } from 'ng-forward';
 import PostsService from '../posts.service';
 import ToTrusted from '../../../filters/to-trusted.filter';
 import 'angular-utils-disqus';
+import 'babel-polyfill';
 
 @Component({
   selector: 'posts-detail',
@@ -11,22 +12,23 @@ import 'angular-utils-disqus';
   providers: ['angularUtils.directives.dirDisqus', PostsService]
 })
 
-@Inject('$state', PostsService)
+@Inject('$scope', '$state', '$stateParams', 'post', PostsService)
 export default class PostsDetailComponent {
   @Resolve()
   @Inject('$stateParams', PostsService)
-  static resolve($stateParams, PostsService) {
-    return PostsService.get($stateParams.post);
+  static async post($stateParams, PostsService) {
+    let post = await PostsService.get({ titleUrl: $stateParams.post });
+    return await post.$promise;
   }
 
-  constructor($state, PostsService) {
-    console.log(PostsService, PostsService.post);
-    this.post = PostsService.post;
+  constructor($scope, $state, $stateParams, post) {
+    $scope.$emit('post', post);
+    this.post = post;
     this.disqusConfig = {
       disqus_shortname: 'rosestcommunitycenter',
       disqus_identifier: $state.href($state.current.name, $state.params, { absolute: false }),
       disqus_url: $state.href($state.current.name, $state.params, { absolute: true }),
-      disqus_title: this.title
+      disqus_title: this.post.title
     };
   }
 }
