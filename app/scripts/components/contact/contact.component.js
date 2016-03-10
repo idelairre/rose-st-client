@@ -25,15 +25,14 @@ export default class ContactCtrl {
 	async submit(formData) {
 		try {
 			let response = await axios.post(`${SERVER_URL}/messages`, { message: formData });
-			console.log(response);
 			this.submitted = true;
 			this.result = 'bg-success';
 			this.resultMessage = 'Success! Expect to hear from us soon';
-			this.$scope.$digest();
 		} catch (error) {
 			console.error(error);
 			this.result = 'bg-danger';
 			this.resultMessage = `Post failed: ${error.statusText}`;
+		} finally {
 			this.$scope.$digest();
 		}
 	}

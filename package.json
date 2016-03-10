@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "start": "NODE_PATH=\"./app\" node --harmony ./babel.server | bunyan --color -o short",
-    "watch": "gulp watch && npm run start",
+    "watch": "gulp watch && make start",
     "build": "gulp build:production",
     "deploy": "npm run build && gulp git && git push heroku master",
-    "test": "karma start karma.conf.js"
+    "test": "karma start karma.config.js"
   },
   "dependencies": {
     "angular": "^1.5.0",
@@ -46,7 +46,7 @@
     "koa-router": "^5.4.0",
     "koa-static": "^2.0.0",
     "koa-useragent": "^0.1.2",
-    "ng-currency-mask": "git+https://github.com/vtex/ng-currency-mask.git",
+    "ng-currency-mask": "https://github.com/vtex/ng-currency-mask.git",
     "ng-forward": "0.0.1-alpha.12",
     "piping": "^0.3.0"
   },
@@ -74,6 +74,7 @@
     "gulp-uncss": "^1.0.4",
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.5",
+    "jasmine-core": "^2.4.1",
     "karma": "^0.13.10",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-browserify": "^5.0.1",
@@ -83,8 +84,9 @@
     "karma-mocha-reporter": "^1.1.5",
     "karma-ng-html2js-preprocessor": "^0.2.0",
     "karma-phantomjs-launcher": "^1.0.0",
-    "karma-requirejs": "^0.2.4",
     "karma-sinon": "^1.0.4",
+    "phantomjs-prebuilt": "^2.1.5",
+    "requirejs": "^2.1.22",
     "sinon": "^1.17.3",
     "stringify": "^4.0.1",
     "vinyl-source-stream": "^1.1.0",

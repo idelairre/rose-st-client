@@ -1,10 +1,6 @@
 import koa from 'koa';
 import serve from 'koa-static';
 import userAgent from 'koa-useragent';
-import views from 'koa-render';
-import path from 'path';
-import axios from 'axios';
-import util from 'util';
 import request from 'koa-request';
 import cors from 'koa-cors';
 import logger from 'koa-logging';
@@ -12,9 +8,8 @@ import bunyan from 'bunyan';
 
 import { SERVER_URL } from './scripts/constants/constants';
 
-const router = require('koa-router')();
-
 const app = koa();
+const router = require('koa-router')();
 const hostname = process.env.HOSTNAME || 'localhost';
 const port = process.env.PORT || 8000;
 
@@ -119,7 +114,6 @@ app.use(function *(next) {
   this.log.info({
     logId: this.logId
   });
-  // console.log('%s - %s %s', new Date().toISOString(), this.req.method, this.req.url);
   yield next;
 });
 

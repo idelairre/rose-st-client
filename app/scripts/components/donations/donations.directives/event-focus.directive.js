@@ -4,13 +4,12 @@ import { Directive, Inject } from 'ng-forward';
   selector: '[event-focus]'
 })
 
-@Inject('$attrs', '$scope', '$element', '$parse')
+@Inject('$attrs', '$scope', '$element')
 export default class EventFocus {
-  constructor($attrs, $scope, $element, $parse) {
+  constructor($attrs, $scope, $element) {
     this.$element = $element;
     this.$scope = $scope;
     this.$scope.$watch(::this.evalFocus, ::this.setFocus);
-    this.$parse = $parse;
   }
 
   evalFocus() {

@@ -6,4 +6,4 @@ import 'reflect-metadata';
   template: require('./about.html')
 })
 
-export default class AboutComponent {}
+export default class AboutComponent { }

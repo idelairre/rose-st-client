@@ -1,22 +1,27 @@
-'use strict';
+import { Component } from 'ng-forward';
+import { providers, TestComponentBuilder } from 'ng-forward/testing';
+import sinon from 'sinon';
+import 'reflect-metadata';
 
-describe('Controller: MainCtrl', function () {
+let MainComponent = require('../../app/scripts/components/main/main.component');
 
-  // load the controller's module
-  beforeEach(module('roseStClientApp'));
+@Component({
+  selector: 'test-cmp',
+  template: '<div></div>'
+})
 
-  var MainCtrl,
-    scope;
+class Test { }
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
-      $scope: scope
+describe('MainComponent', () => {
+  let component, tcb, html;
+  tcb = new TestComponentBuilder();
+
+  it('successfully compiles', (done) => {
+    html = '<rose-st-client></rose-st-client>';
+    tcb.overrideTemplate(Test, html).createAsync(Test).then(fixture => {
+      let MainComponent = fixture.debugElement.componentViewChildren[0];
+      expect(MainComponent).toBeDefined();
+      done();
     });
-  }));
-
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
   });
 });

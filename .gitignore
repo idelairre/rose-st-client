@@ -1,4 +1,5 @@
 node_modules
+app/Thumbs.db
 .tmp
 .sass-cache
 .publish
