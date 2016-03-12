@@ -88,7 +88,6 @@ function renderTemplate(request, data) {
             r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
         }(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
         ga('create', 'UA-74903814-1');
-        ga('send', 'pageview');
       </script>
       <script src='scripts/app.js'></script>
     </body>
@@ -106,16 +105,19 @@ const opts = {
     bunyanArgs: {}
 };
 
-app.use(logger(opts));
+if (process.env.NODE_ENV !== 'production') {
+  app.use(logger(opts));
+
+  app.use(function *(next) {
+    this.log.info({
+      logId: this.logId
+    });
+    yield next;
+  });
+}
+
 
 app.use(cors());
-
-app.use(function *(next) {
-  this.log.info({
-    logId: this.logId
-  });
-  yield next;
-});
 
 router.get('*', function *(next) {
   let req = this.request.href.split('/');
