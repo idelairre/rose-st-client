@@ -1,8 +1,6 @@
 import { Inject } from 'ng-forward';
-import { STRIPE } from '../constants/constants';
 import 'angulartics';
 import 'angulartics-google-analytics';
-import 'angular-stripe-checkout';
 import 'reflect-metadata';
 
 class AnalyticsConfig {

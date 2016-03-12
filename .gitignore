@@ -5,3 +5,6 @@ app/Thumbs.db
 .publish
 static
 bower_components
+.jshintrc
+.yo-rc.json
+.npm-debug.log

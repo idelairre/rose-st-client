@@ -65,6 +65,13 @@ function renderTemplate(request, data) {
     <html class='no-js'>
     <head>
       <meta charset='utf-8'>
+      <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+      <script>
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview');
+      </script>
+      <script async src='//www.google-analytics.com/analytics.js'></script>
       <base href='/'>
       <title>Rose St. Community Center</title>
       <meta name='viewport' content='width=device-width'>
@@ -79,16 +86,6 @@ function renderTemplate(request, data) {
           <p class='browsehappy'>You are using an <strong>outdated</strong> browser. Please <a href='http://browsehappy.com/'>upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
       <rose-st-client></rose-st-client>
-      <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-      <script>
-        ! function (A, n, g, u, l, a, r) {
-          A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
-              (A[l].q = A[l].q || []).push(arguments)
-            }, A[l].l = +new Date, a = n.createElement(g),
-            r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
-        }(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-74903814-1');
-      </script>
       <script src='scripts/app.js'></script>
     </body>
     </html>`
