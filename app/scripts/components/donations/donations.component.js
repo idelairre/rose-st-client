@@ -1,5 +1,6 @@
 import { Component, Inject, Resolve } from 'ng-forward';
 import DonationButton from './donations.directives/donation-button.component';
+import DonationsModal from './donations.modal/donations.modal.component';
 import DonationsService from './donations.service';
 import { STRIPE } from '../../constants/constants';
 import 'angular-ui-bootstrap';
@@ -13,12 +14,12 @@ const STRIPE_THUMBNAIL_URL = 'https://raw.githubusercontent.com/idelairre/rose_s
 @Component({
 	selector: 'donations',
 	controllerAs: 'donationsCtrl',
-	providers: ['stripe.checkout', DonationsService],
-	directives: [DonationButton],
+	providers: ['stripe.checkout', 'ui.bootstrap.modal', DonationsService],
+	directives: [DonationButton, DonationsModal],
 	template: require('./donations.html')
 })
 
-@Inject('$filter', '$scope', 'StripeCheckout', DonationsService)
+@Inject('$scope', '$uibModal', 'StripeCheckout', DonationsService)
 export default class DonationsComponent {
 	@Resolve()
 	@Inject('StripeCheckout')
@@ -26,14 +27,12 @@ export default class DonationsComponent {
 		return StripeCheckoutProvider.load;
 	}
 
-	constructor($filter, $scope, StripeCheckout, DonationsService) {
-		this.$filter = $filter;
+	constructor($scope, $uibModal, StripeCheckout, DonationsService) {
 		this.$scope = $scope;
+		this.$uibModal = $uibModal;
 		this.DonationsService = DonationsService;
 		this.amount = null;
 		this.subscriptionAmount = null;
-		this.chargeSubmitted = false;
-		this.subscriptionSubmitted = false;
 
 		this.DonationsService = DonationsService;
 
@@ -56,6 +55,19 @@ export default class DonationsComponent {
 	ngAfterViewInit() {
 		let donationButtons = Array.prototype.slice.call(document.getElementsByTagName('donation-button'));
 		this.donationButtons.length = donationButtons.length;
+	}
+
+	showAppreciation(result) {
+		return this.$uibModal.open({
+      animation: true,
+			controller: DonationsModal,
+			controllerAs: 'donationsModalCtrl',
+      template: require('./donations.modal/donations.modal.html'),
+      size: 'md',
+			resolve: {
+				result: result
+			}
+		});
 	}
 
 	initializeStripe() {
@@ -107,10 +119,7 @@ export default class DonationsComponent {
 			} else if (type === 'subscription-custom') {
 				result = await this.DonationsService.sendCustomSubscriptionToken(token.id, this.chargeOptions);
 			}
-			if (result) {
-				type === 'charge' ? this.chargeSubmitted = true : this.subscriptionSubmitted = true;
-				this.$scope.$apply();
-			}
+			this.showAppreciation(result);
 		} catch (error) {
 			console.error(error);
 		}

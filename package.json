@@ -5,7 +5,6 @@
     "start": "NODE_PATH=\"./app\" node --harmony ./babel.server | bunyan --color -o short",
     "watch": "gulp watch && make start",
     "build": "gulp build:production",
-    "deploy": "npm run build && gulp git && git push heroku master",
     "test": "karma start karma.config.js"
   },
   "dependencies": {

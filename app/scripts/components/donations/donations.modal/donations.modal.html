@@ -1,0 +1,17 @@
+<div class="modal-dialog">
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title">Thank you for your contribution!</h3>
+  </div>
+  <div class="modal-body">
+      <h1>{{ donationsModalCtrl.receipt.amount }}</h1>
+      <h3>{{ donationsModalCtrl.receipt.to }}</h3>
+      <hr>
+      <p>{{ donationsModalCtrl.receipt.address }}<br>
+      {{ donationsModalCtrl.receipt.cityState }}<br>
+      {{ donationsModalCtrl.receipt.date }}</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="donationsModalCtrl.ok()">OK</button>
+  </div>
+</div>
