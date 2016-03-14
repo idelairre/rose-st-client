@@ -3,7 +3,6 @@ app/Thumbs.db
 .tmp
 .sass-cache
 .publish
-static
 bower_components
 .jshintrc
 .yo-rc.json
