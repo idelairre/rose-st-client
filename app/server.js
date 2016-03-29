@@ -20,7 +20,7 @@ const hostname = process.env.HOSTNAME || 'localhost';
 const port = process.env.PORT || 8000;
 
 function getPost(titleUrl) {
-  let posts = fs.readJsonSync('cache.json', 'utf8');
+  let posts = fs.readJsonSync(helpers.root('app/cache.json'), 'utf8');
   for (let i = 0; posts.length > i; i += 1) {
     if (posts[i].title_url === titleUrl) {
       return posts[i];
