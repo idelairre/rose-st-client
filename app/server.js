@@ -31,14 +31,13 @@ function getPost(titleUrl) {
   return false;
 }
 
-const task = schedule.scheduleJob({ hour: 0, minute: 0, dayOfWeek: 0 }, function () {
-  axios.get(`${SERVER_URL}/posts`).then(response => {
-    if (response.data !== fs.readJsonSync(helpers.root('app/cache.json'), 'utf8')) {
-      fs.writeJsonSync(helpers.root('app/cache.json'), JSON.stringify(response.data));
-    }
-  });
-});
-
+// const task = schedule.scheduleJob({ hour: 0, minute: 0, dayOfWeek: 0 }, function () {
+//   axios.get(`${SERVER_URL}/posts`).then(response => {
+//     if (response.data !== fs.readJsonSync(helpers.root('app/cache.json'), 'utf8')) {
+//       fs.writeJsonSync(helpers.root('app/cache.json'), JSON.stringify(response.data));
+//     }
+//   });
+// });
 
 render(app, {
   root: helpers.root('app'),
