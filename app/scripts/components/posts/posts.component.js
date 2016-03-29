@@ -2,6 +2,7 @@ import { Component, Inject, Resolve } from 'ng-forward';
 import PostsService from './posts.service';
 import 'angular-utils-pagination';
 import 'angular-resource';
+import './posts.css';
 
 @Component({
   selector: 'posts',

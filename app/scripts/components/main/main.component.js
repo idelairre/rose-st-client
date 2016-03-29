@@ -3,6 +3,7 @@ import { STRIPE } from '../../constants/constants';
 import EscListener from '../../directives/esc-listener.directive';
 import * as components from '../components.module';
 import uiRouter from 'angular-ui-router';
+import './main.css';
 
 @StateConfig([
 	{ name: 'home', url: '/', component: components.HomeComponent, as: 'mainCtrl' },

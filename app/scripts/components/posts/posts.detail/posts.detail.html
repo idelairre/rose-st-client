@@ -2,42 +2,42 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-				<p ng-bind-html="postsDetailCtrl.post.body | ToTrusted"></p>
+				<p ng-bind-html="postsDetailCtrl.post.body"></p>
 			</div>
 		</div>
 		<hr>
 		<button class="btn btn-default"
 			socialshare
 			socialshare-provider="facebook"
-			socialshare-description="{{ post.subheading }}"
-			socialshare-text="{{ post.body }}"
-			socialshare-caption="{{ post.subheading }}"
+			socialshare-description="{{ ::post.subheading }}"
+			socialshare-text="{{ ::post.body }}"
+			socialshare-caption="{{ ::post.subheading }}"
 			socialshare-type="article"
-			socialshare-url="{{ postsDetailCtrl.url }}">
+			socialshare-url="{{ ::postsDetailCtrl.url }}">
 			<i class="fa fa-facebook"></i>
 		</button>
-    <button class="btn btn-default"
+    <button
+			class="btn btn-default"
 			socialshare
-			socialshare-description="{{ post.subheading }}"
+			socialshare-description="{{ ::post.subheading }}"
 			socialshare-provider="twitter"
-			socialshare-text="{{ post.body }}"
-			socialshare-url="{{ postsDetailCtrl.url }}">
+			socialshare-text="{{ ::post.body }}"
+			socialshare-url="{{ ::postsDetailCtrl.url }}">
 			<i class="fa fa-twitter"></i>
 		</button>
-    <button class="btn btn-default"
+    <button
+			class="btn btn-default"
 			socialshare
-			socialshare-description="{{ post.subheading }}"
+			socialshare-description="{{ ::post.subheading }}"
 			socialshare-provider="tumblr"
-			socialshare-text="{{ post.body }}"
-			socialshare-url="{{ postsDetailCtrl.url }}">
+			socialshare-text="{{ ::post.body }}"
+			socialshare-url="{{ ::postsDetailCtrl.url }}">
 			<i class="fa fa-tumblr"></i>
 		</button>
     <a class="btn btn-default pull-right" ui-sref="posts">Back</a>
 		<br>
 		<hr>
-		<dir-disqus
-			config="postsDetailCtrl.disqusConfig"
-		</dir-disqus>
+		<dir-disqus config="postsDetailCtrl.disqusConfig"></dir-disqus>
 		<br>
 	</div>
 </article>

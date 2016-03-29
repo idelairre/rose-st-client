@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Inject } from 'ng-forward';
 import PostsService from '../posts/posts.service';
+import './header.css';
 
 const TITLE = 'Rose St. Community Center';
-const SUBHEADING = '100 Blocks Homocide-Free Zone'
+const SUBHEADING = '100 Blocks Homicide-Free Zone'
 
 @Component({
 	selector: 'rose-st-header',

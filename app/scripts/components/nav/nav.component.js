@@ -1,4 +1,5 @@
 import { Component } from 'ng-forward';
+import './nav.css';
 
 @Component({
 	selector: 'rose-st-nav',

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Injectable, Inject } from 'ng-forward';
 import { SERVER_URL } from '../../constants/constants';
 import 'babel-polyfill';
@@ -6,9 +5,10 @@ import 'babel-polyfill';
 const STRIPE_CHECKOUT_URL = 'https://checkout.stripe.com/checkout.js';
 
 @Injectable()
-@Inject('StripeCheckout')
+@Inject('$http', 'StripeCheckout')
 export default class DonationsService {
-	constructor(StripeCheckout) {
+	constructor($http, StripeCheckout) {
+		this.$http = $http;
 		this.StripeCheckout = StripeCheckout;
 	}
 
@@ -31,7 +31,7 @@ export default class DonationsService {
 			amount: options.amount,
 		};
 		try {
-			let response = await axios.post(`${SERVER_URL}/donations/`, params);
+			let response = await this.$http.post(`${SERVER_URL}/donations/`, params);
 			return Promise.resolve(response);
 		} catch (error) {
 			return Promise.reject(error);
@@ -44,7 +44,7 @@ export default class DonationsService {
 			subscription_id: options.id
 		};
 		try {
-			let response = await axios.post(`${SERVER_URL}/donations/subscription`, params);
+			let response = await this.$http.post(`${SERVER_URL}/donations/subscription`, params);
 			return Promise.resolve(response);
 		} catch (error) {
 			return Promise.reject(error);
@@ -57,7 +57,7 @@ export default class DonationsService {
 			amount: options.amount
 		};
 		try {
-			let response = await axios.post(`${SERVER_URL}/donations/custom_subscription`, params);
+			let response = await this.$http.post(`${SERVER_URL}/donations/custom_subscription`, params);
 			return Promise.resolve(response);
 		} catch (error) {
 			return Promise.reject(error);

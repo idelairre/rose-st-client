@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <!-- Google Analytics: change UA-XXXXX-X to be your site"s ID -->
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga("create", "UA-XXXXX-Y", "auto");
+    ga("send", "pageview");
+  </script>
+  <script async src="//www.google-analytics.com/analytics.js"></script>
+
+  <base href="/">
+  <title><%= webpackConfig.meta.title %></title>
+  <meta name="viewport" content="width=device-width">
+  <% if (webpackConfig.meta.metadata) { %>
+    <meta itemprop="name" content="<%= webpackConfig.meta.metadata.name %>">
+    <meta itemprop="description" content="<%= webpackConfig.meta.metadata.description %>">
+    <meta itemprop="image" content="<%= webpackConfig.meta.metadata.image %>">
+    <meta property="twitter:url" content="<%= webpackConfig.meta.metadata.url %>" />
+    <meta property="twitter:site" content="@rosestreet" />
+    <meta property="twitter:card" content="<%= webpackConfig.meta.metadata.type %>" />
+    <meta property="twitter:description" content="<%= webpackConfig.meta.metadata.description %>" />
+    <meta property="twitter:title" content="<%= webpackConfig.meta.metadata.name %>" />
+    <meta property="og:title" content="<%= webpackConfig.meta.metadata.name %>" />
+    <meta property="og:url" content="<%= webpackConfig.meta.metadata.url %>" />
+    <meta property="og:site_name" content="<%= webpackConfig.meta.metadata.name %>" />
+    <meta property="og:type" content="<%= webpackConfig.meta.metadata.type %>" />
+    <meta property="og:description" content="<%= webpackConfig.meta.metadata.description %>" />
+    <% if (webpackConfig.meta.metadata.publishedTime && webpackConfig.meta.metadata.modifiedTime) { %>
+    <meta property='article:published_time' content="<%= webpackConfig.meta.metadata.publishedTime %>" />
+    <meta property='article:modified_time' content="<%= webpackConfig.meta.metadata.modifiedTime %>" />
+    <% } %>
+  <% } %>
+  <link rel="icon" type="image/png" href="favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+<!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <rose-st-client></rose-st-client>
+  <script src="dist/app.js"></script>
+</body>
+</html>

@@ -17,7 +17,7 @@ export default class EventFocus {
   }
 
   setFocus(current, previous) {
-    if (current === true) {
+    if (current) {
       setTimeout(() => {
         this.$element[0].focus();
         this.$scope.$apply();

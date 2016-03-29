@@ -1,4 +1,5 @@
 import { Component } from 'ng-forward';
+import './footer.css';
 
 @Component({
 	selector: 'rose-st-footer',

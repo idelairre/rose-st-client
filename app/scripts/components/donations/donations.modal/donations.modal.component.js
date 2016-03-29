@@ -13,12 +13,12 @@ export default class DonationsModal {
     this.$uibModalInstance = $uibModalInstance;
     this.result = result;
     this.receipt = {
-      amount: $filter('currency')(JSON.parse(result.config.data).amount / 100),
+      // amount: $filter('currency')(JSON.parse(result.config.data).amount / 100),
       address: '821 N. Rose St.',
       cityState: 'Baltimore, MD 21205',
       to: 'Rose St. Community Center',
       date: $filter('date')(new Date(), 'shortDate'),
-      token: JSON.parse(result.config.data).token
+      // token: JSON.parse(result.config.data).token
     }
     console.log(this.receipt, this.result);
   }

@@ -4,14 +4,14 @@
     <h3 class="modal-title">Thank you for your contribution!</h3>
   </div>
   <div class="modal-body">
-      <h1>{{ donationsModalCtrl.receipt.amount }}</h1>
-      <h3>{{ donationsModalCtrl.receipt.to }}</h3>
+      <h1 ng-bind="donationsModalCtrl.receipt.amount"></h1>
+      <h3 ng-bind="donationsModalCtrl.receipt.to"></h3>
       <hr>
-      <p>{{ donationsModalCtrl.receipt.address }}<br>
-      {{ donationsModalCtrl.receipt.cityState }}<br>
-      {{ donationsModalCtrl.receipt.date }}</p>
+      <p>{{ ::donationsModalCtrl.receipt.address }}<br>
+      {{ ::donationsModalCtrl.receipt.cityState }}<br>
+      {{ ::donationsModalCtrl.receipt.date }}</p>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-default" type="button" ng-click="donationsModalCtrl.ok()">OK</button>
+    <button class="btn btn-default" type="button" (click)="donationsModalCtrl.ok()">OK</button>
   </div>
 </div>

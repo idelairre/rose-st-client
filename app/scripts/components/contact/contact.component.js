@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Component, Inject } from 'ng-forward';
 import { SERVER_URL } from '../../constants/constants';
 import 'babel-polyfill';
@@ -10,9 +9,10 @@ import 'babel-polyfill';
 	providers: ['ngMessages']
 })
 
-@Inject('$scope')
+@Inject('$http','$scope')
 export default class ContactCtrl {
-	constructor($scope) {
+	constructor($http, $scope) {
+		this.$http = $http;
 		this.$scope = $scope;
 		this.result = 'hidden'
 		this.resultMessage = '';
@@ -24,7 +24,7 @@ export default class ContactCtrl {
 
 	async submit(formData) {
 		try {
-			let response = await axios.post(`${SERVER_URL}/messages`, { message: formData });
+			let response = await this.$http.post(`${SERVER_URL}/messages`, { message: formData });
 			this.submitted = true;
 			this.result = 'bg-success';
 			this.resultMessage = 'Success! Expect to hear from us soon';
