@@ -29,13 +29,13 @@ function getPost(titleUrl) {
   return false;
 }
 
-// const task = schedule.scheduleJob({ hour: 0, minute: 0, dayOfWeek: 0 }, function () {
-//   axios.get(`${SERVER_URL}/posts`).then(response => {
-//     if (response.data !== fs.readJsonSync(helpers.root('app/cache.json'), 'utf8')) {
-//       fs.writeJsonSync(helpers.root('app/cache.json'), JSON.stringify(response.data));
-//     }
-//   });
-// });
+const task = schedule.scheduleJob({ hour: 0, minute: 0, dayOfWeek: 0 }, function () {
+  axios.get(`${SERVER_URL}/posts`).then(response => {
+    if (response.data !== fs.readJsonSync(helpers.root('app/cache.json'), 'utf8')) {
+      fs.writeJsonSync(helpers.root('app/cache.json'), JSON.stringify(response.data));
+    }
+  });
+});
 
 render(app, {
   root: helpers.root('app'),
@@ -75,18 +75,7 @@ app.use(compress());
 app.use(userAgent());
 
 app.listen(port, () => {
+  console.info('==> ✅  Node vars:', process.env);
   console.info('==> ✅  Server is listening');
   console.info('==> 🌎  Go to http://%s:%s', hostname, port);
 });
-
-// if (__DEV__) {
-//   if (module.hot) {
-//     console.log('[HMR] Waiting for server-side updates');
-//     module.hot.accept();
-//     module.hot.addStatusHandler((status) => {
-//       if (status === 'abort') {
-//         setTimeout(() => process.exit(0), 0);
-//       }
-//     });
-//   }
-// }

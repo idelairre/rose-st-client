@@ -36,8 +36,6 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({ minimize: true, compress: { warnings: false } }),
   ],
   module: {
-    preLoaders: [
-    ],
     loaders: [
       { test: /\.json$/, loaders: ['json'] },
       { test: /\.js$/, loaders: ['babel?presets[]=es2015&presets[]=stage-0&plugins[]=transform-function-bind&plugins[]=transform-class-properties&plugins[]=transform-decorators-legacy'], exclude: /node_modules/ }

@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var config = require('./webpack.client');
+var InlineEnviromentVariablesPlugin = require('inline-environment-variables-webpack-plugin');
 
 var wds = { // does this stand for?
   hostname: process.env.HOSTNAME || 'localhost',
@@ -42,7 +43,7 @@ config.output.hotUpdateChunkFile = 'update/[hash]/[id].update.js';
 
 config.plugins = [
   new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false, __PRODUCTION__: false, __DEV__: true}),
-  new webpack.DefinePlugin({ 'process.env' : { NODE_ENV: "'development'" }}),
+  new InlineEnviromentVariablesPlugin({ NODE_ENV: 'development' }),
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoErrorsPlugin()
 ];

@@ -3,13 +3,14 @@
   "main": "dist/server.js",
   "version": "0.0.0",
   "scripts": {
-    "start": "node --harmony ./dist/server.js",
+    "clean": "concurrently \"rimraf dist\" \"rimraf static\"",
+    "start": "make start",
     "build-server": "webpack --colors --display-error-details --config configs/webpack.server.js",
-    "build-client": "webpack --bail --colors --display-error-details --config configs/webpack.client.js",
-    "build": "concurrently \"npm run build-server\" \"npm run build-client\"",
-    "watch-server": "webpack --watch --verbose --colors --display-error-details --config configs/webpack.server-watch.js",
+    "build-client": "webpack --colors --display-error-details --config configs/webpack.client.js",
+    "build": "NODE_ENV=production concurrently \"npm run clean\" \"npm run build-server\" \"npm run build-client\"",
+    "watch-server": "NODE_ENV=development webpack --watch --verbose --colors --display-error-details --config configs/webpack.server-watch.js",
     "watch-server-start": "node node_modules/just-wait --pattern \"dist/*.js\" && npm run start",
-    "watch-client": "webpack-dev-server --config configs/webpack.client-watch.js",
+    "watch-client": "NODE_ENV=development webpack-dev-server --config configs/webpack.client-watch.js",
     "watch": "concurrently --kill-others \"npm run watch-server-start\" \"npm run watch-server\" \"npm run watch-client\""
   },
   "dependencies": {
@@ -53,18 +54,8 @@
     "fs-extra": "^0.26.7",
     "html-loader": "^0.4.3",
     "inline-environment-variables-webpack-plugin": "0.0.2",
-    "jasmine-core": "^2.4.1",
-    "jasmine-expect": "^2.0.2",
     "json-loader": "^0.5.4",
     "just-wait": "^1.0.5",
-    "karma": "^0.13.10",
-    "karma-babel-preprocessor": "^6.0.1",
-    "karma-browserify": "^5.0.1",
-    "karma-chrome-launcher": "^0.2.2",
-    "karma-firefox-launcher": "^0.1.7",
-    "karma-jasmine": "^0.3.7",
-    "karma-mocha-reporter": "^1.1.5",
-    "karma-sinon": "^1.0.4",
     "koa": "^1.2.0",
     "koa-compress": "^1.0.9",
     "koa-cors": "0.0.16",
@@ -88,6 +79,18 @@
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
     "webpack-node-externals": "^1.0.0"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.4.1",
+    "jasmine-expect": "^2.0.2",
+    "karma": "^0.13.10",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-browserify": "^5.0.1",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.7",
+    "karma-mocha-reporter": "^1.1.5",
+    "karma-sinon": "^1.0.4"
   },
   "engines": {
     "node": "5.7.1"
