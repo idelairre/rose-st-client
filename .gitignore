@@ -9,5 +9,3 @@ bower_components
 .npm-debug.log
 .babelrc
 .editorconfig
-dist
-static
