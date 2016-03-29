@@ -11,9 +11,7 @@ import render from 'koa-ejs';
 import schedule from 'node-schedule';
 import serve from 'koa-static';
 import userAgent from 'koa-useragent';
-
 import { DESCRIPTION, IMAGE_URL, SERVER_URL, SITE_NAME } from './scripts/constants/constants';
-
 import 'babel-polyfill';
 
 const app = koa();
@@ -76,20 +74,19 @@ app.use(compress());
 
 app.use(userAgent());
 
-app.listen(port, (...args) => {
-  // console.log('args: ', ...args);
+app.listen(port, () => {
   console.info('==> ✅  Server is listening');
   console.info('==> 🌎  Go to http://%s:%s', hostname, port);
 });
 
-if (__DEV__) {
-  if (module.hot) {
-    console.log('[HMR] Waiting for server-side updates');
-    module.hot.accept();
-    module.hot.addStatusHandler((status) => {
-      if (status === 'abort') {
-        setTimeout(() => process.exit(0), 0);
-      }
-    });
-  }
-}
+// if (__DEV__) {
+//   if (module.hot) {
+//     console.log('[HMR] Waiting for server-side updates');
+//     module.hot.accept();
+//     module.hot.addStatusHandler((status) => {
+//       if (status === 'abort') {
+//         setTimeout(() => process.exit(0), 0);
+//       }
+//     });
+//   }
+// }
