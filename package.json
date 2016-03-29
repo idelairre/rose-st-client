@@ -3,7 +3,7 @@
   "main": "dist/server.js",
   "version": "0.0.0",
   "scripts": {
-    "start": "forever --minUptime 1000 --spinSleepTime 1000 -c \"node --harmony\" ./dist/server.js",
+    "start": "node --harmony ./dist/server.js",
     "build-server": "webpack --colors --display-error-details --config configs/webpack.server.js",
     "build-client": "webpack --bail --colors --display-error-details --config configs/webpack.client.js",
     "build": "concurrently \"npm run build-server\" \"npm run build-client\"",
@@ -63,7 +63,6 @@
     "ejs": "^2.4.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
-    "forever": "^0.15.1",
     "fs-extra": "^0.26.7",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.14.0",
