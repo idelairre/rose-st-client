@@ -238,8 +238,7 @@
 	
 	var METADATA = {
 	  title: 'Rose St. Community Center',
-	  favicon: 'dist/favicon.ico',
-	  script: 'localhost:8000/static/dist/app.js',
+	  favicon: constants.ICON,
 	  metadata: {
 	    image: constants.IMAGE_URL,
 	    description: constants.DESCRIPTION,
@@ -336,6 +335,7 @@
 	  STRIPE: {
 	    PUBLISHABLE_KEY:  true ? 'pk_test_f6MApsp3oUQNaZSejidOONkT' : process.env.STRIPE
 	  },
+	  ICON: 'https://raw.githubusercontent.com/idelairre/rose_st_client/master/app/favicon.ico',
 	  IMAGE_URL: 'https://raw.githubusercontent.com/idelairre/rose_st_client/master/app/images/10612805_674783332611610_5602889381423136186_n.jpg',
 	  DESCRIPTION: '74 blocks (with the goal of 100) in East Baltimore where the peace is encouraged by the youth of the community, NOT THE POLICE!',
 	  SITE_NAME: 'Rose St. Community Center',

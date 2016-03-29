@@ -7,8 +7,7 @@ var constants = require('../app/scripts/constants/constants');
 
 var METADATA = {
   title: 'Rose St. Community Center',
-  favicon: 'dist/favicon.ico',
-  script: 'localhost:8000/static/dist/app.js',
+  favicon: constants.ICON,
   metadata: {
     image: constants.IMAGE_URL,
     description: constants.DESCRIPTION,
