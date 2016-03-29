@@ -1,4 +1,5 @@
 import axios from 'axios';
+import config from '../configs/webpack.server';
 import compress from 'koa-compress';
 import cors from 'koa-cors';
 import fs from 'fs-extra';
@@ -38,7 +39,6 @@ const task = schedule.scheduleJob({ hour: 0, minute: 0, dayOfWeek: 0 }, function
   });
 });
 
-let config = require('../configs/webpack.server');
 
 render(app, {
   root: helpers.root('app'),
@@ -47,8 +47,6 @@ render(app, {
   cache: false,
   debug: true
 });
-
-app.use(serve('static'));
 
 router.get('/posts/:title_url', function *(next) {
   const data = getPost(this.params.title_url);
@@ -66,6 +64,8 @@ router.get('/posts/:title_url', function *(next) {
 router.get('*', function *(next) {
   yield this.render('index', { webpackConfig : config });
 });
+
+app.use(serve('static'));
 
 app.use(cors());
 

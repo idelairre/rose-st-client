@@ -338,7 +338,6 @@
 	var webpack = __webpack_require__(19);
 	var nodeExternals = __webpack_require__(20);
 	var path = __webpack_require__(7);
-	var HtmlWebpackPlugin = __webpack_require__(21);
 	var helpers = __webpack_require__(6);
 	
 	var constants = __webpack_require__(15);
@@ -406,12 +405,6 @@
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-node-externals");
-
-/***/ },
-/* 21 */
-/***/ function(module, exports) {
-
-	module.exports = require("html-webpack-plugin");
 
 /***/ }
 /******/ ]);
