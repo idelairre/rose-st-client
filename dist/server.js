@@ -57,60 +57,64 @@
 	
 	var _axios2 = _interopRequireDefault(_axios);
 	
-	var _koaCompress = __webpack_require__(3);
+	var _webpack = __webpack_require__(3);
+	
+	var _webpack2 = _interopRequireDefault(_webpack);
+	
+	var _koaCompress = __webpack_require__(10);
 	
 	var _koaCompress2 = _interopRequireDefault(_koaCompress);
 	
-	var _koaCors = __webpack_require__(4);
+	var _koaCors = __webpack_require__(11);
 	
 	var _koaCors2 = _interopRequireDefault(_koaCors);
 	
-	var _fsExtra = __webpack_require__(5);
+	var _fsExtra = __webpack_require__(12);
 	
 	var _fsExtra2 = _interopRequireDefault(_fsExtra);
 	
-	var _helpers = __webpack_require__(6);
+	var _helpers = __webpack_require__(7);
 	
 	var _helpers2 = _interopRequireDefault(_helpers);
 	
-	var _koa = __webpack_require__(9);
+	var _koa = __webpack_require__(13);
 	
 	var _koa2 = _interopRequireDefault(_koa);
 	
-	var _koaLogging = __webpack_require__(10);
+	var _koaLogging = __webpack_require__(14);
 	
 	var _koaLogging2 = _interopRequireDefault(_koaLogging);
 	
-	var _path = __webpack_require__(7);
+	var _path = __webpack_require__(6);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _koaEjs = __webpack_require__(11);
+	var _koaEjs = __webpack_require__(15);
 	
 	var _koaEjs2 = _interopRequireDefault(_koaEjs);
 	
-	var _nodeSchedule = __webpack_require__(12);
+	var _nodeSchedule = __webpack_require__(16);
 	
 	var _nodeSchedule2 = _interopRequireDefault(_nodeSchedule);
 	
-	var _koaStatic = __webpack_require__(13);
+	var _koaStatic = __webpack_require__(17);
 	
 	var _koaStatic2 = _interopRequireDefault(_koaStatic);
 	
-	var _koaUseragent = __webpack_require__(14);
+	var _koaUseragent = __webpack_require__(18);
 	
 	var _koaUseragent2 = _interopRequireDefault(_koaUseragent);
 	
-	var _constants = __webpack_require__(15);
+	var _constants = __webpack_require__(9);
 	
-	__webpack_require__(16);
+	__webpack_require__(19);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var app = (0, _koa2.default)();
-	var router = __webpack_require__(17)();
-	var hostname = ({"NODE_ENV":"development"}).HOSTNAME || 'localhost';
-	var port = ({"NODE_ENV":"development"}).PORT || 8000;
+	var router = __webpack_require__(20)();
+	var hostname = ({"NODE_ENV":'development'}).HOSTNAME || 'localhost';
+	var port = ({"NODE_ENV":'development'}).PORT || 8000;
 	
 	function getPost(titleUrl) {
 	  var posts = _fsExtra2.default.readJsonSync('cache.json', 'utf8');
@@ -122,15 +126,13 @@
 	  return false;
 	}
 	
-	var task = _nodeSchedule2.default.scheduleJob({ hour: 0, minute: 0, dayOfWeek: 0 }, function () {
-	  _axios2.default.get(_constants.SERVER_URL + '/posts').then(function (response) {
-	    if (response.data !== _fsExtra2.default.readJsonSync(_helpers2.default.root('app/cache.json'), 'utf8')) {
-	      _fsExtra2.default.writeJsonSync(_helpers2.default.root('app/cache.json'), JSON.stringify(response.data));
-	    }
-	  });
-	});
-	
-	var config = __webpack_require__(18);
+	// const task = schedule.scheduleJob({ hour: 0, minute: 0, dayOfWeek: 0 }, function () {
+	//   axios.get(`${SERVER_URL}/posts`).then(response => {
+	//     if (response.data !== fs.readJsonSync(helpers.root('app/cache.json'), 'utf8')) {
+	//       fs.writeJsonSync(helpers.root('app/cache.json'), JSON.stringify(response.data));
+	//     }
+	//   });
+	// });
 	
 	(0, _koaEjs2.default)(app, {
 	  root: _helpers2.default.root('app'),
@@ -140,8 +142,6 @@
 	  debug: true
 	});
 	
-	app.use((0, _koaStatic2.default)('static'));
-	
 	router.get('/posts/:title_url', regeneratorRuntime.mark(function _callee(next) {
 	  var data;
 	  return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -150,7 +150,7 @@
 	        case 0:
 	          data = getPost(this.params.title_url);
 	
-	          Object.assign(config.meta.metadata, {
+	          Object.assign(_webpack2.default.meta.metadata, {
 	            title: data.title,
 	            description: data.subheading,
 	            publishedTime: data.created_at,
@@ -159,7 +159,7 @@
 	            url: this.request.href
 	          });
 	          _context.next = 4;
-	          return this.render('index', { webpackConfig: config });
+	          return this.render('index', { webpackConfig: _webpack2.default });
 	
 	        case 4:
 	        case 'end':
@@ -175,7 +175,7 @@
 	      switch (_context2.prev = _context2.next) {
 	        case 0:
 	          _context2.next = 2;
-	          return this.render('index', { webpackConfig: config });
+	          return this.render('index', { webpackConfig: _webpack2.default });
 	
 	        case 2:
 	        case 'end':
@@ -184,6 +184,8 @@
 	    }
 	  }, _callee2, this);
 	}));
+	
+	app.use((0, _koaStatic2.default)('static'));
 	
 	app.use((0, _koaCors2.default)());
 	
@@ -223,124 +225,16 @@
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
-
-	module.exports = require("koa-compress");
-
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	module.exports = require("koa-cors");
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-	module.exports = require("fs-extra");
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var path = __webpack_require__(7);
-	var appRoot = __webpack_require__(8);
-	
-	module.exports.root = function (args) {
-	  args = Array.prototype.slice.call(arguments, 0);
-	  return path.join.apply(path, [appRoot.path].concat(args));
-	};
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	module.exports = require("path");
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	module.exports = require("app-root-path");
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	module.exports = require("koa");
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	module.exports = require("koa-logging");
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	module.exports = require("koa-ejs");
-
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-	module.exports = require("node-schedule");
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	module.exports = require("koa-static");
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	module.exports = require("koa-useragent");
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = {
-	  STRIPE: {
-	    PUBLISHABLE_KEY:  true ? 'pk_test_f6MApsp3oUQNaZSejidOONkT' : process.env.STRIPE
-	  },
-	  IMAGE_URL: 'https://raw.githubusercontent.com/idelairre/rose_st_client/master/app/images/10612805_674783332611610_5602889381423136186_n.jpg',
-	  DESCRIPTION: '74 blocks (with the goal of 100) in East Baltimore where the peace is encouraged by the youth of the community, NOT THE POLICE!',
-	  SITE_NAME: 'Rose St. Community Center',
-	  SERVER_URL: 'https://rose-st-api.herokuapp.com'
-	};
-
-/***/ },
-/* 16 */
-/***/ function(module, exports) {
-
-	module.exports = require("babel-polyfill");
-
-/***/ },
-/* 17 */
-/***/ function(module, exports) {
-
-	module.exports = require("koa-router");
-
-/***/ },
-/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
-	var webpack = __webpack_require__(19);
-	var nodeExternals = __webpack_require__(20);
-	var path = __webpack_require__(7);
-	var helpers = __webpack_require__(6);
+	var webpack = __webpack_require__(4);
+	var nodeExternals = __webpack_require__(5);
+	var path = __webpack_require__(6);
+	var helpers = __webpack_require__(7);
 	
-	var constants = __webpack_require__(15);
+	var constants = __webpack_require__(9);
 	
 	var METADATA = {
 	  title: 'Rose St. Community Center',
@@ -351,7 +245,7 @@
 	    description: constants.DESCRIPTION,
 	    name: constants.SITE_NAME,
 	    type: 'website',
-	    url: ({"NODE_ENV":"development"}).HOSTNAME || 'localhost'
+	    url: ({"NODE_ENV":'development'}).HOSTNAME || 'localhost'
 	  }
 	};
 	
@@ -367,7 +261,7 @@
 	    path: helpers.root('dist'),
 	    filename: 'server.js'
 	  },
-	  plugins: [new webpack.DefinePlugin({ __CLIENT__: false, __SERVER__: true, __PRODUCTION__: true, __DEV__: false }), new webpack.DefinePlugin({ 'process.env': { NODE_ENV: '"development"' } })],
+	  plugins: [new webpack.DefinePlugin({ __CLIENT__: false, __SERVER__: true, __PRODUCTION__: true, __DEV__: false }), new webpack.DefinePlugin({ 'process.env': { NODE_ENV: ('development') || "'development'" } })],
 	  module: {
 	    preLoaders: [],
 	    loaders: [{ test: /\.json$/, loaders: ['json'] }, { test: /\.js$/, loaders: ['babel?presets[]=es2015&presets[]=stage-0&plugins[]=transform-function-bind&plugins[]=transform-class-properties&plugins[]=transform-decorators-legacy'], exclude: /node_modules/ }],
@@ -395,16 +289,124 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 19 */
+/* 4 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack");
 
 /***/ },
-/* 20 */
+/* 5 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-node-externals");
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	module.exports = require("path");
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var path = __webpack_require__(6);
+	var appRoot = __webpack_require__(8);
+	
+	module.exports.root = function (args) {
+	  args = Array.prototype.slice.call(arguments, 0);
+	  return path.join.apply(path, [appRoot.path].concat(args));
+	};
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	module.exports = require("app-root-path");
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = {
+	  STRIPE: {
+	    PUBLISHABLE_KEY:  true ? 'pk_test_f6MApsp3oUQNaZSejidOONkT' : process.env.STRIPE
+	  },
+	  IMAGE_URL: 'https://raw.githubusercontent.com/idelairre/rose_st_client/master/app/images/10612805_674783332611610_5602889381423136186_n.jpg',
+	  DESCRIPTION: '74 blocks (with the goal of 100) in East Baltimore where the peace is encouraged by the youth of the community, NOT THE POLICE!',
+	  SITE_NAME: 'Rose St. Community Center',
+	  SERVER_URL: 'https://rose-st-api.herokuapp.com'
+	};
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = require("koa-compress");
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	module.exports = require("koa-cors");
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	module.exports = require("fs-extra");
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	module.exports = require("koa");
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	module.exports = require("koa-logging");
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	module.exports = require("koa-ejs");
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	module.exports = require("node-schedule");
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	module.exports = require("koa-static");
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
+	module.exports = require("koa-useragent");
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	module.exports = require("babel-polyfill");
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	module.exports = require("koa-router");
 
 /***/ }
 /******/ ]);
