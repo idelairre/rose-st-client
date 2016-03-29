@@ -1,10 +1,10 @@
-var webpack = require('webpack');
-var path = require('path');
 var autoprefixer = require('autoprefixer');
-var precss = require('precss');
-// var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
+var InlineEnviromentVariablesPlugin = require('inline-environment-variables-webpack-plugin');
+var path = require('path');
+var precss = require('precss');
+var webpack = require('webpack');
 
 module.exports = {
   target: 'web',
@@ -22,7 +22,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false, __PRODUCTION__: true, __DEV__: false }),
-    new webpack.DefinePlugin({ 'process.env' : { NODE_ENV: "'production'" } }),
+    new InlineEnviromentVariablesPlugin({ NODE_ENV: 'production' }),
     new webpack.optimize.UglifyJsPlugin({ minimize: true, mangle: false, compress: { warnings: true } }),
     // new CopyWebpackPlugin([{ from: 'assets', to: 'static/dist' }]),
     new ExtractTextPlugin('[name].css'),

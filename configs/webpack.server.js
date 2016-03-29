@@ -1,9 +1,10 @@
-var webpack = require('webpack');
+var constants = require('../app/scripts/constants/constants');
+var helpers = require('./helpers');
+var InlineEnviromentVariablesPlugin = require('inline-environment-variables-webpack-plugin');
 var nodeExternals = require('webpack-node-externals');
 var path = require('path');
-var helpers = require('./helpers');
+var webpack = require('webpack');
 
-var constants = require('../app/scripts/constants/constants');
 
 var METADATA = {
   title: 'Rose St. Community Center',
@@ -31,7 +32,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({ __CLIENT__: false, __SERVER__: true, __PRODUCTION__: true, __DEV__: false }),
-    new webpack.DefinePlugin({ 'process.env': { NODE_ENV: "'production'" } }),
+    new InlineEnviromentVariablesPlugin({ NODE_ENV: 'production' }),
     new webpack.optimize.UglifyJsPlugin({ minimize: true, compress: { warnings: false } }),
   ],
   module: {

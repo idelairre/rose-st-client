@@ -52,6 +52,7 @@
     "file-loader": "^0.8.5",
     "fs-extra": "^0.26.7",
     "html-loader": "^0.4.3",
+    "inline-environment-variables-webpack-plugin": "0.0.2",
     "jasmine-core": "^2.4.1",
     "jasmine-expect": "^2.0.2",
     "json-loader": "^0.5.4",
