@@ -50,9 +50,7 @@
     "ng-forward": "0.0.1-alpha.12",
     "node-schedule": "^1.1.0",
     "resolve-url-loader": "^1.4.3",
-    "schedule": "^0.1.0"
-  },
-  "devDependencies": {
+    "schedule": "^0.1.0",
     "angular-mocks": "^1.5.0",
     "autoprefixer": "^6.3.5",
     "babel-core": "^6.7.4",
@@ -87,7 +85,6 @@
     "script-loader": "^0.6.1",
     "sinon": "^1.17.3",
     "style-loader": "^0.13.1",
-    "watchify": "^3.7.0",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
     "webpack-node-externals": "^1.0.0"

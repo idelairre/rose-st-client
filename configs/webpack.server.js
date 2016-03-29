@@ -1,10 +1,10 @@
-var webpack = require('webpack')
-var nodeExternals = require('webpack-node-externals')
-var path = require('path')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var helpers = require('./helpers')
+var webpack = require('webpack');
+var nodeExternals = require('webpack-node-externals');
+var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var helpers = require('./helpers');
 
-var constants = require('../app/scripts/constants/constants')
+var constants = require('../app/scripts/constants/constants');
 
 var METADATA = {
   title: 'Rose St. Community Center',
