@@ -43,7 +43,6 @@ config.output.hotUpdateChunkFile = 'update/[hash]/[id].update.js';
 config.plugins = [
   new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false, __PRODUCTION__: false, __DEV__: true}),
   new webpack.DefinePlugin({ 'process.env' : { NODE_ENV: "'development'" }}),
-  new webpack.optimize.UglifyJsPlugin({ compress: { warnings: true, mangle: false } }),
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoErrorsPlugin()
 ];

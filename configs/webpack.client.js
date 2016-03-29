@@ -3,7 +3,6 @@ var path = require('path');
 var autoprefixer = require('autoprefixer');
 var precss = require('precss');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var helpers = require('./helpers');
 
 module.exports = {
@@ -23,6 +22,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false, __PRODUCTION__: true, __DEV__: false }),
     new webpack.DefinePlugin({ 'process.env' : { NODE_ENV: "'development'" } }),
+    new webpack.optimize.UglifyJsPlugin({ minimize: true, mangle: false, compress: { warnings: true } }),
     new ExtractTextPlugin('[name].css'),
     new webpack.optimize.DedupePlugin(), // Search for equal or similar files and deduplicate them in the output. This comes with some overhead for the entry chunk, but can reduce file size effectively.
     new webpack.optimize.OccurenceOrderPlugin(), // Assign the module and chunk ids by occurrence count. Ids that are used often get lower (shorter) ids. This make ids predictable, reduces to total file size and is recommended.
