@@ -8,6 +8,7 @@ var constants = require('../app/scripts/constants/constants')
 
 var METADATA = {
   title: 'Rose St. Community Center',
+  favicon: 'dist/favicon.ico',
   script: 'localhost:8000/static/dist/app.js',
   metadata: {
     image: constants.IMAGE_URL,
@@ -36,7 +37,6 @@ module.exports = {
   ],
   module: {
     preLoaders: [
-      { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loaders: ['file?context=static&name=/[path][name].[ext]'], exclude: /node_modules/ }
     ],
     loaders: [
       { test: /\.json$/, loaders: ['json'] },

@@ -16,7 +16,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "18c379c527dd0cfa2c5b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "eda70919f2a6361b922b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -814,8 +814,6 @@
 	var path = __webpack_require__(9);
 	var appRoot = __webpack_require__(10);
 	
-	// console.log(appRoot.path);
-	
 	module.exports.root = function (args) {
 	  args = Array.prototype.slice.call(arguments, 0);
 	  return path.join.apply(path, [appRoot.path].concat(args));
@@ -913,6 +911,7 @@
 	
 	var METADATA = {
 	  title: 'Rose St. Community Center',
+	  favicon: 'dist/favicon.ico',
 	  script: 'localhost:8000/static/dist/app.js',
 	  metadata: {
 	    image: constants.IMAGE_URL,
@@ -937,7 +936,7 @@
 	  },
 	  plugins: [new webpack.DefinePlugin({ __CLIENT__: false, __SERVER__: true, __PRODUCTION__: true, __DEV__: false }), new webpack.DefinePlugin({ 'process.env': { NODE_ENV: '"development"' } })],
 	  module: {
-	    preLoaders: [{ test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loaders: ['file?context=static&name=/[path][name].[ext]'], exclude: /node_modules/ }],
+	    preLoaders: [],
 	    loaders: [{ test: /\.json$/, loaders: ['json'] }, { test: /\.js$/, loaders: ['babel?presets[]=es2015&presets[]=stage-0&plugins[]=transform-function-bind&plugins[]=transform-class-properties&plugins[]=transform-decorators-legacy'], exclude: /node_modules/ }],
 	    postLoaders: [],
 	    noParse: /\.min\.js/
