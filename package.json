@@ -6,7 +6,7 @@
     "clean": "rimraf static",
     "start": "make start-prod",
     "build-client": "make build-client",
-    "build": "NODE_ENV=production npm run clean && npm run build-client",
+    "build": "npm run clean && npm run build-client",
     "watch-client": "make watch-client",
     "watch": "concurrently --kill-others \"make start-dev\" \"npm run watch-client\"",
     "postinstall": "make build-prod"

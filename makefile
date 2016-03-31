@@ -3,9 +3,9 @@ MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 CURRENT_DIR := $(notdir $(patsubst %/,%,$(dir $(MKFILE_PATH))))
 
 build-client:
-	webpack --colors --display-error-details --config configs/webpack.config.js
+	NODE_ENV=production webpack --colors --display-error-details --config configs/webpack.config.js
 build-prod:
-		webpack --colors --display-error-details --config configs/webpack.config-prod.js
+	HOSTNAME=https://rose-st-api.herokuapp.com webpack --colors --display-error-details --config configs/webpack.config-prod.js
 start-dev:
 	NODE_PATH=$(CURRENT_DIR) NODE_ENV=development node ./babel.server.js
 start-prod:
