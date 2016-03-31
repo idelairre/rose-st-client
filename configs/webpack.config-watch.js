@@ -35,6 +35,7 @@ config.output.hotUpdateChunkFile = 'update/[hash]/[id].update.js';
 
 config.plugins = [
   new InlineEnviromentVariablesPlugin({ NODE_ENV: 'development' }),
+  new InlineEnviromentVariablesPlugin({ HOSTNAME: 'localhost' }),
   new ExtractTextPlugin('[name].css'),
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoErrorsPlugin()

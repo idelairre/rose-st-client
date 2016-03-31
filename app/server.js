@@ -23,7 +23,7 @@ const port = process.env.PORT || 3000;
 
 config.meta.metadata.url = process.env.HOSTNAME;
 
-console.log('[SERVER] url: ', config.meta.metadata.url);
+console.log('[SERVER] hostname: ', config.meta.metadata.url);
 
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config);
