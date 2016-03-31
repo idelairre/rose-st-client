@@ -6,14 +6,8 @@ import fs from 'fs-extra';
 import helpers from '../configs/helpers';
 import history from 'koa-connect-history-api-fallback';
 import koa from 'koa';
-import path from 'path';
 import render from 'koa-ejs';
 import schedule from 'node-schedule';
-import server from 'koa-static'
-import webpack from 'webpack';
-import webpackDevMiddleware from 'koa-webpack-dev-middleware';
-import webpackHotMiddleware from 'koa-webpack-hot-middleware';
-import userAgent from 'koa-useragent';
 import 'babel-polyfill';
 
 const app = koa();
@@ -26,7 +20,10 @@ config.meta.metadata.url = process.env.HOSTNAME;
 console.log('[SERVER] hostname: ', config.meta.metadata.url);
 
 if (process.env.NODE_ENV === 'development') {
+  const webpack = require('webpack');
   const compiler = webpack(config);
+  const webpackDevMiddleware = require('koa-webpack-dev-middleware');
+  const webpackHotMiddleware = require('koa-webpack-hot-middleware');
 
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true, publicPath: config.output.publicPath,
@@ -49,7 +46,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(server('static'));
+  const serve = require('koa-static');
+  app.use(serve('static'));
 }
 
 function getPost(titleUrl) {
@@ -104,8 +102,6 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 app.use(compress());
-
-app.use(userAgent());
 
 app.listen(port, (error) => {
   if (error) {

@@ -1,4 +1,6 @@
 import { Component, Inject } from 'ng-forward';
+import '../donations.css';
+import 'babel-polyfill';
 
 @Component({
 	selector: 'donations-modal',
@@ -11,22 +13,21 @@ import { Component, Inject } from 'ng-forward';
 export default class DonationsModal {
   constructor($filter, $uibModalInstance, result) {
     this.$uibModalInstance = $uibModalInstance;
-    this.result = result;
     this.receipt = {
-      // amount: $filter('currency')(JSON.parse(result.config.data).amount / 100),
-      address: '821 N. Rose St.',
-      cityState: 'Baltimore, MD 21205',
-      to: 'Rose St. Community Center',
-      date: $filter('date')(new Date(), 'shortDate'),
-      // token: JSON.parse(result.config.data).token
+			id: result.config.data.token,
+			amount: $filter('currency')(result.config.data.amount / 100),
+      date: $filter('date')(new Date(), 'shortDate')
     }
-    console.log(this.receipt, this.result);
+    // console.log(this.receipt);
   }
 
   ok() {
     ::this.$uibModalInstance.close();
   }
 
+	print() {
+		window.print();
+	}
 
   dismiss() {
     ::this.$uibModalInstance.dismiss('cancel');

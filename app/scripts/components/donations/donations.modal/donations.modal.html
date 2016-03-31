@@ -1,17 +1,28 @@
-<div class="modal-dialog">
-  <div class="modal-header">
-    <button type="button" class="close" aria-label="close"><span aria-hidden="true">&times;</span></button>
-    <h3 class="modal-title">Thank you for your contribution!</h3>
-  </div>
-  <div class="modal-body">
-      <h1 ng-bind="donationsModalCtrl.receipt.amount"></h1>
-      <h3 ng-bind="donationsModalCtrl.receipt.to"></h3>
-      <hr>
-      <p>{{ ::donationsModalCtrl.receipt.address }}<br>
-      {{ ::donationsModalCtrl.receipt.cityState }}<br>
-      {{ ::donationsModalCtrl.receipt.date }}</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-default" type="button" (click)="donationsModalCtrl.ok()">OK</button>
-  </div>
+<div class="modal-header no-print">
+  <button type="button" class="close no-print" aria-label="close" (click)="donationsModalCtrl.ok()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h3 class="modal-title">Donation receipt</h3>
+</div>
+<div class="modal-body">
+  <h1 ng-bind="donationsModalCtrl.receipt.amount"></h1>
+  <hr>
+  <address>
+    <b class="modal-title" style="font-family: sans-serif">Rose St. Community Center</b><br>
+    821 N. Rose St.<br>
+    Baltimore, MD 21205<br>
+    United States
+  </address>
+  <hr>
+  <p><font class="text-muted">Date:</font> {{ ::donationsModalCtrl.receipt.date }}<br>
+    <font class="text-muted">Donation id:</font> <font style="text-transform: uppercase">{{ ::donationsModalCtrl.receipt.id }}</font></p>
+  <hr>
+  <small class="text-muted">* This receipt is provided for your tax records. The Rose Street Community Center is a section 501(c)(3) charitable organization and your donation is tax deductable. No goods or services were provided in exchange for your gift. If you have any questions contact the Rose St. Community Center at (410)-675-1207.</small>
+</small>
+  <hr>
+  <h3 class="text-center">Thank you for your generous support!</h3>
+</div>
+<div class="modal-footer no-print">
+  <button class="btn btn-default" type="button" (click)="donationsModalCtrl.print()">Print</button>
+  <button class="btn btn-default" type="button" (click)="donationsModalCtrl.ok()">Close</button>
 </div>

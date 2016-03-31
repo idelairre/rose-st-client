@@ -3,6 +3,7 @@ import DonationButton from './donations.directives/donation-button.component';
 import DonationsModal from './donations.modal/donations.modal.component';
 import DonationsService from './donations.service';
 import { STRIPE } from '../../constants/constants';
+import './donations.css';
 import 'angular-ui-bootstrap';
 import 'babel-polyfill';
 
@@ -46,6 +47,12 @@ export default class DonationsComponent {
 			description: null
 		};
 		this.donationButtons = [];
+		// this.showAppreciation({ config: {
+		// 	data: {
+		// 		token: 'tok_000000000000',
+		// 		amount: 1000
+		// 	}
+		// }});
 	}
 
 	ngOnInit() {
@@ -87,7 +94,7 @@ export default class DonationsComponent {
 
 	// NB: The rejection callback doesn't work in IE6-7.
 	doCheckout(type) {
-		console.log(`charge slug: [type: ${type}, amount: ${this.chargeOptions.amount}]`);
+		// console.log(`charge slug: [type: ${type}, amount: ${this.chargeOptions.amount}]`);
 		// console.log(typeof this.chargeOptions.amount);
 		// if (typeof this.chargeOptions.amount !== 'number') {
 		// 	return;

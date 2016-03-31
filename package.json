@@ -14,11 +14,9 @@
   "dependencies": {
     "angular": "^1.5.0",
     "angular-animate": "^1.5.0",
-    "angular-hmr": "^0.2.0",
     "angular-input-masks": "^2.1.1",
     "angular-messages": "^1.5.0",
     "angular-mocks": "^1.5.0",
-    "angular-money-directive": "^1.2.4",
     "angular-resource": "^1.5.0",
     "angular-sanitize": "^1.5.0",
     "angular-scroll": "^1.0.0",
@@ -45,7 +43,6 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.4.3",
     "concurrently": "^2.0.0",
-    "copy-webpack-plugin": "^1.1.1",
     "css-loader": "^0.23.1",
     "ejs": "^2.4.1",
     "extract-text-webpack-plugin": "^1.0.1",
@@ -54,7 +51,6 @@
     "html-loader": "^0.4.3",
     "inline-environment-variables-webpack-plugin": "0.0.2",
     "json-loader": "^0.5.4",
-    "just-wait": "^1.0.5",
     "koa": "^1.2.0",
     "koa-compress": "^1.0.9",
     "koa-connect-history-api-fallback": "^0.3.0",
@@ -62,7 +58,6 @@
     "koa-ejs": "^3.0.0",
     "koa-router": "^5.4.0",
     "koa-static": "^2.0.0",
-    "koa-useragent": "^0.1.2",
     "koa-webpack-dev-middleware": "^1.2.0",
     "koa-webpack-hot-middleware": "^1.0.3",
     "ng-annotate-loader": "^0.1.0",
@@ -76,7 +71,6 @@
     "resolve-url-loader": "^1.4.3",
     "schedule": "^0.1.0",
     "script-loader": "^0.6.1",
-    "sinon": "^1.17.3",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
@@ -91,7 +85,9 @@
     "karma-firefox-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.7",
     "karma-mocha-reporter": "^1.1.5",
-    "karma-sinon": "^1.0.4"
+    "karma-sinon": "^1.0.4",
+    "sinon": "^1.17.3",
+    "webpack-node-externals": "^1.0.0"
   },
   "engines": {
     "node": "5.7.1"

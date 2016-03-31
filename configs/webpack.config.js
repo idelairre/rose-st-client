@@ -3,6 +3,7 @@ var constants = require('../app/scripts/constants/constants');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
 var InlineEnviromentVariablesPlugin = require('inline-environment-variables-webpack-plugin');
+var nodeExternals = require('webpack-node-externals');
 var path = require('path');
 var precss = require('precss');
 var webpack = require('webpack');
@@ -24,7 +25,7 @@ module.exports = {
   meta: METADATA,
   target: 'web',
   cache: false,
-  context: __dirname + '/app',
+  context: helpers.root(),
   watch: false,
   debug: false,
   entry: [helpers.root('app/scripts/app.js')],
@@ -45,6 +46,7 @@ module.exports = {
       { test: /\.html$/, loader: 'html-loader' },
       { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader' },
       { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loaders : ['file'] },
+      { test: /\.js$/, loader: 'script-loader', include: 'node_modules' },
       { test: /\.(ico|gif|png|jpg|jpeg|svg|webp)$/, loaders: ['file-loader?context=static&name=/[path][name].[ext]'], exclude: /node_modules/ },
       { test: /\.js$/, loaders: ['ng-annotate', 'babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&plugins[]=transform-function-bind&plugins[]=transform-class-properties&plugins[]=transform-decorators-legacy'], exclude: /node_modules/}
     ],
@@ -55,8 +57,12 @@ module.exports = {
       defaults: [autoprefixer, precss]
     }
   },
+  // externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
   resolve: {
     root: helpers.root(),
+    alias: {
+      pdfmake: helpers.root('node_modules/pdfmake')
+    },
     modulesDirectories: [
       helpers.root('node_modules'),
       helpers.root('node_modules/angular-input-masks/src/node_modules'),
@@ -69,10 +75,11 @@ module.exports = {
   node: {
     __dirname: true,
     fs: 'empty',
-    global: 'window',
+    global: true,
     crypto: 'empty',
     clearImmediate: false,
     setImmediate: false,
-    process: true
+    process: true,
+    Buffer: true
   }
 }
