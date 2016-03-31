@@ -1,23 +1,48 @@
 import axios from 'axios';
-import config from '../configs/webpack.server';
+import config from '../configs/webpack.client-watch';
 import compress from 'koa-compress';
 import cors from 'koa-cors';
 import fs from 'fs-extra';
 import helpers from '../configs/helpers';
+import history from 'koa-connect-history-api-fallback';
 import koa from 'koa';
 import logger from 'koa-logging';
 import path from 'path';
 import render from 'koa-ejs';
 import schedule from 'node-schedule';
-import serve from 'koa-static';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'koa-webpack-dev-middleware';
+import webpackHotMiddleware from 'koa-webpack-hot-middleware';
 import userAgent from 'koa-useragent';
-import { DESCRIPTION, IMAGE_URL, SERVER_URL, SITE_NAME } from './scripts/constants/constants';
 import 'babel-polyfill';
 
 const app = koa();
 const router = require('koa-router')();
 const hostname = process.env.HOSTNAME || 'localhost';
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
+
+if (process.env.NODE_ENV !== 'production') {
+  const compiler = webpack(config);
+
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true, publicPath: config.output.publicPath,
+    stats: {
+      colors: true,
+      hash: false,
+      timings: true,
+      assets: true,
+      chunks: false,
+      chunkModules: false,
+      modules: false,
+      children: true,
+      profile: false
+    }
+  }));
+
+  app.use(webpackHotMiddleware(compiler, {
+    log: console.log, path: '/__webpack_hmr', heartbeat: 5 * 1000
+  }));
+}
 
 function getPost(titleUrl) {
   let posts = fs.readJsonSync(helpers.root('app/cache.json'), 'utf8');
@@ -62,9 +87,9 @@ router.get('*', function *(next) {
   yield this.render('index', { webpackConfig : config });
 });
 
-app.use(serve('static'));
-
 app.use(cors());
+
+app.use(history());
 
 app.use(router.routes());
 
@@ -74,8 +99,11 @@ app.use(compress());
 
 app.use(userAgent());
 
-app.listen(port, () => {
-  console.info('==> ✅  Node vars:', process.env);
+app.listen(port, (error) => {
+  if (error) {
+     console.error(error);
+  }
+  // console.info('==> ✅  Node vars:', process.env);
   console.info('==> ✅  Server is listening');
   console.info('==> 🌎  Go to http://%s:%s', hostname, port);
 });

@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Inject } from 'ng-forward';
-import PostsService from '../posts/posts.service';
 import './header.css';
 
 const TITLE = 'Rose St. Community Center';
-const SUBHEADING = '100 Blocks Homicide-Free Zone'
+const SUBHEADING = '100 Blocks Homicide-Free Zone';
 
 @Component({
 	selector: 'rose-st-header',
@@ -22,12 +21,11 @@ export default class Header {
 				this.title = TITLE;
 				this.subheading = SUBHEADING;
 			}
-			console.log(this);
 		});
 	}
 
 	setHeader(event, post) {
-		console.log(event, post, post.title, post.subheading);
+		// console.log(event, post, post.title, post.subheading);
 		this.title = post.title;
 		this.subheading = post.subheading;
 	}

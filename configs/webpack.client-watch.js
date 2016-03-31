@@ -1,40 +1,32 @@
 var webpack = require('webpack');
 var config = require('./webpack.client');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var InlineEnviromentVariablesPlugin = require('inline-environment-variables-webpack-plugin');
 
-var wds = { // does this stand for?
+var wds = {
   hostname: process.env.HOSTNAME || 'localhost',
-  port: 8000
+  port: '8080'
 };
 
 config.cache = true;
 config.debug = true;
-config.devtool = 'cheap-module-eval-source-map';
+config.watch = true;
+config.devtool = 'eval';
 
 config.entry.unshift(
-  'webpack-dev-server/client?http://' + wds.hostname + ":" + wds.port,
-  'webpack/hot/only-dev-server'
+  'webpack-dev-server/client/?http://' + wds.hostname + ':' + wds.port,
+  'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&timeout=20000'
 );
 
 config.devServer = {
+  hot: true,
   publicPath: 'http://' + wds.hostname + ':' + wds.port + '/dist',
   inline: false,
-  hot: true,
   lazy: false,
   quiet: true,
-  noInfo: true,
+  noInfo: false,
   headers: { 'Access-Control-Allow-Origin' : '*' },
-  host: wds.hostname,
-  stats: {
-    colors: true,
-    hash: false,
-    timings: false,
-    assets: true,
-    chunks: true,
-    chunkModules: true,
-    modules: false,
-    children: true
-  }
+  host: wds.hostname
 };
 
 config.output.publicPath = config.devServer.publicPath;
@@ -44,10 +36,10 @@ config.output.hotUpdateChunkFile = 'update/[hash]/[id].update.js';
 config.plugins = [
   new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false, __PRODUCTION__: false, __DEV__: true}),
   new InlineEnviromentVariablesPlugin({ NODE_ENV: 'development' }),
+  new ExtractTextPlugin('[name].css'),
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoErrorsPlugin()
 ];
 
-config.module.loaders[0].loaders = ['angular-hmr'].concat(config.module.loaders[0].loaders);
 
 module.exports = config;

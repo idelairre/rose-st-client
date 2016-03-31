@@ -1,4 +1,5 @@
 var autoprefixer = require('autoprefixer');
+var constants = require('../app/scripts/constants/constants');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
 var InlineEnviromentVariablesPlugin = require('inline-environment-variables-webpack-plugin');
@@ -6,26 +7,36 @@ var path = require('path');
 var precss = require('precss');
 var webpack = require('webpack');
 
+var METADATA = {
+  title: 'Rose St. Community Center',
+  favicon: constants.ICON,
+  env: process.env.NODE_ENV,
+  metadata: {
+    image: constants.IMAGE_URL,
+    description: constants.DESCRIPTION,
+    name: constants.SITE_NAME,
+    type: 'website',
+    url: process.env.HOSTNAME || 'localhost'
+  }
+}
+
 module.exports = {
+  meta: METADATA,
   target: 'web',
   cache: false,
-  context: __dirname,
+  context: __dirname + '/app',
   watch: false,
   debug: false,
-  devtool: false,
   entry: [helpers.root('app/scripts/app.js')],
   output: {
-    path: helpers.root('/static/dist'),
-    publicPath: helpers.root('static/dist'),
+    path: helpers.root('static/dist'),
     filename: 'app.js',
     chunkFilename: '[name].[id].js'
   },
   plugins: [
     new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false, __PRODUCTION__: true, __DEV__: false }),
-    new InlineEnviromentVariablesPlugin({ NODE_ENV: 'production' }),
-    new webpack.optimize.UglifyJsPlugin({ minimize: true, mangle: false, compress: { warnings: false } }),
-    // new CopyWebpackPlugin([{ from: 'assets', to: 'static/dist' }]),
     new ExtractTextPlugin('[name].css'),
+    new webpack.optimize.UglifyJsPlugin({ minimize: true, mangle: false, compress: { warnings: false } }),
     new webpack.optimize.DedupePlugin(), // Search for equal or similar files and deduplicate them in the output. This comes with some overhead for the entry chunk, but can reduce file size effectively.
     new webpack.optimize.OccurenceOrderPlugin(), // Assign the module and chunk ids by occurrence count. Ids that are used often get lower (shorter) ids. This make ids predictable, reduces to total file size and is recommended.
   ],
@@ -46,12 +57,15 @@ module.exports = {
     }
   },
   resolve: {
-    moduleDirectories: [
-      helpers.root('app'),
+    root: helpers.root(),
+    modulesDirectories: [
       helpers.root('node_modules'),
-      helpers.root('static')
+      helpers.root('node_modules/angular-input-masks/src/node_modules'),
     ],
     extensions: ['', '.json', '.js']
+  },
+  resolveLoader: {
+    root: helpers.root('node_modules')
   },
   node: {
     __dirname: true,
@@ -59,6 +73,7 @@ module.exports = {
     global: 'window',
     crypto: 'empty',
     clearImmediate: false,
-    setImmediate: false
+    setImmediate: false,
+    process: true
   }
 }

@@ -23,3 +23,7 @@ import './main.css';
 })
 
 export default class MainComponent { }
+
+if (module.hot) {
+	module.hot.accept();
+}

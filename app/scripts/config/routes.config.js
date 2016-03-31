@@ -13,7 +13,6 @@ class RouteConfig {
       key: STRIPE.PUBLISHABLE_KEY
     });
     $urlRouterProvider.otherwise('/');
-    console.log(StripeCheckoutProvider.defaults.key);
   }
 
   static init($stateProvider, $urlRouterProvider, $locationProvider, StripeCheckoutProvider) {

@@ -42,6 +42,10 @@
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
   <rose-st-client></rose-st-client>
-  <script type="text/javascript" src="dist/app.js"></script>
+  <% if (webpackConfig.meta.env !== 'production') { %>
+    <script type="text/javascript" src="http://localhost:8080/dist/app.js"></script>
+  <% } else {%>
+    <script type="text/javascript" src="dist/app.js"></script>
+  <% } %>
 </body>
 </html>

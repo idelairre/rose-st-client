@@ -6,10 +6,8 @@
 			</div>
 			<div ng-repeat="post in postsCtrl.posts.slice(((postsCtrl.currentPage - 1) * postsCtrl.itemsPerPage), ((postsCtrl.currentPage) * postsCtrl.itemsPerPage))" current-page="currentPage" class="post-preview">
 				<a ui-sref="posts-detail({ post: post.title_url })">
-					<h2 class="post-title">{{ post.title }}</h2>
-					<h3 class="post-subtitle">
-						{{ post.subheading }}
-					</h3>
+					<h2 class="post-title">{{ ::post.title }}</h2>
+					<h3 class="post-subtitle">{{ ::post.subheading }}</h3>
 				</a>
 				<p class="post-meta">Posted by <a ui-sref="posts-detail({ post: post.title_url })"> {{ post.user }}</a> on {{ post.created_at | date:'medium'}}</p>
 				<hr>
