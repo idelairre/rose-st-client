@@ -1,5 +1,5 @@
 import axios from 'axios';
-import config from '../configs/webpack.client-watch';
+import config from '../configs/webpack.config-watch';
 import compress from 'koa-compress';
 import cors from 'koa-cors';
 import fs from 'fs-extra';
