@@ -9,6 +9,7 @@ import koa from 'koa';
 import path from 'path';
 import render from 'koa-ejs';
 import schedule from 'node-schedule';
+import server from 'koa-static'
 import webpack from 'webpack';
 import webpackDevMiddleware from 'koa-webpack-dev-middleware';
 import webpackHotMiddleware from 'koa-webpack-hot-middleware';
@@ -20,9 +21,11 @@ const router = require('koa-router')();
 const hostname = process.env.HOSTNAME || 'localhost';
 const port = process.env.PORT || 3000;
 
-console.log('[SERVER] url: ', config.meta.metadata);
+config.meta.metadata.url = process.env.HOSTNAME;
 
-if (process.env.NODE_ENV !== 'production') {
+console.log('[SERVER] url: ', config.meta.metadata.url);
+
+if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config);
 
   app.use(webpackDevMiddleware(compiler, {
@@ -43,6 +46,10 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackHotMiddleware(compiler, {
     log: console.log, path: '/__webpack_hmr', heartbeat: 5 * 1000
   }));
+}
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(server('static'));
 }
 
 function getPost(titleUrl) {

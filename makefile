@@ -9,6 +9,6 @@ build-prod:
 start-dev:
 	NODE_PATH=$(CURRENT_DIR) NODE_ENV=development node ./babel.server.js
 start-prod:
-	NODE_PATH=$(CURRENT_DIR) NODE_ENV=production node ./babel.server.js
+	HOSTNAME=https://rose-st-api.herokuapp.com NODE_PATH=$(CURRENT_DIR) NODE_ENV=production node ./babel.server.js
 watch-client:
 	NODE_ENV=development webpack-dev-server --config configs/webpack.config-watch.js --display-error-details

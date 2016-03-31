@@ -60,8 +60,8 @@
     "koa-connect-history-api-fallback": "^0.3.0",
     "koa-cors": "0.0.16",
     "koa-ejs": "^3.0.0",
-    "koa-logging": "^0.1.0",
     "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0",
     "koa-useragent": "^0.1.2",
     "koa-webpack-dev-middleware": "^1.2.0",
     "koa-webpack-hot-middleware": "^1.0.3",
@@ -78,8 +78,7 @@
     "script-loader": "^0.6.1",
     "sinon": "^1.17.3",
     "style-loader": "^0.13.1",
-    "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^1.12.14"
   },
   "devDependencies": {
     "jasmine-core": "^2.4.1",
