@@ -7,8 +7,8 @@ build-client:
 build-prod:
 		webpack --colors --display-error-details --config configs/webpack.config-prod.js
 start-dev:
-	NODE_PATH=$(CURRENT_DIR) NODE_ENV=development node --harmony ./babel.server.js
+	NODE_PATH=$(CURRENT_DIR) NODE_ENV=development node ./babel.server.js
 start-prod:
-	NODE_ENV=production node ./babel.server.js
+	NODE_PATH=$(CURRENT_DIR) NODE_ENV=production node ./babel.server.js
 watch-client:
 	NODE_ENV=development webpack-dev-server --config configs/webpack.config-watch.js --display-error-details

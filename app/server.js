@@ -20,6 +20,8 @@ const router = require('koa-router')();
 const hostname = process.env.HOSTNAME || 'localhost';
 const port = process.env.PORT || 3000;
 
+console.log(config.meta.url);
+
 if (process.env.NODE_ENV !== 'production') {
   const compiler = webpack(config);
 
