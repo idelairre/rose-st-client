@@ -34,7 +34,6 @@ module.exports = {
     chunkFilename: '[name].[id].js'
   },
   plugins: [
-    new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false, __PRODUCTION__: true, __DEV__: false }),
     new ExtractTextPlugin('[name].css'),
     new webpack.optimize.UglifyJsPlugin({ minimize: true, mangle: false, compress: { warnings: false } }),
     new webpack.optimize.DedupePlugin(), // Search for equal or similar files and deduplicate them in the output. This comes with some overhead for the entry chunk, but can reduce file size effectively.

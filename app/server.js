@@ -6,7 +6,6 @@ import fs from 'fs-extra';
 import helpers from '../configs/helpers';
 import history from 'koa-connect-history-api-fallback';
 import koa from 'koa';
-import logger from 'koa-logging';
 import path from 'path';
 import render from 'koa-ejs';
 import schedule from 'node-schedule';

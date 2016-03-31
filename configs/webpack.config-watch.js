@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-var config = require('./webpack.client');
+var config = require('./webpack.config');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var InlineEnviromentVariablesPlugin = require('inline-environment-variables-webpack-plugin');
 
@@ -34,7 +34,6 @@ config.output.hotUpdateMainFile = 'update/[hash]/update.json';
 config.output.hotUpdateChunkFile = 'update/[hash]/[id].update.js';
 
 config.plugins = [
-  new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false, __PRODUCTION__: false, __DEV__: true}),
   new InlineEnviromentVariablesPlugin({ NODE_ENV: 'development' }),
   new ExtractTextPlugin('[name].css'),
   new webpack.HotModuleReplacementPlugin(),
