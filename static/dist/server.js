@@ -44,63 +44,70 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(1);
+	__webpack_require__(1);
+	module.exports = __webpack_require__(2);
 
 
 /***/ },
 /* 1 */
+/***/ function(module, exports) {
+
+	module.exports = require("babel-polyfill");
+
+/***/ },
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _axios = __webpack_require__(2);
+	var _axios = __webpack_require__(3);
 	
 	var _axios2 = _interopRequireDefault(_axios);
 	
-	var _webpack = __webpack_require__(3);
+	var _webpack = __webpack_require__(4);
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
-	var _koaCompress = __webpack_require__(14);
+	var _koaCompress = __webpack_require__(15);
 	
 	var _koaCompress2 = _interopRequireDefault(_koaCompress);
 	
-	var _koaCors = __webpack_require__(15);
+	var _koaCors = __webpack_require__(16);
 	
 	var _koaCors2 = _interopRequireDefault(_koaCors);
 	
-	var _constants = __webpack_require__(16);
+	var _constants = __webpack_require__(17);
 	
 	var _constants2 = _interopRequireDefault(_constants);
 	
-	var _fsExtra = __webpack_require__(17);
+	var _fsExtra = __webpack_require__(18);
 	
 	var _fsExtra2 = _interopRequireDefault(_fsExtra);
 	
-	var _helpers = __webpack_require__(8);
+	var _helpers = __webpack_require__(9);
 	
 	var _helpers2 = _interopRequireDefault(_helpers);
 	
-	var _koaConnectHistoryApiFallback = __webpack_require__(18);
+	var _koaConnectHistoryApiFallback = __webpack_require__(19);
 	
 	var _koaConnectHistoryApiFallback2 = _interopRequireDefault(_koaConnectHistoryApiFallback);
 	
-	var _koa = __webpack_require__(19);
+	var _koa = __webpack_require__(20);
 	
 	var _koa2 = _interopRequireDefault(_koa);
 	
-	var _koaEjs = __webpack_require__(20);
+	var _koaEjs = __webpack_require__(21);
 	
 	var _koaEjs2 = _interopRequireDefault(_koaEjs);
 	
-	var _nodeSchedule = __webpack_require__(21);
+	var _nodeSchedule = __webpack_require__(22);
 	
 	var _nodeSchedule2 = _interopRequireDefault(_nodeSchedule);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var app = (0, _koa2.default)();
-	var router = __webpack_require__(22)();
+	var router = __webpack_require__(23)();
 	var hostname = process.env.HOSTNAME || 'localhost';
 	var env = process.env.NODE_ENV || 'development';
 	var port = process.env.PORT || 3000;
@@ -122,10 +129,10 @@
 	console.log('[SERVER] env: ', env);
 	
 	if (process.env.NODE_ENV === 'development') {
-	  var webpack = __webpack_require__(4);
+	  var webpack = __webpack_require__(5);
 	  var compiler = webpack(_webpack2.default);
-	  var webpackDevMiddleware = __webpack_require__(23);
-	  var webpackHotMiddleware = __webpack_require__(24);
+	  var webpackDevMiddleware = __webpack_require__(24);
+	  var webpackHotMiddleware = __webpack_require__(25);
 	
 	  app.use(webpackDevMiddleware(compiler, {
 	    noInfo: false,
@@ -151,7 +158,7 @@
 	}
 	
 	if (process.env.NODE_ENV === 'production') {
-	  var serve = __webpack_require__(25);
+	  var serve = __webpack_require__(26);
 	  app.use(serve('static'));
 	}
 	
@@ -250,37 +257,23 @@
 	  console.info('==> ✅  Server is listening');
 	  console.info('==> 🌎  Go to http://%s:%s', hostname, port);
 	});
-	
-	if (env === 'development') {
-	  if (false) {
-	    console.log('[HMR] Waiting for server-side updates');
-	    module.hot.accept();
-	    module.hot.addStatusHandler(function (status) {
-	      if (status === "abort") {
-	        setTimeout(function () {
-	          return process.exit(0);
-	        }, 0);
-	      }
-	    });
-	  }
-	}
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports) {
 
 	module.exports = require("axios");
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var webpack = __webpack_require__(4);
-	var config = __webpack_require__(5);
-	var ExtractTextPlugin = __webpack_require__(7);
-	var InlineEnviromentVariablesPlugin = __webpack_require__(11);
+	var webpack = __webpack_require__(5);
+	var config = __webpack_require__(6);
+	var ExtractTextPlugin = __webpack_require__(8);
+	var InlineEnviromentVariablesPlugin = __webpack_require__(12);
 	
 	var wds = {
 	  hostname: process.env.HOSTNAME || 'localhost',
@@ -290,7 +283,7 @@
 	config.cache = true;
 	config.debug = true;
 	config.watch = true;
-	config.devtool = 'source-map';
+	config.devtool = 'eval';
 	
 	config.entry.unshift('webpack-dev-server/client/?http://' + wds.hostname + ':' + wds.port, 'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true&timeout=20000');
 	
@@ -314,41 +307,41 @@
 	module.exports = config;
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack");
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var autoprefixer = __webpack_require__(6);
-	var ExtractTextPlugin = __webpack_require__(7);
-	var helpers = __webpack_require__(8);
-	var InlineEnviromentVariablesPlugin = __webpack_require__(11);
-	var nodeExternals = __webpack_require__(12);
-	var path = __webpack_require__(9);
-	var precss = __webpack_require__(13);
-	var webpack = __webpack_require__(4);
+	var autoprefixer = __webpack_require__(7);
+	var ExtractTextPlugin = __webpack_require__(8);
+	var helpers = __webpack_require__(9);
+	var InlineEnviromentVariablesPlugin = __webpack_require__(12);
+	var nodeExternals = __webpack_require__(13);
+	var path = __webpack_require__(10);
+	var precss = __webpack_require__(14);
+	var webpack = __webpack_require__(5);
 	
 	module.exports = {
-	  target: 'node',
+	  target: 'web',
 	  cache: false,
 	  context: helpers.root(),
 	  watch: false,
 	  debug: false,
-	  entry: [helpers.root('app/scripts/app.js')],
+	  entry: ['babel-polyfill', helpers.root('app/scripts/app.js')],
 	  output: {
 	    path: helpers.root('static/dist'),
 	    filename: 'app.js',
 	    chunkFilename: '[name].[id].js'
 	  },
 	  plugins: [new ExtractTextPlugin('[name].css'), new webpack.optimize.UglifyJsPlugin({ minimize: true, mangle: false, compress: { warnings: false } }), new webpack.optimize.DedupePlugin(), // Search for equal or similar files and deduplicate them in the output. This comes with some overhead for the entry chunk, but can reduce file size effectively.
-	  new webpack.optimize.OccurenceOrderPlugin() // Assign the module and chunk ids by occurrence count. Ids that are used often get lower (shorter) ids. This make ids predictable, reduces to total file size and is recommended.
-	  ],
+	  new webpack.optimize.OccurenceOrderPlugin()],
+	  // Assign the module and chunk ids by occurrence count. Ids that are used often get lower (shorter) ids. This make ids predictable, reduces to total file size and is recommended.
 	  module: {
 	    loaders: [{ test: /\.json$/, loaders: ['json'] }, { test: /\.html$/, loader: 'html-loader' }, { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader' }, { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loaders: ['file'] }, { test: /\.(ico|gif|png|jpg|jpeg|svg|webp)$/, loaders: ['file-loader?context=static&name=/[path][name].[ext]'], exclude: /node_modules/ }, { test: /\.js$/, loaders: ['ng-annotate', 'babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&plugins[]=transform-function-bind&plugins[]=transform-class-properties&plugins[]=transform-decorators-legacy'], exclude: /node_modules/ }],
 	    noParse: [/\.min\.js/, /moment.js/]
@@ -358,38 +351,37 @@
 	      defaults: [autoprefixer, precss]
 	    };
 	  },
-	  // externals: [nodeExternals({
-	  //   whitelist: ['webpack-dev-server', 'webpack-hot-middleware', 'webpack']
-	  // })], // in order to ignore all modules in node_modules folder
 	  resolve: {
 	    root: helpers.root(),
+	    modulesDirectories: [helpers.root('node_modules'), helpers.root('node_modules/angular-input-masks/src/node_modules')],
 	    extensions: ['', '.json', '.js']
 	  },
 	  node: {
-	    __dirname: true
+	    __dirname: true,
+	    global: true
 	  }
 	};
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	module.exports = require("autoprefixer");
 
 /***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = require("extract-text-webpack-plugin");
+	module.exports = require("autoprefixer");
 
 /***/ },
 /* 8 */
+/***/ function(module, exports) {
+
+	module.exports = require("extract-text-webpack-plugin");
+
+/***/ },
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var path = __webpack_require__(9);
-	var appRoot = __webpack_require__(10);
+	var path = __webpack_require__(10);
+	var appRoot = __webpack_require__(11);
 	
 	module.exports.root = function (args) {
 	  args = Array.prototype.slice.call(arguments, 0);
@@ -397,49 +389,49 @@
 	};
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = require("app-root-path");
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	module.exports = require("inline-environment-variables-webpack-plugin");
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-node-externals");
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports) {
 
 	module.exports = require("precss");
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-compress");
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-cors");
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -456,55 +448,55 @@
 	};
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	module.exports = require("fs-extra");
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-connect-history-api-fallback");
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa");
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-ejs");
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = require("node-schedule");
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-router");
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-webpack-dev-middleware");
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-webpack-hot-middleware");
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-static");

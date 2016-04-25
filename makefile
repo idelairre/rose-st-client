@@ -10,6 +10,8 @@ build-prod:
 	webpack --colors --display-error-details --config configs/webpack.config-prod.js
 start-dev:
 	HOSTNAME=localhost NODE_PATH=$(CURRENT_DIR) NODE_ENV=development node ./babel.server.js
+start-prod-local:
+	HOSTNAME=localhost NODE_ENV=production node ./static/dist/server.js && make watch-client
 start-prod:
 	HOSTNAME=https://rose-st-api.herokuapp.com NODE_PATH=$(CURRENT_DIR) NODE_ENV=production node ./static/dist/server.js
 watch-client:

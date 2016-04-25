@@ -49,7 +49,7 @@ var config = {
 
 if (process.env.NODE_ENV !== 'development') {
   config.externals = [nodeExternals()];
-  config.watch = true;
+  config.watch = false;
 }
 
 module.exports = config;
