@@ -10,15 +10,12 @@ import EventFocus from './event-focus.directive';
   inputs: ['focus', 'name', 'value', 'css', 'placeholder']
 })
 
-@Inject('$scope', '$element')
+@Inject()
 export default class CurrencyInput {
   @Input() focus;
   @Input() name;
   @Input() value;
   @Input() css;
   @Input() placeholder;
-  constructor($scope, $element) {
-    this.$element = $element;
-    this.$scope = $scope;
-  }
+  constructor() { }
 }

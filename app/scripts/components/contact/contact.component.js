@@ -1,6 +1,5 @@
 import { Component, Inject } from 'ng-forward';
 import { SERVER_URL } from '../../constants/constants';
-import 'babel-polyfill';
 
 @Component({
 	selector: 'contact',
@@ -19,7 +18,6 @@ export default class ContactCtrl {
 		this.formData = {};
 		this.submitButtonDisabled = false;
 		this.submitted = false;
-
 	}
 
 	async submit(formData) {

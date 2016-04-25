@@ -1,5 +1,4 @@
 var autoprefixer = require('autoprefixer');
-var constants = require('../app/scripts/constants/constants');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
 var InlineEnviromentVariablesPlugin = require('inline-environment-variables-webpack-plugin');
@@ -8,27 +7,13 @@ var path = require('path');
 var precss = require('precss');
 var webpack = require('webpack');
 
-var METADATA = {
-  title: 'Rose St. Community Center',
-  favicon: constants.ICON,
-  env: process.env.NODE_ENV,
-  metadata: {
-    image: constants.IMAGE_URL,
-    description: constants.DESCRIPTION,
-    name: constants.SITE_NAME,
-    type: 'website',
-    url: process.env.HOSTNAME || 'localhost'
-  }
-}
-
 module.exports = {
-  meta: METADATA,
   target: 'web',
   cache: false,
   context: helpers.root(),
   watch: false,
   debug: false,
-  entry: [helpers.root('app/scripts/app.js')],
+  entry: ['babel-polyfill', helpers.root('app/scripts/app.js')],
   output: {
     path: helpers.root('static/dist'),
     filename: 'app.js',
@@ -46,40 +31,26 @@ module.exports = {
       { test: /\.html$/, loader: 'html-loader' },
       { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader' },
       { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loaders : ['file'] },
-      { test: /\.js$/, loader: 'script-loader', include: 'node_modules' },
       { test: /\.(ico|gif|png|jpg|jpeg|svg|webp)$/, loaders: ['file-loader?context=static&name=/[path][name].[ext]'], exclude: /node_modules/ },
       { test: /\.js$/, loaders: ['ng-annotate', 'babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&plugins[]=transform-function-bind&plugins[]=transform-class-properties&plugins[]=transform-decorators-legacy'], exclude: /node_modules/}
     ],
-    noParse: /\.min\.js/
+    noParse: [/\.min\.js/, /moment.js/]
   },
   postcss: function () {
     return {
       defaults: [autoprefixer, precss]
     }
   },
-  // externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
   resolve: {
     root: helpers.root(),
-    alias: {
-      pdfmake: helpers.root('node_modules/pdfmake')
-    },
     modulesDirectories: [
       helpers.root('node_modules'),
       helpers.root('node_modules/angular-input-masks/src/node_modules'),
     ],
     extensions: ['', '.json', '.js']
   },
-  resolveLoader: {
-    root: helpers.root('node_modules')
-  },
   node: {
     __dirname: true,
-    fs: 'empty',
-    global: true,
-    crypto: 'empty',
-    clearImmediate: false,
-    setImmediate: false,
-    process: true,
-    Buffer: true
+    global: true
   }
 }

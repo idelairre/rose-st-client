@@ -1,4 +1,13 @@
-
+.loader {
+  position: absolute;
+  width: 778px;
+  z-index: -1;
+  left: 0px;
+  top: 0px;
+}
+.post-container {
+  min-height: 262px;
+}
 .post-preview > a {
   color: #404040;
 }

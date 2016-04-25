@@ -8,7 +8,7 @@ import './posts.css';
   selector: 'posts',
   controllerAs: 'postsCtrl',
   template: require('./posts.html'),
-  providers: ['ui.bootstrap.pagination', PostsService]
+  providers: ['ngAnimate', 'ui.bootstrap.pagination', PostsService]
 })
 
 @Inject(PostsService)

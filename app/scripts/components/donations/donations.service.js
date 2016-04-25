@@ -1,8 +1,5 @@
 import { Injectable, Inject } from 'ng-forward';
 import { SERVER_URL } from '../../constants/constants';
-import 'babel-polyfill';
-
-const STRIPE_CHECKOUT_URL = 'https://checkout.stripe.com/checkout.js';
 
 @Injectable()
 @Inject('$http', 'StripeCheckout')

@@ -2,22 +2,35 @@ import axios from 'axios';
 import config from '../configs/webpack.config-watch';
 import compress from 'koa-compress';
 import cors from 'koa-cors';
+import constants from '../app/scripts/constants/constants';
 import fs from 'fs-extra';
 import helpers from '../configs/helpers';
 import history from 'koa-connect-history-api-fallback';
 import koa from 'koa';
 import render from 'koa-ejs';
 import schedule from 'node-schedule';
-import 'babel-polyfill';
 
 const app = koa();
 const router = require('koa-router')();
 const hostname = process.env.HOSTNAME || 'localhost';
+const env = process.env.NODE_ENV || 'development';
 const port = process.env.PORT || 3000;
 
-config.meta.metadata.url = process.env.HOSTNAME;
+config.meta = {
+  title: constants.SITE_NAME,
+  favicon: constants.ICON,
+  env: process.env.NODE_ENV,
+  metadata: {
+    image: constants.IMAGE_URL,
+    description: constants.DESCRIPTION,
+    name: constants.SITE_NAME,
+    type: 'website',
+    url: process.env.HOSTNAME || 'localhost'
+  }
+}
 
-console.log('[SERVER] hostname: ', config.meta.metadata.url);
+console.log('[SERVER] hostname: ', hostname);
+console.log('[SERVER] env: ', env);
 
 if (process.env.NODE_ENV === 'development') {
   const webpack = require('webpack');
@@ -26,13 +39,14 @@ if (process.env.NODE_ENV === 'development') {
   const webpackHotMiddleware = require('koa-webpack-hot-middleware');
 
   app.use(webpackDevMiddleware(compiler, {
-    noInfo: true, publicPath: config.output.publicPath,
+    noInfo: false,
+    publicPath: config.output.publicPath,
     stats: {
       colors: true,
       hash: false,
       timings: true,
       assets: true,
-      chunks: false,
+      chunks: true,
       chunkModules: false,
       modules: false,
       children: true,
@@ -41,7 +55,9 @@ if (process.env.NODE_ENV === 'development') {
   }));
 
   app.use(webpackHotMiddleware(compiler, {
-    log: console.log, path: '/__webpack_hmr', heartbeat: 5 * 1000
+    log: console.log,
+    path: '/__webpack_hmr',
+    heartbeat: 5 * 1000
   }));
 }
 
@@ -60,7 +76,11 @@ function getPost(titleUrl) {
   return false;
 }
 
-const task = schedule.scheduleJob({ hour: 0, minute: 0, dayOfWeek: 0 }, function () {
+const task = schedule.scheduleJob({
+  hour: 0,
+  minute: 0,
+  dayOfWeek: 0
+}, function() {
   axios.get(`${SERVER_URL}/posts`).then(response => {
     if (response.data !== fs.readJsonSync(helpers.root('app/cache.json'), 'utf8')) {
       fs.writeJsonSync(helpers.root('app/cache.json'), JSON.stringify(response.data));
@@ -76,7 +96,7 @@ render(app, {
   debug: true
 });
 
-router.get('/posts/:title_url', function *(next) {
+router.get('/posts/:title_url', function*(next) {
   const data = getPost(this.params.title_url);
   Object.assign(config.meta.metadata, {
     title: data.title,
@@ -86,11 +106,15 @@ router.get('/posts/:title_url', function *(next) {
     type: 'article',
     url: this.request.href
   });
-  yield this.render('index', { webpackConfig : config });
+  yield this.render('index', {
+    webpackConfig: config
+  });
 });
 
-router.get('*', function *(next) {
-  yield this.render('index', { webpackConfig : config });
+router.get('*', function*(next) {
+  yield this.render('index', {
+    webpackConfig: config
+  });
 });
 
 app.use(cors());
@@ -105,7 +129,7 @@ app.use(compress());
 
 app.listen(port, (error) => {
   if (error) {
-     console.error(error);
+    console.error(error);
   }
   // console.info('==> ✅  Node vars:', process.env);
   console.info('==> ✅  Server is listening');

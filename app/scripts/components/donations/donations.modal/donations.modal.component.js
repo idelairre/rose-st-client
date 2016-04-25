@@ -1,6 +1,5 @@
 import { Component, Inject } from 'ng-forward';
 import '../donations.css';
-import 'babel-polyfill';
 
 @Component({
 	selector: 'donations-modal',

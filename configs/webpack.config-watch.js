@@ -23,8 +23,8 @@ config.devServer = {
   publicPath: 'http://' + wds.hostname + ':' + wds.port + '/dist',
   inline: false,
   lazy: false,
-  quiet: true,
-  noInfo: false,
+  quiet: false,
+  noInfo: true,
   headers: { 'Access-Control-Allow-Origin' : '*' },
   host: wds.hostname
 };
@@ -34,12 +34,11 @@ config.output.hotUpdateMainFile = 'update/[hash]/update.json';
 config.output.hotUpdateChunkFile = 'update/[hash]/[id].update.js';
 
 config.plugins = [
-  new InlineEnviromentVariablesPlugin({ NODE_ENV: 'development' }),
-  new InlineEnviromentVariablesPlugin({ HOSTNAME: 'localhost' }),
+  new InlineEnviromentVariablesPlugin('NODE_ENV'),
+  new InlineEnviromentVariablesPlugin('HOSTNAME'),
   new ExtractTextPlugin('[name].css'),
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoErrorsPlugin()
 ];
-
 
 module.exports = config;

@@ -11,9 +11,7 @@ import 'angular-resource';
 import 'angular-socialshare';
 import 'angular-ui-bootstrap';
 import 'angular-ui-router';
-import 'angular-input-masks';
-import 'babel-polyfill';
-import 'ng-currency-mask';
+import 'angular-input-masks/us';
 import 'reflect-metadata';
 
 bootstrap(MainComponent, [

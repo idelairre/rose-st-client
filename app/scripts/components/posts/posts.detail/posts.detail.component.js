@@ -1,7 +1,6 @@
 import { Component, Resolve, Inject, EventEmitter } from 'ng-forward';
 import PostsService from '../posts.service';
 import 'angular-utils-disqus';
-import 'babel-polyfill';
 
 @Component({
   selector: 'posts-detail',

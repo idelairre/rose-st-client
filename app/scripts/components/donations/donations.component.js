@@ -5,7 +5,6 @@ import DonationsService from './donations.service';
 import { STRIPE } from '../../constants/constants';
 import './donations.css';
 import 'angular-ui-bootstrap';
-import 'babel-polyfill';
 
 const ESC_KEY = 27;
 const ENTER_KEY = 13;
