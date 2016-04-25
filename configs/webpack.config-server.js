@@ -11,7 +11,7 @@ var config = {
   context: helpers.root(),
   debug: false,
   devtool: 'source-map',
-  entry: [helpers.root('app/server.js')],
+  entry: ['babel-polyfill', helpers.root('app/server.js')],
   output: {
     path: helpers.root('static/dist'),
     filename: 'server.js'
