@@ -60,11 +60,6 @@ if (process.env.NODE_ENV === 'development') {
   }));
 }
 
-if (process.env.NODE_ENV === 'production') {
-  const serve = require('koa-static');
-  app.use(serve('static'));
-}
-
 function getPost(titleUrl) {
   let posts = fs.readJsonSync(helpers.root('app/cache.json'), 'utf8');
   for (let i = 0; posts.length > i; i += 1) {

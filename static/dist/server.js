@@ -153,11 +153,6 @@
 	  }));
 	}
 	
-	if (process.env.NODE_ENV === 'production') {
-	  var serve = __webpack_require__(25);
-	  app.use(serve('static'));
-	}
-	
 	function getPost(titleUrl) {
 	  var posts = _fsExtra2.default.readJsonSync(_helpers2.default.root('app/cache.json'), 'utf8');
 	  for (var i = 0; posts.length > i; i += 1) {
@@ -481,12 +476,6 @@
 /***/ function(module, exports) {
 
 	module.exports = require("koa-webpack-hot-middleware");
-
-/***/ },
-/* 25 */
-/***/ function(module, exports) {
-
-	module.exports = require("koa-static");
 
 /***/ }
 /******/ ]);

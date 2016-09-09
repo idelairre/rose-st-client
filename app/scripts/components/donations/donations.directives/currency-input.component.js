@@ -16,6 +16,5 @@ export default class CurrencyInput {
     this.$attrs = $attrs;
     this.placeholder = this.$attrs.placeholder;
     this.css = this.$attrs.css;
-    console.log(this);
   }
 }
