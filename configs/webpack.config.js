@@ -10,12 +10,11 @@ var webpack = require('webpack');
 module.exports = {
   target: 'web',
   cache: false,
-  context: helpers.root(),
   watch: false,
   debug: false,
   entry: ['babel-polyfill', helpers.root('app/scripts/app.js')],
   output: {
-    path: helpers.root('static/dist'),
+    path: 'static',
     filename: 'app.js',
     chunkFilename: '[name].[id].js'
   },
@@ -29,9 +28,9 @@ module.exports = {
     loaders: [
       { test: /\.json$/, loaders: ['json'] },
       { test: /\.html$/, loader: 'html-loader' },
-      { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader' },
+      { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader?root=dist' },
       { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loaders : ['file'] },
-      { test: /\.(ico|gif|png|jpg|jpeg|svg|webp)$/, loaders: ['file-loader?context=static&name=/[path][name].[ext]'], exclude: /node_modules/ },
+      { test: /\.(ico|gif|png|jpg|jpeg|svg|webp)$/, loaders: ['file-loader?name=[path][name].[ext]'], exclude: /node_modules/ },
       { test: /\.js$/, loaders: ['ng-annotate', 'babel?cacheDirectory'], exclude: /node_modules/}
     ],
     noParse: [/\.min\.js/, /moment.js/]
@@ -42,7 +41,6 @@ module.exports = {
     }
   },
   resolve: {
-    root: helpers.root(),
     modulesDirectories: [
       helpers.root('node_modules'),
       helpers.root('node_modules/angular-input-masks/src/node_modules'),

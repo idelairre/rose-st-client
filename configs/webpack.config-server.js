@@ -13,7 +13,7 @@ var config = {
   devtool: 'source-map',
   entry: ['babel-polyfill', helpers.root('app/server.js')],
   output: {
-    path: helpers.root('static/dist'),
+    path: helpers.root('static'),
     filename: 'server.js'
   },
   plugins: [

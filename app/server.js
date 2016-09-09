@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '../configs/webpack.config-watch';
+import convert from 'koa-convert';
 import compress from 'koa-compress';
 import cors from 'koa-cors';
 import constants from '../app/scripts/constants/constants';
@@ -60,7 +61,12 @@ if (process.env.NODE_ENV === 'development') {
   }));
 }
 
-function getPost(titleUrl) {
+if (process.env.NODE_ENV === 'production') {
+  const serve = require('koa-static');
+  app.use(serve('static'));
+}
+
+const getPost = titleUrl => {
   let posts = fs.readJsonSync(helpers.root('app/cache.json'), 'utf8');
   for (let i = 0; posts.length > i; i += 1) {
     if (posts[i].title_url === titleUrl) {

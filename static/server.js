@@ -68,19 +68,23 @@
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
-	var _koaCompress = __webpack_require__(15);
+	var _koaConvert = __webpack_require__(15);
+	
+	var _koaConvert2 = _interopRequireDefault(_koaConvert);
+	
+	var _koaCompress = __webpack_require__(16);
 	
 	var _koaCompress2 = _interopRequireDefault(_koaCompress);
 	
-	var _koaCors = __webpack_require__(16);
+	var _koaCors = __webpack_require__(17);
 	
 	var _koaCors2 = _interopRequireDefault(_koaCors);
 	
-	var _constants = __webpack_require__(17);
+	var _constants = __webpack_require__(18);
 	
 	var _constants2 = _interopRequireDefault(_constants);
 	
-	var _fsExtra = __webpack_require__(18);
+	var _fsExtra = __webpack_require__(19);
 	
 	var _fsExtra2 = _interopRequireDefault(_fsExtra);
 	
@@ -88,22 +92,22 @@
 	
 	var _helpers2 = _interopRequireDefault(_helpers);
 	
-	var _koa = __webpack_require__(19);
+	var _koa = __webpack_require__(20);
 	
 	var _koa2 = _interopRequireDefault(_koa);
 	
-	var _koaEjs = __webpack_require__(20);
+	var _koaEjs = __webpack_require__(21);
 	
 	var _koaEjs2 = _interopRequireDefault(_koaEjs);
 	
-	var _nodeSchedule = __webpack_require__(21);
+	var _nodeSchedule = __webpack_require__(22);
 	
 	var _nodeSchedule2 = _interopRequireDefault(_nodeSchedule);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var app = (0, _koa2.default)();
-	var router = __webpack_require__(22)();
+	var router = __webpack_require__(23)();
 	var hostname = process.env.HOSTNAME || 'localhost';
 	var env = process.env.NODE_ENV || 'development';
 	var port = process.env.PORT || 3000;
@@ -127,8 +131,8 @@
 	if (process.env.NODE_ENV === 'development') {
 	  var webpack = __webpack_require__(5);
 	  var compiler = webpack(_webpack2.default);
-	  var webpackDevMiddleware = __webpack_require__(23);
-	  var webpackHotMiddleware = __webpack_require__(24);
+	  var webpackDevMiddleware = __webpack_require__(24);
+	  var webpackHotMiddleware = __webpack_require__(25);
 	
 	  app.use(webpackDevMiddleware(compiler, {
 	    noInfo: false,
@@ -153,7 +157,12 @@
 	  }));
 	}
 	
-	function getPost(titleUrl) {
+	if (process.env.NODE_ENV === 'production') {
+	  var serve = __webpack_require__(26);
+	  app.use(serve('static'));
+	}
+	
+	var getPost = function getPost(titleUrl) {
 	  var posts = _fsExtra2.default.readJsonSync(_helpers2.default.root('app/cache.json'), 'utf8');
 	  for (var i = 0; posts.length > i; i += 1) {
 	    if (posts[i].title_url === titleUrl) {
@@ -161,7 +170,7 @@
 	    }
 	  }
 	  return false;
-	}
+	};
 	
 	var task = _nodeSchedule2.default.scheduleJob({
 	  hour: 0,
@@ -319,19 +328,18 @@
 	module.exports = {
 	  target: 'web',
 	  cache: false,
-	  context: helpers.root(),
 	  watch: false,
 	  debug: false,
 	  entry: ['babel-polyfill', helpers.root('app/scripts/app.js')],
 	  output: {
-	    path: helpers.root('static/dist'),
+	    path: 'static',
 	    filename: 'app.js',
 	    chunkFilename: '[name].[id].js'
 	  },
 	  plugins: [new ExtractTextPlugin('[name].css'), new webpack.optimize.UglifyJsPlugin({ minimize: true, mangle: false, compress: { warnings: false } }), new webpack.optimize.DedupePlugin(), // Search for equal or similar files and deduplicate them in the output. This comes with some overhead for the entry chunk, but can reduce file size effectively.
 	  new webpack.optimize.OccurenceOrderPlugin()],
 	  module: {
-	    loaders: [{ test: /\.json$/, loaders: ['json'] }, { test: /\.html$/, loader: 'html-loader' }, { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader' }, { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loaders: ['file'] }, { test: /\.(ico|gif|png|jpg|jpeg|svg|webp)$/, loaders: ['file-loader?context=static&name=/[path][name].[ext]'], exclude: /node_modules/ }, { test: /\.js$/, loaders: ['ng-annotate', 'babel?cacheDirectory'], exclude: /node_modules/ }],
+	    loaders: [{ test: /\.json$/, loaders: ['json'] }, { test: /\.html$/, loader: 'html-loader' }, { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader?root=dist' }, { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loaders: ['file'] }, { test: /\.(ico|gif|png|jpg|jpeg|svg|webp)$/, loaders: ['file-loader?name=[path][name].[ext]'], exclude: /node_modules/ }, { test: /\.js$/, loaders: ['ng-annotate', 'babel?cacheDirectory'], exclude: /node_modules/ }],
 	    noParse: [/\.min\.js/, /moment.js/]
 	  },
 	  postcss: function postcss() {
@@ -340,7 +348,6 @@
 	    };
 	  },
 	  resolve: {
-	    root: helpers.root(),
 	    modulesDirectories: [helpers.root('node_modules'), helpers.root('node_modules/angular-input-masks/src/node_modules')],
 	    extensions: ['', '.json', '.js']
 	  },
@@ -410,16 +417,22 @@
 /* 15 */
 /***/ function(module, exports) {
 
-	module.exports = require("koa-compress");
+	module.exports = require("koa-convert");
 
 /***/ },
 /* 16 */
 /***/ function(module, exports) {
 
-	module.exports = require("koa-cors");
+	module.exports = require("koa-compress");
 
 /***/ },
 /* 17 */
+/***/ function(module, exports) {
+
+	module.exports = require("koa-cors");
+
+/***/ },
+/* 18 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -436,46 +449,52 @@
 	};
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = require("fs-extra");
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa");
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-ejs");
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = require("node-schedule");
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-router");
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-webpack-dev-middleware");
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-webpack-hot-middleware");
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	module.exports = require("koa-static");
 
 /***/ }
 /******/ ]);

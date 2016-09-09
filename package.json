@@ -10,7 +10,6 @@
     "build-client": "make build-client",
     "build-server": "make build-server",
     "build": "npm run clean && npm run build-client && npm run build-server",
-    "watch-client": "make watch-client",
     "watch": "concurrently --kill-others \"make start-dev\" \"make watch\"",
     "postinstall": "make build-prod",
     "test": "karma start karma.config.js"
@@ -71,6 +70,7 @@
     "koa": "^1.2.0",
     "koa-compress": "^1.0.9",
     "koa-connect-history-api-fallback": "^0.3.0",
+    "koa-convert": "^1.2.0",
     "koa-cors": "0.0.16",
     "koa-ejs": "^3.0.0",
     "koa-router": "^5.4.0",
