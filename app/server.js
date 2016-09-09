@@ -5,7 +5,6 @@ import cors from 'koa-cors';
 import constants from '../app/scripts/constants/constants';
 import fs from 'fs-extra';
 import helpers from '../configs/helpers';
-import history from 'koa-connect-history-api-fallback';
 import koa from 'koa';
 import render from 'koa-ejs';
 import schedule from 'node-schedule';
@@ -118,8 +117,6 @@ router.get('*', function*(next) {
 });
 
 app.use(cors());
-
-app.use(history());
 
 app.use(router.routes());
 

@@ -3,7 +3,7 @@
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 			<div class="post-container">
 				<div class="loader text-center" ng-class="{ 'fade' : postsCtrl.posts.$resolved }" ng-show="!postsCtrl.posts.$resolved">
-					<h2>Loading... <i class="fa fa-spinner fa-pulse fa-2x fa-fw margin-bottom"></i></h2>
+					<h2>Loading...</h2>
 				</div>
 				<div ng-show="postsCtrl.posts.length === 0 && postsCtrl.posts.$resolved" class="fade" ng-class="{ 'in' : postsCtrl.posts.$resolved }">
 					<h2 class="post-title">No posts yet, check back soon!</h2>

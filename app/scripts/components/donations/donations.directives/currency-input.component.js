@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from 'ng-forward';
+import { Component, Inject } from 'ng-forward';
 import EventFocus from './event-focus.directive';
 
 @Component({
@@ -6,16 +6,16 @@ import EventFocus from './event-focus.directive';
   controllerAs: 'currencyInputCtrl',
   providers: ['ui.utils.masks'],
   directives: [EventFocus],
-  template: '<input id="donationInput" click-away event-focus="currencyInputCtrl.focus" name="{{ currencyInputCtrl.name }}" class="{{ currencyInputCtrl.css }}" placeholder="{{ currencyInputCtrl.placeholder }}" type="text" ng-model="currencyInputCtrl.value" ui-money-mask="2" min="10"></input>',
-  inputs: ['focus', 'name', 'value', 'css', 'placeholder']
+  inputs: ['focus', 'value'],
+  template: '<input class="{{ currencyInputCtrl.css }}" id="donationInput" click-away event-focus="currencyInputCtrl.focus" placeholder="{{ currencyInputCtrl.placeholder }}" type="text" ng-model="currencyInputCtrl.value" ui-money-mask="2" min="10"></input>'
 })
 
-@Inject()
+@Inject('$attrs')
 export default class CurrencyInput {
-  @Input() focus;
-  @Input() name;
-  @Input() value;
-  @Input() css;
-  @Input() placeholder;
-  constructor() { }
+  constructor($attrs) {
+    this.$attrs = $attrs;
+    this.placeholder = this.$attrs.placeholder;
+    this.css = this.$attrs.css;
+    console.log(this);
+  }
 }

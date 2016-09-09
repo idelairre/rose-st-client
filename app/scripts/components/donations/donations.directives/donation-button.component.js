@@ -7,34 +7,23 @@ const ENTER_KEY = 13;
   selector: 'donation-button',
   controllerAs: 'donationButtonCtrl',
   directives: [CurrencyInput],
-  inputs: ['name', 'value', 'keyup', 'hidden', 'clicked'],
+  inputs: ['value', 'keyup', 'clicked', 'hidden'],
   outputs: ['checkout', 'reset'],
   template: `
-  <div class="input-group" ng-model="donationButtonCtrl.clicked">
-    <span class="input-group-btn">
-      <currency-input [focus]="donationButtonCtrl.focus" [name]="donationButtonCtrl.name" css="btn btn-default" placeholder="set amount" ng-show="!donationButtonCtrl.hidden" [(value)]="donationButtonCtrl.value" (keyup)="donationButtonCtrl.keyup($event)"></currency-input>
-      <button class="btn btn-default" ng-show="donationButtonCtrl.hidden" (click)="donationButtonCtrl.click()">Donate {{ donationButtonCtrl.value | currency }}</button>
-    </span>
-  </div>
-  `
+    <div class="input-group" ng-model="donationButtonCtrl.clicked">
+      <span class="input-group-btn">
+        <currency-input (focus)="donationButtonCtrl.focus" css="btn btn-default" placeholder="set amount" ng-show="!donationButtonCtrl.hidden" [(value)]="donationButtonCtrl.value" (keyup)="donationButtonCtrl.keyup($event)"></currency-input>
+        <button class="btn btn-default" ng-show="donationButtonCtrl.hidden" (click)="donationButtonCtrl.click()">Donate {{ donationButtonCtrl.value | currency }}</button>
+      </span>
+    </div>
+    `
 })
 
-@Inject('$document', '$element', '$rootScope', '$scope')
+@Inject('$element', '$scope')
 export default class DonationButton {
-  @Input() value;
-  @Input() keyup;
-  @Input() clicked;
-  @Input() hidden;
-  @Input() name;
-  @Output() checkout;
-  @Output() reset;
-  constructor($document, $element, $scope) {
-    this.$document = $document;
+  constructor($element, $scope) {
     this.$element = $element;
     this.$scope = $scope;
-    this.hidden = false;
-    this.checkout = new EventEmitter();
-    this.reset = new EventEmitter();
     this.focus = false;
     this.$scope.$on('esc', ::this.esc);
   }

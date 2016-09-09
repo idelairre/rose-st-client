@@ -59,7 +59,7 @@ export default class DonationsComponent {
 	}
 
 	ngAfterViewInit() {
-		let donationButtons = Array.prototype.slice.call(document.getElementsByTagName('donation-button'));
+		const donationButtons = Array.from(document.getElementsByTagName('donation-button'));
 		this.donationButtons.length = donationButtons.length;
 	}
 

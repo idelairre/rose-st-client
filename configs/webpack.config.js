@@ -32,7 +32,7 @@ module.exports = {
       { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader' },
       { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loaders : ['file'] },
       { test: /\.(ico|gif|png|jpg|jpeg|svg|webp)$/, loaders: ['file-loader?context=static&name=/[path][name].[ext]'], exclude: /node_modules/ },
-      { test: /\.js$/, loaders: ['ng-annotate', 'babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&plugins[]=transform-function-bind&plugins[]=transform-class-properties&plugins[]=transform-decorators-legacy'], exclude: /node_modules/}
+      { test: /\.js$/, loaders: ['ng-annotate', 'babel?cacheDirectory'], exclude: /node_modules/}
     ],
     noParse: [/\.min\.js/, /moment.js/]
   },

@@ -10,7 +10,7 @@
     "build-client": "make build-client",
     "build": "npm run clean && npm run build-client",
     "watch-client": "make watch-client",
-    "watch": "concurrently --kill-others \"make start-dev\" \"npm run watch-client\"",
+    "watch": "concurrently --kill-others \"make start-dev\" \"make watch\"",
     "postinstall": "make build-prod",
     "test": "karma start karma.config.js"
   },

@@ -23,13 +23,12 @@
       <form name="customDonation" novalidate="">
         <donation-button
           id="0"
-          name="donation"
           (click)="donationsCtrl.setClicked($event, 0)"
           [(clicked)]="donationsCtrl.donationButtons[0]"
           (reset)="donationsCtrl.resetClicked(0)"
     			[(value)]="donationsCtrl.amount"
     			(keyup)="donationsCtrl.setPayment($event, { amount: donationsCtrl.amount, type: 'charge' })"
-    			(checkout)="donationsCtrl.setPayment($event, { amount: donationsCtrl.amount, type: 'charge' }); donationsCtrl.doCheckout('charge')">
+    			(checkout)="donationsCtrl.setPayment($event, { amount: donationsCtrl.amount, type: 'charge' }); donationsCtrl.doCheckout('charge')">Text
   		</donation-button>
     </form>
     </div>
@@ -59,7 +58,7 @@
       <form name="customSubscription" novalidate="">
   			<donation-button
           id="1"
-          name="subscription"
+          [text]="subscription"
           (click)="donationsCtrl.setClicked($event, 1)"
           [(clicked)]="donationsCtrl.donationButtons[1]"
           (reset)="donationsCtrl.resetClicked(1)"
