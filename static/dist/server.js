@@ -88,26 +88,22 @@
 	
 	var _helpers2 = _interopRequireDefault(_helpers);
 	
-	var _koaConnectHistoryApiFallback = __webpack_require__(19);
-	
-	var _koaConnectHistoryApiFallback2 = _interopRequireDefault(_koaConnectHistoryApiFallback);
-	
-	var _koa = __webpack_require__(20);
+	var _koa = __webpack_require__(19);
 	
 	var _koa2 = _interopRequireDefault(_koa);
 	
-	var _koaEjs = __webpack_require__(21);
+	var _koaEjs = __webpack_require__(20);
 	
 	var _koaEjs2 = _interopRequireDefault(_koaEjs);
 	
-	var _nodeSchedule = __webpack_require__(22);
+	var _nodeSchedule = __webpack_require__(21);
 	
 	var _nodeSchedule2 = _interopRequireDefault(_nodeSchedule);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var app = (0, _koa2.default)();
-	var router = __webpack_require__(23)();
+	var router = __webpack_require__(22)();
 	var hostname = process.env.HOSTNAME || 'localhost';
 	var env = process.env.NODE_ENV || 'development';
 	var port = process.env.PORT || 3000;
@@ -131,8 +127,8 @@
 	if (process.env.NODE_ENV === 'development') {
 	  var webpack = __webpack_require__(5);
 	  var compiler = webpack(_webpack2.default);
-	  var webpackDevMiddleware = __webpack_require__(24);
-	  var webpackHotMiddleware = __webpack_require__(25);
+	  var webpackDevMiddleware = __webpack_require__(23);
+	  var webpackHotMiddleware = __webpack_require__(24);
 	
 	  app.use(webpackDevMiddleware(compiler, {
 	    noInfo: false,
@@ -158,7 +154,7 @@
 	}
 	
 	if (process.env.NODE_ENV === 'production') {
-	  var serve = __webpack_require__(26);
+	  var serve = __webpack_require__(25);
 	  app.use(serve('static'));
 	}
 	
@@ -240,8 +236,6 @@
 	}));
 	
 	app.use((0, _koaCors2.default)());
-	
-	app.use((0, _koaConnectHistoryApiFallback2.default)());
 	
 	app.use(router.routes());
 	
@@ -341,9 +335,8 @@
 	  },
 	  plugins: [new ExtractTextPlugin('[name].css'), new webpack.optimize.UglifyJsPlugin({ minimize: true, mangle: false, compress: { warnings: false } }), new webpack.optimize.DedupePlugin(), // Search for equal or similar files and deduplicate them in the output. This comes with some overhead for the entry chunk, but can reduce file size effectively.
 	  new webpack.optimize.OccurenceOrderPlugin()],
-	  // Assign the module and chunk ids by occurrence count. Ids that are used often get lower (shorter) ids. This make ids predictable, reduces to total file size and is recommended.
 	  module: {
-	    loaders: [{ test: /\.json$/, loaders: ['json'] }, { test: /\.html$/, loader: 'html-loader' }, { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader' }, { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loaders: ['file'] }, { test: /\.(ico|gif|png|jpg|jpeg|svg|webp)$/, loaders: ['file-loader?context=static&name=/[path][name].[ext]'], exclude: /node_modules/ }, { test: /\.js$/, loaders: ['ng-annotate', 'babel?cacheDirectory&presets[]=es2015&presets[]=stage-0&plugins[]=transform-function-bind&plugins[]=transform-class-properties&plugins[]=transform-decorators-legacy'], exclude: /node_modules/ }],
+	    loaders: [{ test: /\.json$/, loaders: ['json'] }, { test: /\.html$/, loader: 'html-loader' }, { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader' }, { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loaders: ['file'] }, { test: /\.(ico|gif|png|jpg|jpeg|svg|webp)$/, loaders: ['file-loader?context=static&name=/[path][name].[ext]'], exclude: /node_modules/ }, { test: /\.js$/, loaders: ['ng-annotate', 'babel?cacheDirectory'], exclude: /node_modules/ }],
 	    noParse: [/\.min\.js/, /moment.js/]
 	  },
 	  postcss: function postcss() {
@@ -457,46 +450,40 @@
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = require("koa-connect-history-api-fallback");
+	module.exports = require("koa");
 
 /***/ },
 /* 20 */
 /***/ function(module, exports) {
 
-	module.exports = require("koa");
+	module.exports = require("koa-ejs");
 
 /***/ },
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = require("koa-ejs");
+	module.exports = require("node-schedule");
 
 /***/ },
 /* 22 */
 /***/ function(module, exports) {
 
-	module.exports = require("node-schedule");
+	module.exports = require("koa-router");
 
 /***/ },
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = require("koa-router");
+	module.exports = require("koa-webpack-dev-middleware");
 
 /***/ },
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = require("koa-webpack-dev-middleware");
-
-/***/ },
-/* 25 */
-/***/ function(module, exports) {
-
 	module.exports = require("koa-webpack-hot-middleware");
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = require("koa-static");
